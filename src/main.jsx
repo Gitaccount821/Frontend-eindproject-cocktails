@@ -1,8 +1,7 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-
-console.log("Rendering App");
 
 ReactDOM.render(
     <React.StrictMode>
