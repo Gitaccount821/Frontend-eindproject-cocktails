@@ -73,6 +73,21 @@
 
 }
 
+.section3 {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20000px;
+
+}
+
+.midden-tekst-container {
+    padding: 0 20px;
+    max-width: 80%;
+}
+
 .flex-item {
     padding: 20px;
 }
