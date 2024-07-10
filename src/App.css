@@ -1,0 +1,161 @@
+/* kleine reset */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+/* Secties Home pagina, refactor button/header reusable later */
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.section1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #000;
+    width: 100%;
+    color: #fff;
+    padding: 20px;
+
+}
+
+.logo-container {
+    margin-right: 140px;
+    padding: 0px 0px 0px 15px;
+}
+
+.logo {
+    width: 120px;
+    height: 100px;
+    object-fit: auto;
+}
+
+.buttons-container {
+    display: flex;
+}
+
+.button {
+    margin-left: 20px;
+    padding: 10px 5x;
+    background-color: #000;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button:first-child {
+    margin-left: 0;
+}
+
+.login {
+    margin-left: 50px;
+    padding: 10px 50px;
+    background-color: #8b32a8;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    border-radius: 50px;
+}
+
+.section2 {
+    background-image: url('./assets/cocktailbackgroundhome.png');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+.section3 {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20000px;
+
+}
+
+.midden-tekst-container {
+    max-width: 70%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.flex-item {
+    padding: 20px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    padding: 5px 0px 10px 10px;
+}
+
+
+.footer-right p:first-child {
+    margin-bottom: 5px;
+}
+
+
+/* Tekst opmaak, refactor later als reusable? Zoek ook betere tekst opmaak */
+
+.small-text {
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+.large-text {
+    font-size: 70px;
+}
+
+.footer-left .contact-text {
+    font-style: italic;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer-right p {
+    margin: 10px;
+}
