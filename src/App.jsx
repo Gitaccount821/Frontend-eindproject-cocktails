@@ -18,17 +18,14 @@ const App = () => {
                         <button className="login">Login</button>
                     </div>
                 </section>
-                <section className="flex-item">
-                    <h2>Section 2</h2>
-                    <p>Content for Section 2</p>
+                <section className="flex-item section2">
+                    <div className="welcome-text">
+                        <p className="small-text">welkom op de site</p>
+                        <h1 className="large-text">Cocktail Shaker</h1>
+                    </div>
                 </section>
                 <section className="flex-item">
-                    <h2>Section 3</h2>
-                    <p>Content for Section 3</p>
-                </section>
-                <section className="flex-item">
-                    <h2>Section 4</h2>
-                    <p>Content for Section 4</p>
+                    <p className="small-text">welkom op deze website! Deze website is bedoelt voor het opslaan van cocktail recepten je helpen om de beste cocktails aangeraden te krijgen op basis van jouw huidige stemming! Log graag eerst in om tot alle functies toegang te krijgen, en ga op avontuur met de 'aangraden cocktails' knop bovenin om jouw ideale cocktails te vinden.</p>
                 </section>
             </main>
             <footer>

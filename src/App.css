@@ -1,15 +1,17 @@
+/* kleine reset */
 
-.app-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+/* Secties Home pagina, refactor button/header reusable later */
 
 .section1 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
     background-color: #000;
     width: 100%;
     color: #fff;
@@ -19,11 +21,13 @@
 
 .logo-container {
     margin-right: 140px;
+    padding: 0px 0px 0px 15px;
 }
 
 .logo {
-    width: 100px;
-    height: auto;
+    width: 120px;
+    height: 100px;
+    object-fit: auto;
 }
 
 .buttons-container {
@@ -31,7 +35,7 @@
 }
 
 .button {
-    margin-left: 10px;
+    margin-left: 20px;
     padding: 10px 5x;
     background-color: #000;
     color: #ffffff;
@@ -45,8 +49,8 @@
 }
 
 .login {
-    margin-left: 40px;
-    padding: 10px 35px;
+    margin-left: 50px;
+    padding: 10px 50px;
     background-color: #8b32a8;
     color: #ffffff;
     border: none;
@@ -54,4 +58,32 @@
     cursor: pointer;
     margin-right: 10px;
     border-radius: 50px;
+}
+
+.section2 {
+    background-image: url('./assets/cocktailbackgroundhome.png');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+.flex-item {
+    padding: 20px;
+}
+
+/* Tekst opmaak, refactor later als reusable? Zoek ook betere tekst opmaak */
+
+.small-text {
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+.large-text {
+    font-size: 70px;
 }
