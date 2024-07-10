@@ -6,7 +6,31 @@
     box-sizing: border-box;
 }
 
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
 /* Secties Home pagina, refactor button/header reusable later */
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
 
 .section1 {
     display: flex;
@@ -84,13 +108,34 @@
 }
 
 .midden-tekst-container {
-    padding: 0 20px;
-    max-width: 80%;
+    max-width: 70%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
 }
 
 .flex-item {
     padding: 20px;
 }
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    padding: 5px 0px 10px 10px;
+}
+
+
+.footer-right p:first-child {
+    margin-bottom: 5px;
+}
+
 
 /* Tekst opmaak, refactor later als reusable? Zoek ook betere tekst opmaak */
 
@@ -101,4 +146,16 @@
 
 .large-text {
     font-size: 70px;
+}
+
+.footer-left .contact-text {
+    font-style: italic;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer-right p {
+    margin: 10px;
 }

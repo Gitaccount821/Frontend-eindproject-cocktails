@@ -5,7 +5,7 @@ import logoImage from './assets/cocktaillogoheader.png';
 const App = () => {
     return (
         <div className="app-container">
-            <main>
+            <main className="main-content">
                 <section className="flex-container section1">
                     <div className="logo-container">
                         <img src={logoImage} alt="Logo" className="logo"/>
@@ -33,8 +33,15 @@ const App = () => {
                     </div>
                 </section>
             </main>
-            <footer>
-                <p>Footer content here</p>
+            <footer className="flex-item footer">
+                <div className="footer-left">
+                    <button className="button">
+                    <p className="contact-text">neem contact op</p></button>
+                </div>
+                <div className="footer-right">
+                <p>In opdracht van:</p>
+                    <p>Novi Hogeschool</p>
+                </div>
             </footer>
         </div>
     );
