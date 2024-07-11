@@ -1,7 +1,16 @@
 import logoImage from "../assets/cocktaillogoheader.png";
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
+function Home () {
+
+    const navigate = useNavigate();
+
+    const handleNavigateToContact = () => {
+        navigate('/contact');
+    };
+
+
     return (
 
         <div className="app-container">
@@ -14,7 +23,7 @@ const Home = () => {
                         <button className="button">Aangeraden Cocktails</button>
                         <button className="button">Favourieten Cocktails</button>
                         <button className="button">Zoeken naar Cocktails</button>
-                        <button className="button">Contact</button>
+                        <button className="button" onClick={handleNavigateToContact}>Contact</button>
                         <button className="login">Login</button>
                     </div>
                 </section>
@@ -35,7 +44,7 @@ const Home = () => {
             </main>
             <footer className="flex-item footer">
                 <div className="footer-left">
-                    <button className="button">
+                    <button className="button" onClick={handleNavigateToContact}>
                         <p className="contact-text">neem contact op</p></button>
                 </div>
                 <div className="footer-right">
@@ -47,6 +56,6 @@ const Home = () => {
 
 
     );
-};
+}
 
 export default Home;
