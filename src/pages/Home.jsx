@@ -1,13 +1,18 @@
 import logoImage from "../assets/cocktaillogoheader.png";
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Home () {
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleNavigateToContact = () => {
         navigate('/contact');
+    };
+
+    const handleNavigateHome = () => {
+        navigate('/');
     };
 
 
@@ -16,7 +21,7 @@ function Home () {
         <div className="app-container">
             <main className="main-content">
                 <section className="flex-container section1">
-                    <div className="logo-container">
+                    <div className="logo-container" onClick={handleNavigateHome} style={{ cursor: 'pointer' }}>
                         <img src={logoImage} alt="Logo" className="logo"/>
                     </div>
                     <div className="buttons-container">
