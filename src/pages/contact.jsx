@@ -35,7 +35,7 @@ function Contact() {
 
                 <section className="contact-section">
                     <div className="contact-container">
-                        <h1>Stuur ons een bericht</h1>
+                        <h1 className="head-contactformulier">Stuur ons een bericht</h1>
                         <form className="contact-form">
                             <div className="form-group">
                                 <label htmlFor="voornaam">Voornaam</label>
@@ -65,7 +65,7 @@ function Contact() {
                                 <label htmlFor="bericht">Bericht</label>
                                 <textarea id="bericht" name="bericht"></textarea>
                             </div>
-                            <button className="button">Verstuur</button>
+                            <button className="button center-button">Verstuur</button>
                         </form>
                     </div>
                 </section>

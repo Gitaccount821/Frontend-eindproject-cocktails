@@ -85,6 +85,15 @@ body {
     cursor: not-allowed;
 }
 
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: fit-content;
+    align-items: center;
+    text-align: center;
+}
+
 .login {
     margin-left: 50px;
     padding: 10px 50px;
@@ -165,7 +174,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -200,6 +209,22 @@ textarea {
     resize: vertical;
 }
 
+/* Flexbox for paired inputs */
+.flex-pair {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-pair > div {
+    width: 48%;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+}
+
+
 /* Tekst opmaak, refactor later als reusable? Zoek ook betere tekst opmaak */
 
 .small-text {
@@ -222,4 +247,8 @@ textarea {
 
 .footer-right p {
     margin: 10px;
+}
+
+.head-contactformulier {
+    color: #b1a748   ;
 }
