@@ -11,6 +11,11 @@ function Home () {
         navigate('/contact');
     };
 
+    const handleNavigateToSignUp = () => {
+        navigate('/SignUp');
+    };
+
+
     const handleNavigateHome = () => {
         navigate('/');
     };
@@ -29,7 +34,7 @@ function Home () {
                         <button className="button">Favourieten Cocktails</button>
                         <button className="button">Zoeken naar Cocktails</button>
                         <button className="button" onClick={handleNavigateToContact}>Contact</button>
-                        <button className="login">Login</button>
+                        <button className="login " onClick={handleNavigateToSignUp}>Login</button>
                     </div>
                 </section>
                 <section className="flex-item section2">
