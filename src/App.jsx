@@ -4,17 +4,21 @@ import Home from './pages/Home';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Contact from './pages/Contact';
 import SignUp from "./pages/SignUp";
+import Login from "./pages/Login";
+import { AuthProvider } from './context/Authcontext';
 
 function App() {
     return (
         <Router>
-            <div>
+            <AuthProvider>
                 <Routes>
                     <Route path="/" element={<Home />}/>
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/SignUp" element={<SignUp />} />
+                    <Route path="/Login" element={<Login />} />
+
                 </Routes>
-            </div>
+            </AuthProvider>
         </Router>
     );
 }
