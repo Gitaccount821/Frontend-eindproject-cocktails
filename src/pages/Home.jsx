@@ -1,11 +1,11 @@
 import logoImage from "../assets/cocktaillogoheader.png";
 import React from "react";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
-function Home () {
-
+function Home() {
+    const { user, logout } = useAuth();
     const navigate = useNavigate();
-    const location = useLocation();
 
     const handleNavigateToContact = () => {
         navigate('/contact');
@@ -15,26 +15,40 @@ function Home () {
         navigate('/SignUp');
     };
 
+    const handleNavigateToLogin = () => {
+        navigate('/Login');
+    };
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
 
     const handleNavigateHome = () => {
         navigate('/');
     };
 
-
     return (
-
         <div className="app-container">
             <main className="main-content">
                 <section className="flex-container section1">
                     <div className="logo-container" onClick={handleNavigateHome} style={{ cursor: 'pointer' }}>
-                        <img src={logoImage} alt="Logo" className="logo"/>
+                        <img src={logoImage} alt="Logo" className="logo" />
                     </div>
                     <div className="buttons-container">
-                        <button className="button">Aangeraden Cocktails</button>
-                        <button className="button">Favourieten Cocktails</button>
+                        {user && (
+                            <>
+                                <button className="button">Aangeraden Cocktails</button>
+                                <button className="button">Favourieten Cocktails</button>
+                            </>
+                        )}
                         <button className="button">Zoeken naar Cocktails</button>
                         <button className="button" onClick={handleNavigateToContact}>Contact</button>
-                        <button className="login " onClick={handleNavigateToSignUp}>Login</button>
+                        {user ? (
+                            <button className="login" onClick={handleLogout}>Uitloggen</button>
+                        ) : (
+                            <button className="login" onClick={handleNavigateToLogin}>Login</button>
+                        )}
                     </div>
                 </section>
                 <section className="flex-item section2">
@@ -55,7 +69,8 @@ function Home () {
             <footer className="flex-item footer">
                 <div className="footer-left">
                     <button className="button" onClick={handleNavigateToContact}>
-                        <p className="contact-text">neem contact op</p></button>
+                        <p className="contact-text">neem contact op</p>
+                    </button>
                 </div>
                 <div className="footer-right">
                     <p>In opdracht van:</p>
@@ -63,8 +78,6 @@ function Home () {
                 </div>
             </footer>
         </div>
-
-
     );
 }
 

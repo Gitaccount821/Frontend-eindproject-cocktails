@@ -1,5 +1,3 @@
-// Login.jsx
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -12,6 +10,8 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await authenticate(username, password);
+        setUsername('');
+        setPassword('');
     };
 
     return (
