@@ -1,10 +1,13 @@
 import React from 'react';
-import logoImage from "../assets/cocktaillogoheader.png";
 import { useNavigate, useLocation } from 'react-router-dom';
+import logoImage from "../assets/cocktaillogoheader.png";
+import HeaderSection from '../components/HeaderSection';
+import { useAuth } from '../context/AuthContext';
 
 function Contact() {
     const navigate = useNavigate();
     const location = useLocation();
+    const { user } = useAuth();
 
     const handleNavigateToContact = () => {
         navigate('/contact');
@@ -14,24 +17,25 @@ function Contact() {
         navigate('/');
     };
 
+    const handleNavigateToLogin = () => {
+        navigate('/login');
+    };
+
+    const handleLogout = () => {
+        // Handle logout logic
+    };
+
     return (
         <div className="app-container">
             <main className="main-content">
-                <section className="flex-container section1">
-                    <div className="logo-container" onClick={handleNavigateHome} style={{cursor: 'pointer'}}>
-                        <img src={logoImage} alt="Logo" className="logo"/>
-                    </div>
-                    <div className="buttons-container">
-                        <button className="button">Aangeraden Cocktails</button>
-                        <button className="button">Favorieten Cocktails</button>
-                        <button className="button">Zoeken naar Cocktails</button>
-                        <button className="button" onClick={handleNavigateToContact}
-                                disabled={location.pathname === '/contact'}>Contact
-                        </button>
-                        <button className="login">Login</button>
-                    </div>
-                </section>
-
+                <HeaderSection
+                    handleNavigateHome={handleNavigateHome}
+                    handleNavigateToContact={handleNavigateToContact}
+                    handleLogout={handleLogout}
+                    handleNavigateToLogin={handleNavigateToLogin}
+                    user={user}
+                    logoImage={logoImage}
+                />
 
                 <section className="contact-section">
                     <div className="contact-container">
@@ -70,10 +74,12 @@ function Contact() {
                     </div>
                 </section>
             </main>
+
             <footer className="flex-item footer">
                 <div className="footer-left">
                     <button className="button" onClick={handleNavigateToContact}>
-                        <p className="contact-text">neem contact op</p></button>
+                        <p className="contact-text">neem contact op</p>
+                    </button>
                 </div>
                 <div className="footer-right">
                     <p>In opdracht van:</p>
@@ -81,7 +87,7 @@ function Contact() {
                 </div>
             </footer>
         </div>
-);
+    );
 }
 
 export default Contact;

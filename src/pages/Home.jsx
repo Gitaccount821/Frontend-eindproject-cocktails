@@ -1,7 +1,8 @@
-import logoImage from "../assets/cocktaillogoheader.png";
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import logoImage from "../assets/cocktaillogoheader.png";
+import HeaderSection from '../components/HeaderSection';
 
 function Home() {
     const { user, logout } = useAuth();
@@ -11,12 +12,8 @@ function Home() {
         navigate('/contact');
     };
 
-    const handleNavigateToSignUp = () => {
-        navigate('/SignUp');
-    };
-
     const handleNavigateToLogin = () => {
-        navigate('/Login');
+        navigate('/login');
     };
 
     const handleLogout = () => {
@@ -31,26 +28,15 @@ function Home() {
     return (
         <div className="app-container">
             <main className="main-content">
-                <section className="flex-container section1">
-                    <div className="logo-container" onClick={handleNavigateHome} style={{ cursor: 'pointer' }}>
-                        <img src={logoImage} alt="Logo" className="logo" />
-                    </div>
-                    <div className="buttons-container">
-                        {user && (
-                            <>
-                                <button className="button">Aangeraden Cocktails</button>
-                                <button className="button">Favourieten Cocktails</button>
-                            </>
-                        )}
-                        <button className="button">Zoeken naar Cocktails</button>
-                        <button className="button" onClick={handleNavigateToContact}>Contact</button>
-                        {user ? (
-                            <button className="login" onClick={handleLogout}>Uitloggen</button>
-                        ) : (
-                            <button className="login" onClick={handleNavigateToLogin}>Login</button>
-                        )}
-                    </div>
-                </section>
+                <HeaderSection
+                    handleNavigateHome={handleNavigateHome}
+                    handleNavigateToContact={handleNavigateToContact}
+                    handleLogout={handleLogout}
+                    handleNavigateToLogin={handleNavigateToLogin}
+                    user={user}
+                    logoImage={logoImage}
+                />
+
                 <section className="flex-item section2">
                     <div className="welcome-text">
                         <p className="small-text">welkom op de site</p>
@@ -66,6 +52,7 @@ function Home() {
                     </div>
                 </section>
             </main>
+
             <footer className="flex-item footer">
                 <div className="footer-left">
                     <button className="button" onClick={handleNavigateToContact}>
