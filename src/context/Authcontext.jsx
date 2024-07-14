@@ -1,7 +1,6 @@
-// AuthContext.js
-
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -12,6 +11,14 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [message, setMessage] = useState(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('Token');
+        if (token) {
+            fetchUserData(token);
+        }
+    }, []);
 
     const authenticate = async (username, password) => {
         setLoading(true);
@@ -29,25 +36,42 @@ export const AuthProvider = ({ children }) => {
                 }
             );
 
-            const { jwt: accessToken } = response.data;
-            localStorage.setItem('accessToken', accessToken);
-            await fetchUserData(username, accessToken);
-            setMessage('Log in succesvol!');
+            const { jwt: Token } = response.data;
+
+            if (!Token) {
+                setError('Verkeerde Token ontvangen');
+                return;
+            }
+
+            const bearerToken = `Bearer ${Token}`;
+            localStorage.setItem('Token', bearerToken);
+            await fetchUserData(username, bearerToken);
+            setMessage('Log in successful! Je wordt terugverwezen naar de Home Pagina');
+
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
         } catch (err) {
             console.error('Authentication error:', err);
-            setError('Combinatie van gebruikersnaam en wachtwoord is onjuist');
+            setError('Verkeerde gebruikersnaam of wachtwoord');
         } finally {
             setLoading(false);
         }
     };
 
+
     const fetchUserData = async (username, token) => {
+        if (!token) return;
+
+        setLoading(true);
+        setError(null);
+        setMessage(null);
         try {
             const response = await axios.get(
                 `https://api.datavortex.nl/cocktailshaker/users/${username}/info`,
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: token,
                         'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
                     },
                 }
@@ -56,13 +80,16 @@ export const AuthProvider = ({ children }) => {
         } catch (err) {
             console.error('Error fetching user data:', err);
             setError('Er is een fout opgetreden bij het ophalen van gebruikersgegevens.');
+        } finally {
+            setLoading(false);
         }
     };
 
     const logout = () => {
-        localStorage.removeItem('accessToken');
+        localStorage.removeItem('Token');
         setUser(null);
         setMessage(null);
+        setError(null);
     };
 
     return (

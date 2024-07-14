@@ -72,7 +72,7 @@ body {
 .button:hover {
     background-color: #6b2491;
     border-radius: 20px;
-    transform: scale(1.1); /* Added transform to scale the button */
+    transform: scale(1.1);
 }
 
 .button:first-child {
@@ -209,7 +209,6 @@ textarea {
     resize: vertical;
 }
 
-/* Flexbox for paired inputs */
 .flex-pair {
     display: flex;
     justify-content: space-between;
