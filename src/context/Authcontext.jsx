@@ -1,4 +1,4 @@
-
+// AuthContext.js
 
 import { createContext, useContext, useState } from 'react';
 import axios from 'axios';
@@ -11,9 +11,12 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [message, setMessage] = useState(null);
 
     const authenticate = async (username, password) => {
         setLoading(true);
+        setError(null);
+        setMessage(null);
         try {
             const response = await axios.post(
                 'https://api.datavortex.nl/cocktailshaker/users/authenticate',
@@ -25,9 +28,11 @@ export const AuthProvider = ({ children }) => {
                     },
                 }
             );
-            const { accessToken } = response.data;
+
+            const { jwt: accessToken } = response.data;
             localStorage.setItem('accessToken', accessToken);
-            await fetchUserData(username);
+            await fetchUserData(username, accessToken);
+            setMessage('Log in succesvol!');
         } catch (err) {
             console.error('Authentication error:', err);
             setError('Combinatie van gebruikersnaam en wachtwoord is onjuist');
@@ -36,14 +41,14 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const fetchUserData = async (username) => {
+    const fetchUserData = async (username, token) => {
         try {
-            const token = localStorage.getItem('accessToken');
             const response = await axios.get(
                 `https://api.datavortex.nl/cocktailshaker/users/${username}/info`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
+                        'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
                     },
                 }
             );
@@ -57,13 +62,12 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         localStorage.removeItem('accessToken');
         setUser(null);
+        setMessage(null);
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, error, authenticate, logout }}>
+        <AuthContext.Provider value={{ user, loading, error, message, authenticate, logout }}>
             {children}
         </AuthContext.Provider>
     );
 };
-
-/* check */
