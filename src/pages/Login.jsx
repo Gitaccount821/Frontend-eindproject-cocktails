@@ -1,19 +1,17 @@
-
+// Login.jsx
 
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/Authcontext';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 function Login() {
-    const { authenticate, loading, error } = useAuth();
+    const { authenticate, loading, error, message } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         await authenticate(username, password);
-
     };
 
     return (
@@ -32,6 +30,7 @@ function Login() {
                     Inloggen
                 </button>
                 {error && <p className="error">{error}</p>}
+                {message && <p className="success">{message}</p>}
             </form>
             <p>Nog geen account? <Link to="/signup">Registreer hier</Link></p>
         </div>

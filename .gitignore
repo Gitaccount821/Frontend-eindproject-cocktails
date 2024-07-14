@@ -37,7 +37,6 @@ ehthumbs.db
 ._*
 .Spotlight-V100
 .Trashes
-git add
 
 # Environment files
 .env
@@ -48,3 +47,9 @@ git add
 *.iml
 *.ipr
 *.iws
+
+# Vite specific
+.vite/deps
+
+# Lock files
+package-lock.json
