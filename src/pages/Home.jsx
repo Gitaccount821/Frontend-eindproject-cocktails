@@ -5,7 +5,9 @@ import logoImage from "../assets/cocktaillogoheader.png";
 import HeaderSection from '../components/HeaderSection';
 
 function Home() {
-    const { user, logout } = useAuth();
+    let { user, logout} = useAuth();
+
+
     const navigate = useNavigate();
 
     const handleNavigateToContact = () => {
@@ -33,8 +35,8 @@ function Home() {
                     handleNavigateToContact={handleNavigateToContact}
                     handleLogout={handleLogout}
                     handleNavigateToLogin={handleNavigateToLogin}
-                    user={user}
                     logoImage={logoImage}
+                    user={user}
                 />
 
                 <section className="flex-item section2">

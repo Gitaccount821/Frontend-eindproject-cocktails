@@ -1,15 +1,18 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import {useAuth} from "../context/Authcontext";
 
 const HeaderSection = ({
                            handleNavigateHome,
                            handleNavigateToContact,
                            handleLogout,
                            handleNavigateToLogin,
-                           user,
-                           logoImage
+                           logoImage,
+                           user
                        }) => {
     const location = useLocation();
+
+
 
     return (
         <section className="flex-container section1">
@@ -17,7 +20,7 @@ const HeaderSection = ({
                 <img src={logoImage} alt="Logo" className="logo" />
             </div>
             <div className="buttons-container">
-                {user && (
+                { user && (
                     <>
                         <button className="button" disabled={location.pathname === '/recommended'}>
                             Aangeraden Cocktails
@@ -33,7 +36,7 @@ const HeaderSection = ({
                 <button className="button" onClick={handleNavigateToContact} disabled={location.pathname === '/contact'}>
                     Contact
                 </button>
-                {user ? (
+                { user ? (
                     <button className="login" onClick={handleLogout}>Uitloggen</button>
                 ) : (
                     <button className="login" onClick={handleNavigateToLogin} disabled={location.pathname === '/login'}>
