@@ -21,6 +21,10 @@ function Home() {
         navigate('/');
     };
 
+    const handleNavigateToSearch = () => {
+        navigate('/search');
+    };
+
     const handleNavigateHome = () => {
         navigate('/');
     };
@@ -33,6 +37,7 @@ function Home() {
                     handleNavigateToContact={handleNavigateToContact}
                     handleLogout={handleLogout}
                     handleNavigateToLogin={handleNavigateToLogin}
+                    handleNavigateToSearch={handleNavigateToSearch}
                     user={user}
                     logoImage={logoImage}
                 />
