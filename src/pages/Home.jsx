@@ -6,8 +6,6 @@ import HeaderSection from '../components/HeaderSection';
 
 function Home() {
     let { user, logout} = useAuth();
-
-
     const navigate = useNavigate();
 
     const handleNavigateToContact = () => {
@@ -23,6 +21,10 @@ function Home() {
         navigate('/');
     };
 
+    const handleNavigateToSearch = () => {
+        navigate('/search');
+    };
+
     const handleNavigateHome = () => {
         navigate('/');
     };
@@ -35,6 +37,7 @@ function Home() {
                     handleNavigateToContact={handleNavigateToContact}
                     handleLogout={handleLogout}
                     handleNavigateToLogin={handleNavigateToLogin}
+                    handleNavigateToSearch={handleNavigateToSearch}
                     logoImage={logoImage}
                     user={user}
                 />

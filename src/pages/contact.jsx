@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext';
 function Contact() {
     const navigate = useNavigate();
     const location = useLocation();
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
 
     const handleNavigateToContact = () => {
         navigate('/contact');
@@ -22,7 +22,8 @@ function Contact() {
     };
 
     const handleLogout = () => {
-        // Handle logout logic
+        logout();
+        navigate('/');
     };
 
     return (
@@ -33,6 +34,7 @@ function Contact() {
                     handleNavigateToContact={handleNavigateToContact}
                     handleLogout={handleLogout}
                     handleNavigateToLogin={handleNavigateToLogin}
+                    handleNavigateToSearch={() => navigate('/search')} // Add this if you have a search page
                     user={user}
                     logoImage={logoImage}
                 />

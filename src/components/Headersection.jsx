@@ -7,6 +7,7 @@ const HeaderSection = ({
                            handleNavigateToContact,
                            handleLogout,
                            handleNavigateToLogin,
+                           handleNavigateToSearch,
                            logoImage,
                            user
                        }) => {
@@ -30,7 +31,7 @@ const HeaderSection = ({
                         </button>
                     </>
                 )}
-                <button className="button" disabled={location.pathname === '/search'}>
+                <button className="button" onClick={handleNavigateToSearch} disabled={location.pathname === '/search'}>
                     Zoeken naar Cocktails
                 </button>
                 <button className="button" onClick={handleNavigateToContact} disabled={location.pathname === '/contact'}>

@@ -22,5 +22,4 @@ function Contact() {
     };
 
     const handleLogout = () => {
-        // Handle logout logic
     };
