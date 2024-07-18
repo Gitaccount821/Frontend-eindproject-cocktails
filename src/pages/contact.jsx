@@ -34,7 +34,7 @@ function Contact() {
                     handleNavigateToContact={handleNavigateToContact}
                     handleLogout={handleLogout}
                     handleNavigateToLogin={handleNavigateToLogin}
-                    handleNavigateToSearch={() => navigate('/search')} // Add this if you have a search page
+                    handleNavigateToSearch={() => navigate('/search')}
                     user={user}
                     logoImage={logoImage}
                 />

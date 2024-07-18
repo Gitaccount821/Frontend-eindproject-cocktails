@@ -1,6 +1,5 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import {useAuth} from "../context/Authcontext";
 
 const HeaderSection = ({
                            handleNavigateHome,
@@ -12,8 +11,6 @@ const HeaderSection = ({
                            user
                        }) => {
     const location = useLocation();
-
-
 
     return (
         <section className="flex-container section1">
