@@ -27,7 +27,6 @@ function Login() {
     };
 
     const handleLogout = () => {
-        // Handle logout logic
     };
 
     const handleSubmit = async (e) => {

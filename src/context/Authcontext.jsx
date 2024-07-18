@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import {jwtDecode} from "jwt-decode";
 
 const AuthContext = createContext();
 
@@ -16,7 +17,8 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem('Token');
         if (token) {
-            fetchUserData(token);
+            const username = jwtDecode(token).sub
+            fetchUserData(username, token);
         }
     }, []);
 
@@ -68,7 +70,7 @@ export const AuthProvider = ({ children }) => {
         setMessage(null);
         try {
             const response = await axios.get(
-                `https://api.datavortex.nl/cocktailshaker/users/${username}/info`,
+                `https://api.datavortex.nl/cocktailshaker/users/${username}`,
                 {
                     headers: {
                         Authorization: token,
