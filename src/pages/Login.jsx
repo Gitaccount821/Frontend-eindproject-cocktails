@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import logoImage from "../assets/cocktaillogoheader.png";
 import cocktailLogoLogin from "../assets/cocktaillogologin.png";
@@ -12,52 +12,38 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const location = useLocation();
 
-    const handleNavigateToContact = () => {
-        navigate('/contact');
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        authenticate(username, password);
     };
 
-    const handleNavigateToLogin = () => {
-        navigate('/login');
-    };
-
+    const handleNavigateToContact = () => navigate('/contact');
+    const handleNavigateToLogin = () => navigate('/login');
     const handleLogout = () => {
         logout();
         navigate('/');
     };
-
-    const handleNavigateToSearch = () => {
-        navigate('/search');
-    };
-
-    const handleNavigateToRecommended = () => {
-        navigate('/Recommended');
-    };
-
-    const handleNavigateToFavourites = () => {
-        navigate('/Favourites');
-    };
-
-    const handleNavigateHome = () => {
-        navigate('/');
-    };
+    const handleNavigateToSearch = () => navigate('/search');
+    const handleNavigateToRecommended = () => navigate('/Recommended');
+    const handleNavigateToFavourites = () => navigate('/Favourites');
+    const handleNavigateHome = () => navigate('/');
 
     return (
         <div className="app-container">
-            <main className="main-content">
-                <HeaderSection
-                    handleNavigateHome={handleNavigateHome}
-                    handleNavigateToContact={handleNavigateToContact}
-                    handleLogout={handleLogout}
-                    handleNavigateToLogin={handleNavigateToLogin}
-                    handleNavigateToSearch={handleNavigateToSearch}
-                    handleNavigateToRecommended={handleNavigateToRecommended}
-                    handleNavigateToFavourites={handleNavigateToFavourites}
-                    user={user}
-                    logoImage={logoImage}
-                />
+            <HeaderSection
+                handleNavigateHome={handleNavigateHome}
+                handleNavigateToContact={handleNavigateToContact}
+                handleLogout={handleLogout}
+                handleNavigateToLogin={handleNavigateToLogin}
+                handleNavigateToSearch={handleNavigateToSearch}
+                handleNavigateToRecommended={handleNavigateToRecommended}
+                handleNavigateToFavourites={handleNavigateToFavourites}
+                user={user}
+                logoImage={logoImage}
+            />
 
+            <main className="main-content">
                 <section className="flex-item section3">
                     <div>
                         <h2 className="pink-heading">Cocktail Shaker Login</h2>
