@@ -14,10 +14,6 @@ function SignUp({ user }) { // Ensure user is passed as a prop
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleNavigateHome = () => {
-        navigate('/');
-    };
-
     const handleNavigateToContact = () => {
         navigate('/contact');
     };
@@ -27,7 +23,24 @@ function SignUp({ user }) { // Ensure user is passed as a prop
     };
 
     const handleLogout = () => {
-        // Handle logout logic
+        logout();
+        navigate('/');
+    };
+
+    const handleNavigateToSearch = () => {
+        navigate('/search');
+    };
+
+    const handleNavigateToRecommended = () => {
+        navigate('/Recommended');
+    };
+
+    const handleNavigateToFavourites = () => {
+        navigate('/Favourites');
+    };
+
+    const handleNavigateHome = () => {
+        navigate('/');
     };
 
     async function handleSubmit(e) {
@@ -81,6 +94,9 @@ function SignUp({ user }) { // Ensure user is passed as a prop
                     handleNavigateToContact={handleNavigateToContact}
                     handleLogout={handleLogout}
                     handleNavigateToLogin={handleNavigateToLogin}
+                    handleNavigateToSearch={handleNavigateToSearch}
+                    handleNavigateToRecommended={handleNavigateToRecommended}
+                    handleNavigateToFavourites={handleNavigateToFavourites}
                     user={user}
                     logoImage={logoImage}
                 />

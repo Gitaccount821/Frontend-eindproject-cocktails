@@ -15,16 +15,28 @@ function Search() {
         navigate('/contact');
     };
 
-    const handleNavigateHome = () => {
-        navigate('/');
-    };
-
     const handleNavigateToLogin = () => {
         navigate('/login');
     };
 
     const handleLogout = () => {
         logout();
+        navigate('/');
+    };
+
+    const handleNavigateToSearch = () => {
+        navigate('/search');
+    };
+
+    const handleNavigateToRecommended = () => {
+        navigate('/Recommended');
+    };
+
+    const handleNavigateToFavourites = () => {
+        navigate('/Favourites');
+    };
+
+    const handleNavigateHome = () => {
         navigate('/');
     };
 
@@ -67,10 +79,13 @@ function Search() {
                     handleNavigateToContact={handleNavigateToContact}
                     handleLogout={handleLogout}
                     handleNavigateToLogin={handleNavigateToLogin}
-                    handleNavigateToSearch={() => navigate('/search')}
+                    handleNavigateToSearch={handleNavigateToSearch}
+                    handleNavigateToRecommended={handleNavigateToRecommended}
+                    handleNavigateToFavourites={handleNavigateToFavourites}
                     user={user}
                     logoImage={logoImage}
                 />
+
 
                 <section className="search-section">
                     <div className="search-container">

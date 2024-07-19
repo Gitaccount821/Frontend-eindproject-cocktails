@@ -22,18 +22,25 @@ function Login() {
         navigate('/login');
     };
 
-    const handleNavigateHome = () => {
+    const handleLogout = () => {
+        logout();
         navigate('/');
     };
 
-    const handleLogout = () => {
+    const handleNavigateToSearch = () => {
+        navigate('/search');
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        await authenticate(username, password);
-        setUsername('');
-        setPassword('');
+    const handleNavigateToRecommended = () => {
+        navigate('/Recommended');
+    };
+
+    const handleNavigateToFavourites = () => {
+        navigate('/Favourites');
+    };
+
+    const handleNavigateHome = () => {
+        navigate('/');
     };
 
     return (
@@ -44,6 +51,9 @@ function Login() {
                     handleNavigateToContact={handleNavigateToContact}
                     handleLogout={handleLogout}
                     handleNavigateToLogin={handleNavigateToLogin}
+                    handleNavigateToSearch={handleNavigateToSearch}
+                    handleNavigateToRecommended={handleNavigateToRecommended}
+                    handleNavigateToFavourites={handleNavigateToFavourites}
                     user={user}
                     logoImage={logoImage}
                 />
