@@ -11,32 +11,11 @@ function Search() {
     const [searchResults, setSearchResults] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleNavigateToContact = () => {
-        navigate('/contact');
-    };
-
-    const handleNavigateToLogin = () => {
-        navigate('/login');
-    };
-
+    const handleNavigateToContact = () => navigate('/contact');
+    const handleNavigateHome = () => navigate('/');
+    const handleNavigateToLogin = () => navigate('/login');
     const handleLogout = () => {
         logout();
-        navigate('/');
-    };
-
-    const handleNavigateToSearch = () => {
-        navigate('/search');
-    };
-
-    const handleNavigateToRecommended = () => {
-        navigate('/Recommended');
-    };
-
-    const handleNavigateToFavourites = () => {
-        navigate('/Favourites');
-    };
-
-    const handleNavigateHome = () => {
         navigate('/');
     };
 
@@ -79,14 +58,12 @@ function Search() {
                     handleNavigateToContact={handleNavigateToContact}
                     handleLogout={handleLogout}
                     handleNavigateToLogin={handleNavigateToLogin}
-                    handleNavigateToSearch={handleNavigateToSearch}
-                    handleNavigateToRecommended={handleNavigateToRecommended}
-                    handleNavigateToFavourites={handleNavigateToFavourites}
+                    handleNavigateToSearch={() => navigate('/search')}
+                    handleNavigateToRecommended={() => navigate('/Recommended')}
+                    handleNavigateToFavourites={() => navigate('/Favourites')}
                     user={user}
                     logoImage={logoImage}
                 />
-
-
                 <section className="search-section">
                     <div className="search-container">
                         <form onSubmit={(e) => e.preventDefault()} className="search-form">
@@ -116,7 +93,6 @@ function Search() {
                     </div>
                 </section>
             </main>
-
             <footer className="flex-item footer">
                 <div className="footer-left">
                     <button className="button" onClick={handleNavigateToContact}>
