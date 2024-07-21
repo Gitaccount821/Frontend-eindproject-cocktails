@@ -518,3 +518,69 @@ body {
     color: red;
     text-align: center;
 }
+
+
+/* CocktailDetail.css */
+
+.cocktail-detail {
+    padding: 20px;
+}
+
+.text-detail {
+    padding: 50px 0px 10px 280px;
+    font-size: 40px;
+}
+
+.cocktail-detail-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.cocktail-image {
+    margin: 0px 0px 20px 70px;
+    max-width: 500px;
+}
+
+.ingredients {
+    flex: 1;
+    margin-left: 50px;
+}
+
+.text-ingredients {
+    margin: 0px 0px 20px 70px;
+    font-size: 36px;
+}
+
+
+.ingredients li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+
+.ingredient-image {
+    margin-right: 15px;
+    width: 80px;
+    height: 80px;
+}
+
+.detail-button {
+    margin-left: 250px;
+    padding: 15px 25px;
+    font-size: 22px;
+    background-color: hotpink;
+    color: black;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease, border-radius 0.3s ease;
+}
+
+.detail-button:hover {
+    background-color: deeppink;
+    border-radius: 25px;
+    transform: scale(1.1);
+}

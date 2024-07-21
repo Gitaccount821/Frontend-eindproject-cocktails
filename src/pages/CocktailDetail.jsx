@@ -1,3 +1,5 @@
+// CocktailDetail.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -27,7 +29,7 @@ function CocktailDetail() {
     }, [id]);
 
     const handleFavourite = () => {
-
+        // Logic to save the cocktail as a favorite
     };
 
     const handleNavigateHome = () => navigate('/');
@@ -62,25 +64,32 @@ function CocktailDetail() {
                 />
 
                 <section className="cocktail-detail">
-                    <h1>{cocktail.strDrink}</h1>
-                    <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} />
-                    <h2>Ingredients</h2>
-                    <ul>
-                        {Object.keys(cocktail)
-                            .filter(key => key.startsWith('strIngredient') && cocktail[key])
-                            .map((key, index) => (
-                                <li key={index}>
-                                    <img
-                                        src={`https://www.thecocktaildb.com/images/ingredients/${cocktail[key]}-Small.png`}
-                                        alt={cocktail[key]}
-                                        width="50"
-                                        height="50"
-                                    />
-                                    {cocktail[key]} - {cocktail[`strMeasure${key.slice(13)}`]}
-                                </li>
-                            ))}
-                    </ul>
-                    <button onClick={handleFavourite}>Favourite</button>
+                    <h1 className="text-detail">{cocktail.strDrink}</h1>
+                    <div className="cocktail-detail-content">
+                        <img
+                            src={cocktail.strDrinkThumb}
+                            alt={cocktail.strDrink}
+                            className="cocktail-image"
+                        />
+                        <div className="ingredients">
+                            <h2 className="text-ingredients">Ingredienten:</h2>
+                            <ul>
+                                {Object.keys(cocktail)
+                                    .filter(key => key.startsWith('strIngredient') && cocktail[key])
+                                    .map((key, index) => (
+                                        <li key={index}>
+                                            <img
+                                                src={`https://www.thecocktaildb.com/images/ingredients/${cocktail[key]}-Medium.png`}
+                                                alt={cocktail[key]}
+                                                className="ingredient-image"
+                                            />
+                                            {cocktail[key]} - {cocktail[`strMeasure${key.slice(13)}`]}
+                                        </li>
+                                    ))}
+                            </ul>
+                        </div>
+                    </div>
+                    <button className="detail-button" onClick={handleFavourite}>Favouriet</button>
                 </section>
             </main>
             <footer className="flex-item footer">
