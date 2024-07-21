@@ -211,7 +211,6 @@ body {
     border-radius: 8px;
     margin-top: 20px;
 }
-/*test*/
 
 
 
@@ -461,6 +460,45 @@ body {
 }
 
 
+
+
+/* Zoekpagina CSS */
+
+.thumbnail {
+    width: 80px;
+    height: 80px;
+}
+
+.large-thumbnail {
+    width: 300px;
+    height: 300px;
+}
+
+.suggestions-list {
+    list-style: none;
+    padding: 0;
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.suggestion-item img {
+    margin-right: 10px;
+}
+
+.selected-cocktail img {
+    display: block;
+    margin: 20px auto;
+}
+
+.selected-cocktail p {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
 
 
 
