@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Search from "./pages/Search";
 import Recommended from "./pages/Recommended";
 import Favourites from "./pages/Favourites";
+import CocktailDetail from './pages/CocktailDetail';
 import { AuthProvider } from './context/Authcontext';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/Search" element={<Search />} />
                     <Route path="/Recommended" element={<Recommended />} />
                     <Route path="/Favourites" element={<Favourites />} />
+                    <Route path="/cocktail/:id" element={<CocktailDetail />} />
 
                 </Routes>
             </AuthProvider>
