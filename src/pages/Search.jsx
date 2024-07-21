@@ -57,7 +57,7 @@ function Search() {
     };
 
     const handleSearchSubmit = (e) => {
-        e.preventDefault(); // Prevent form submission
+        e.preventDefault();
         if (searchQuery.trim() === '') {
             setErrorMessage('Vul alsjeblieft een waarde in');
             return;
@@ -65,6 +65,10 @@ function Search() {
 
         setErrorMessage('');
         setSelectedCocktail(searchResults.find(cocktail => cocktail.name.toLowerCase() === searchQuery.toLowerCase()) || null);
+    };
+
+    const handleCocktailClick = (id) => {
+        navigate(`/cocktail/${id}`);
     };
 
     return (
@@ -109,7 +113,7 @@ function Search() {
                             </ul>
                         )}
                         {selectedCocktail && (
-                            <div className="selected-cocktail">
+                            <div className="selected-cocktail" onClick={() => handleCocktailClick(selectedCocktail.id)}>
                                 <div className="selected-cocktail-overlay">
                                     <p className="selected-cocktail-text">{selectedCocktail.name}</p>
                                     <img src={selectedCocktail.thumbnail.replace('/preview', '')} alt={selectedCocktail.name} className="large-thumbnail" />
