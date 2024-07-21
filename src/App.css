@@ -44,7 +44,7 @@ body {
 
 .logo-container {
     margin-right: 140px;
-    padding: 0px 0px 0px 15px;
+    padding: 0 0 0 15px;
 }
 
 .logo {
@@ -90,10 +90,9 @@ body {
     background-color: #8b32a8;
     color: #ffffff;
     border: none;
-    border-radius: 4px;
+    border-radius: 50px;
     cursor: pointer;
     margin-right: 10px;
-    border-radius: 50px;
 }
 
 .section2 {
@@ -108,12 +107,7 @@ body {
     text-align: center;
 }
 
-
-
-
 /*Recommended*/
-
-
 
 .sectionrec {
     display: flex;
@@ -127,9 +121,9 @@ body {
 }
 
 .large-header {
-    font-size: 40px; /* Adjust font size as needed */
+    font-size: 40px;
     text-align: right;
-    margin: 20px  100px 20px 20px; /* Adjust margin as needed */
+    margin: 20px  100px 20px 20px;
     color: #fff;
 }
 
@@ -139,15 +133,14 @@ body {
     align-items: center;
     text-align: center;
     width: 100%;
-    padding: 20px 20px 20px 20px;
+    padding: 20px;
     background-image: url('./assets/Recback.png.png');
-
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .question-text {
-    font-size: 24px; /* Adjust font size as needed */
+    font-size: 24px;
     margin-bottom: 20px;
     color: #fff;
 }
@@ -164,19 +157,19 @@ body {
     align-items: center;
     font-size: 30px;
     color: #fff;
-    padding: 10px 100px 10px 100px;
-
+    padding: 10px 100px;
 }
 
 .option-label input {
     margin-right: 10px;
     accent-color: #007bff;
-    width: 20px; /* Size of the radio button */
-    height: 20px; /* Size of the radio button */
+    width: 20px;
+    height: 20px;
 }
+
 .continue-button {
     padding: 10px 20px;
-    background-color: #333; /* Dark grey background */
+    background-color: #333;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -186,7 +179,7 @@ body {
 }
 
 .continue-button:hover {
-    background-color: #555; /* Slightly lighter grey on hover */
+    background-color: #555;
 }
 
 .error-message {
@@ -202,29 +195,21 @@ body {
     margin-top: 20px;
 }
 
-
 .cocktail-results {
     padding: 20px;
     text-align: center;
     color: #fff;
-    background-color: #444; /* Adjust background color as needed */
+    background-color: #444;
     border-radius: 8px;
     margin-top: 20px;
 }
-
-
-
-
-
-
-
 
 .section3 {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 0 20000px;
+    padding: 0 20px;
 }
 
 .midden-tekst-container {
@@ -248,7 +233,7 @@ body {
     width: 100%;
     background-color: #000;
     color: #fff;
-    padding: 5px 0px 10px 10px;
+    padding: 5px 0 10px 10px;
 }
 
 .footer-right p:first-child {
@@ -346,7 +331,6 @@ body {
 .search-section {
     display: flex;
     justify-content: center;
-
     flex: 1;
     padding: 40px 20px;
     background-color: #f9f9f9;
@@ -391,11 +375,6 @@ body {
     background-color: #0056b3;
 }
 
-.error-message {
-    color: red;
-    margin-top: 10px;
-}
-
 .suggestions-list {
     list-style: none;
     padding: 0;
@@ -409,6 +388,8 @@ body {
 }
 
 .suggestion-item {
+    display: flex;
+    align-items: center;
     padding: 10px;
     cursor: pointer;
 }
@@ -444,29 +425,45 @@ body {
     color: #b1a748;
 }
 
-
 .pink-heading {
     color: #FF00FE;
     font-size: 36px;
     text-align: center;
     margin-bottom: 20px;
-
 }
 
 .cocktail-logo-login {
-    width: 100px; /* Adjust the width as needed */
-    height: auto; /* Automatically adjust height while maintaining aspect ratio */
-    margin: 0px 20px 20px 20px; /* Example: Add margin-top for spacing */
+    width: 100px;
+    height: auto;
+    margin: 0 20px 20px;
 }
 
-
-
-
 /* Zoekpagina CSS */
+
+.thumbnail-container {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+}
 
 .thumbnail {
     width: 80px;
     height: 80px;
+}
+
+.thumbnail-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 0;
+    box-sizing: border-box;
 }
 
 .large-thumbnail {
@@ -474,19 +471,30 @@ body {
     height: 300px;
 }
 
-.suggestions-list {
-    list-style: none;
-    padding: 0;
+.selected-cocktail {
+    position: relative;
+    display: inline-block;
+    text-align: center;
 }
 
-.suggestion-item {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+.selected-cocktail-overlay {
+    position: relative;
+    display: inline-block;
 }
 
-.suggestion-item img {
-    margin-right: 10px;
+.selected-cocktail-text {
+    position: absolute;
+    top: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 15%;
+    margin: 10px 0;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px 0;
+    box-sizing: border-box;
+    text-align: center;
 }
 
 .selected-cocktail img {
@@ -494,12 +502,19 @@ body {
     margin: 20px auto;
 }
 
-.selected-cocktail p {
+.search-prompt {
+    font-size: 18px;
+    margin-bottom: 10px;
     text-align: center;
-    font-size: 24px;
-    font-weight: bold;
 }
 
+.search-input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
 
-
-
+.error-message {
+    color: red;
+    text-align: center;
+}

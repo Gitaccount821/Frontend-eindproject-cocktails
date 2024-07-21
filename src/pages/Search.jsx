@@ -56,7 +56,8 @@ function Search() {
         setSearchResults([]);
     };
 
-    const handleSearchSubmit = () => {
+    const handleSearchSubmit = (e) => {
+        e.preventDefault(); // Prevent form submission
         if (searchQuery.trim() === '') {
             setErrorMessage('Vul alsjeblieft een waarde in');
             return;
@@ -82,7 +83,8 @@ function Search() {
                 />
                 <section className="search-section">
                     <div className="search-container">
-                        <form onSubmit={(e) => { e.preventDefault(); handleSearchSubmit(); }} className="search-form">
+                        <p className="search-prompt">Vul hieronder je gezochte cocktail in!</p>
+                        <form onSubmit={handleSearchSubmit} className="search-form">
                             <input
                                 type="text"
                                 value={searchQuery}
@@ -90,7 +92,6 @@ function Search() {
                                 placeholder="Zoek naar cocktails"
                                 className="search-input"
                             />
-                            <button type="submit" className="search-button">Zoeken</button>
                         </form>
                         {errorMessage && <p className="error-message">{errorMessage}</p>}
                         {searchResults.length > 0 && (
@@ -109,8 +110,10 @@ function Search() {
                         )}
                         {selectedCocktail && (
                             <div className="selected-cocktail">
-                                <img src={selectedCocktail.thumbnail.replace('/preview', '')} alt={selectedCocktail.name} className="large-thumbnail" />
-                                <p>{selectedCocktail.name}</p>
+                                <div className="selected-cocktail-overlay">
+                                    <p className="selected-cocktail-text">{selectedCocktail.name}</p>
+                                    <img src={selectedCocktail.thumbnail.replace('/preview', '')} alt={selectedCocktail.name} className="large-thumbnail" />
+                                </div>
                             </div>
                         )}
                     </div>
