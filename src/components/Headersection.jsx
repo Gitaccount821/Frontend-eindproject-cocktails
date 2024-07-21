@@ -7,6 +7,8 @@ const HeaderSection = ({
                            handleLogout,
                            handleNavigateToLogin,
                            handleNavigateToSearch,
+                           handleNavigateToRecommended,
+                           handleNavigateToFavourites,
                            logoImage,
                            user
                        }) => {
@@ -20,10 +22,10 @@ const HeaderSection = ({
             <div className="buttons-container">
                 { user && (
                     <>
-                        <button className="button" disabled={location.pathname === '/recommended'}>
+                        <button className="button" onClick={handleNavigateToRecommended} disabled={location.pathname === '/Recommended'}>
                             Aangeraden Cocktails
                         </button>
-                        <button className="button" disabled={location.pathname === '/favorites'}>
+                        <button className="button" onClick={handleNavigateToFavourites} disabled={location.pathname === '/Favourites'}>
                             Favorieten Cocktails
                         </button>
                     </>

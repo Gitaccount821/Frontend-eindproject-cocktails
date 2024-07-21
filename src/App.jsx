@@ -6,6 +6,8 @@ import Contact from './pages/Contact';
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Search from "./pages/Search";
+import Recommended from "./pages/Recommended";
+import Favourites from "./pages/Favourites";
 import { AuthProvider } from './context/Authcontext';
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
                     <Route path="/SignUp" element={<SignUp />} />
                     <Route path="/Login" element={<Login />} />
                     <Route path="/Search" element={<Search />} />
+                    <Route path="/Recommended" element={<Recommended />} />
+                    <Route path="/Favourites" element={<Favourites />} />
 
                 </Routes>
             </AuthProvider>

@@ -12,27 +12,24 @@ function SignUp({ user }) { // Ensure user is passed as a prop
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(null); // New state for success message
     const navigate = useNavigate();
 
-    const handleNavigateHome = () => {
+    const handleNavigateToContact = () => navigate('/contact');
+    const handleNavigateToLogin = () => navigate('/login');
+    const handleLogout = () => {
+        logout();
         navigate('/');
     };
-
-    const handleNavigateToContact = () => {
-        navigate('/contact');
-    };
-
-    const handleNavigateToLogin = () => {
-        navigate('/login');
-    };
-
-    const handleLogout = () => {
-        // Handle logout logic
-    };
+    const handleNavigateToSearch = () => navigate('/search');
+    const handleNavigateToRecommended = () => navigate('/Recommended');
+    const handleNavigateToFavourites = () => navigate('/Favourites');
+    const handleNavigateHome = () => navigate('/');
 
     async function handleSubmit(e) {
         e.preventDefault();
         setError(null);
+        setSuccess(null); // Clear any previous success message
         setLoading(true);
 
         const config = {
@@ -51,6 +48,12 @@ function SignUp({ user }) { // Ensure user is passed as a prop
             }, config);
 
             console.log('Registration successful:', response.data);
+            setSuccess('Account registratie succesvol! Je wordt terugverwezen naar de login pagina');
+
+            // Redirect after 1 second
+            setTimeout(() => {
+                navigate('/login');
+            }, 1000);
         } catch(e) {
             console.error('Registration error:', e);
 
@@ -81,6 +84,9 @@ function SignUp({ user }) { // Ensure user is passed as a prop
                     handleNavigateToContact={handleNavigateToContact}
                     handleLogout={handleLogout}
                     handleNavigateToLogin={handleNavigateToLogin}
+                    handleNavigateToSearch={handleNavigateToSearch}
+                    handleNavigateToRecommended={handleNavigateToRecommended}
+                    handleNavigateToFavourites={handleNavigateToFavourites}
                     user={user}
                     logoImage={logoImage}
                 />
@@ -96,20 +102,18 @@ function SignUp({ user }) { // Ensure user is passed as a prop
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                 />
-
                                 <UsernameInput
                                     id="username-field"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                 />
-
                                 <PasswordInput
                                     id="password-field"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
-
-                                {error && <p className="error"> {error}</p>}
+                                {error && <p className="error">{error}</p>}
+                                {success && <p className="success">{success}</p>}
                                 <button
                                     type="submit"
                                     className="form-button"

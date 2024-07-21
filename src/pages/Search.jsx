@@ -11,18 +11,9 @@ function Search() {
     const [searchResults, setSearchResults] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleNavigateToContact = () => {
-        navigate('/contact');
-    };
-
-    const handleNavigateHome = () => {
-        navigate('/');
-    };
-
-    const handleNavigateToLogin = () => {
-        navigate('/login');
-    };
-
+    const handleNavigateToContact = () => navigate('/contact');
+    const handleNavigateHome = () => navigate('/');
+    const handleNavigateToLogin = () => navigate('/login');
     const handleLogout = () => {
         logout();
         navigate('/');
@@ -68,10 +59,11 @@ function Search() {
                     handleLogout={handleLogout}
                     handleNavigateToLogin={handleNavigateToLogin}
                     handleNavigateToSearch={() => navigate('/search')}
+                    handleNavigateToRecommended={() => navigate('/Recommended')}
+                    handleNavigateToFavourites={() => navigate('/Favourites')}
                     user={user}
                     logoImage={logoImage}
                 />
-
                 <section className="search-section">
                     <div className="search-container">
                         <form onSubmit={(e) => e.preventDefault()} className="search-form">
@@ -101,7 +93,6 @@ function Search() {
                     </div>
                 </section>
             </main>
-
             <footer className="flex-item footer">
                 <div className="footer-left">
                     <button className="button" onClick={handleNavigateToContact}>
