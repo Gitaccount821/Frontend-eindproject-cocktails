@@ -11,6 +11,7 @@ function CocktailDetail() {
     const { user, logout } = useAuth();
     const [cocktail, setCocktail] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     const [isFavourited, setIsFavourited] = useState(false);
 
     useEffect(() => {
@@ -26,6 +27,33 @@ function CocktailDetail() {
 
         fetchCocktail();
     }, [id]);
+
+    useEffect(() => {
+        const checkIfFavourited = async () => {
+            if (user) {
+                try {
+                    const token = localStorage.getItem('Token');
+                    if (!token) return;
+
+                    const userResponse = await axios.get(`https://api.datavortex.nl/cocktailshaker/users/${user.username}`, {
+                        headers: {
+                            Authorization: token,
+                            'Content-Type': 'application/json',
+                            'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
+                        },
+                    });
+
+                    const currentFavourites = userResponse.data.info || '';
+                    const currentFavouritesArray = currentFavourites.split(',').filter(Boolean);
+                    setIsFavourited(currentFavouritesArray.includes(id));
+                } catch (error) {
+                    console.error('Error checking if cocktail is favourited:', error);
+                }
+            }
+        };
+
+        checkIfFavourited();
+    }, [user, id]);
 
     const handleFavourite = async () => {
         if (!user) {
@@ -51,29 +79,50 @@ function CocktailDetail() {
             const currentFavourites = userResponse.data.info || '';
             const currentFavouritesArray = currentFavourites.split(',').filter(Boolean);
 
-            if (currentFavouritesArray.includes(cocktail.idDrink)) {
-                setErrorMessage('This cocktail is already in your favourites.');
-                return;
-            }
+            if (currentFavouritesArray.includes(id)) {
 
-            const updatedFavourites = [...currentFavouritesArray, cocktail.idDrink].join(',');
-            const updateResponse = await axios.put(
-                `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
-                { info: updatedFavourites },
-                {
-                    headers: {
-                        Authorization: token,
-                        'Content-Type': 'application/json',
-                        'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
-                    },
+                const updatedFavourites = currentFavouritesArray.filter(favId => favId !== id).join(',');
+                const updateResponse = await axios.put(
+                    `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
+                    { info: updatedFavourites },
+                    {
+                        headers: {
+                            Authorization: token,
+                            'Content-Type': 'application/json',
+                            'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
+                        },
+                    }
+                );
+
+                if (updateResponse.status === 200 || updateResponse.status === 204) {
+                    setIsFavourited(false);
+                    setSuccessMessage('');
+                    setErrorMessage('Het recept is uit favourieten verwijderd');
+                } else {
+                    setErrorMessage(`Unexpected response status: ${updateResponse.status}`);
                 }
-            );
-
-            if (updateResponse.status === 200) {
-                setIsFavourited(true);
-                setErrorMessage('Cocktail added to favourites!');
             } else {
-                setErrorMessage(`Unexpected response status: ${updateResponse.status}`);
+
+                const updatedFavourites = [...currentFavouritesArray, id].join(',');
+                const updateResponse = await axios.put(
+                    `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
+                    { info: updatedFavourites },
+                    {
+                        headers: {
+                            Authorization: token,
+                            'Content-Type': 'application/json',
+                            'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
+                        },
+                    }
+                );
+
+                if (updateResponse.status === 200 || updateResponse.status === 204) {
+                    setIsFavourited(true);
+                    setSuccessMessage('Het recept is opgeslagen als Favouriet!');
+                    setErrorMessage('');
+                } else {
+                    setErrorMessage(`Unexpected response status: ${updateResponse.status}`);
+                }
             }
         } catch (error) {
             console.error('Error updating favourites:', error.response ? error.response.data : error.message);
@@ -139,12 +188,13 @@ function CocktailDetail() {
                         </div>
                     </div>
                     <button
-                        className="detail-button"
+                        className={`detail-button ${isFavourited ? 'blue-button' : ''}`}
                         onClick={handleFavourite}
-                        disabled={isFavourited}
                     >
                         {isFavourited ? 'Added to Favourites' : 'Favouriet'}
                     </button>
+                    {successMessage && <p className="success-message">{successMessage}</p>}
+                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                 </section>
             </main>
             <footer className="flex-item footer">
