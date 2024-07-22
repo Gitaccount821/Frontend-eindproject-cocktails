@@ -80,7 +80,7 @@ function CocktailDetail() {
             const currentFavouritesArray = currentFavourites.split(',').filter(Boolean);
 
             if (currentFavouritesArray.includes(id)) {
-
+                // Unfavorite the cocktail
                 const updatedFavourites = currentFavouritesArray.filter(favId => favId !== id).join(',');
                 const updateResponse = await axios.put(
                     `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
@@ -96,13 +96,13 @@ function CocktailDetail() {
 
                 if (updateResponse.status === 200 || updateResponse.status === 204) {
                     setIsFavourited(false);
-                    setSuccessMessage('');
-                    setErrorMessage('Het recept is uit favourieten verwijderd');
+                    setSuccessMessage('Het recept is uit favourieten verwijderd.');
+                    setErrorMessage('');
                 } else {
                     setErrorMessage(`Unexpected response status: ${updateResponse.status}`);
                 }
             } else {
-
+                // Favorite the cocktail
                 const updatedFavourites = [...currentFavouritesArray, id].join(',');
                 const updateResponse = await axios.put(
                     `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
@@ -118,7 +118,7 @@ function CocktailDetail() {
 
                 if (updateResponse.status === 200 || updateResponse.status === 204) {
                     setIsFavourited(true);
-                    setSuccessMessage('Het recept is opgeslagen als Favouriet!');
+                    setSuccessMessage('Het recept is opgeslagen als favouriet!');
                     setErrorMessage('');
                 } else {
                     setErrorMessage(`Unexpected response status: ${updateResponse.status}`);
@@ -137,10 +137,6 @@ function CocktailDetail() {
         logout();
         navigate('/');
     };
-
-    if (errorMessage) {
-        return <p>{errorMessage}</p>;
-    }
 
     if (!cocktail) {
         return <p>Loading...</p>;
