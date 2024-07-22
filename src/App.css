@@ -584,3 +584,20 @@ body {
     border-radius: 25px;
     transform: scale(1.1);
 }
+
+.detail-button.blue-button {
+    background-color: mediumpurple;
+    color: #fff;
+    margin-left: 170px;
+}
+
+.success-message {
+    color: green;
+    margin: 50px 10px 10px 120px;
+    font-size: 30px;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
