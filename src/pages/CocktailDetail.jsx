@@ -80,7 +80,7 @@ function CocktailDetail() {
             const currentFavouritesArray = currentFavourites.split(',').filter(Boolean);
 
             if (currentFavouritesArray.includes(id)) {
-                // Unfavorite the cocktail
+
                 const updatedFavourites = currentFavouritesArray.filter(favId => favId !== id).join(',');
                 const updateResponse = await axios.put(
                     `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
@@ -96,13 +96,13 @@ function CocktailDetail() {
 
                 if (updateResponse.status === 200 || updateResponse.status === 204) {
                     setIsFavourited(false);
-                    setSuccessMessage('Het recept is uit favourieten verwijderd.');
+                    setSuccessMessage('Het recept is uit favorieten verwijderd.');
                     setErrorMessage('');
                 } else {
                     setErrorMessage(`Unexpected response status: ${updateResponse.status}`);
                 }
             } else {
-                // Favorite the cocktail
+
                 const updatedFavourites = [...currentFavouritesArray, id].join(',');
                 const updateResponse = await axios.put(
                     `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
@@ -118,7 +118,7 @@ function CocktailDetail() {
 
                 if (updateResponse.status === 200 || updateResponse.status === 204) {
                     setIsFavourited(true);
-                    setSuccessMessage('Het recept is opgeslagen als favouriet!');
+                    setSuccessMessage('Het recept is opgeslagen als favoriet!');
                     setErrorMessage('');
                 } else {
                     setErrorMessage(`Unexpected response status: ${updateResponse.status}`);
@@ -187,7 +187,7 @@ function CocktailDetail() {
                         className={`detail-button ${isFavourited ? 'blue-button' : ''}`}
                         onClick={handleFavourite}
                     >
-                        {isFavourited ? 'Added to Favourites' : 'Favouriet'}
+                        {isFavourited ? 'Al opgeslagen in Favorieten' : 'Favoriet'}
                     </button>
                     {successMessage && <p className="success-message">{successMessage}</p>}
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
