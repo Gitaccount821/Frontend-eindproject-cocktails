@@ -1,24 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import logoImage from "../assets/cocktaillogoheader.png";
 import HeaderSection from '../components/HeaderSection';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import LoadingIndicator from '../components/LoadingIndicator';
 
 function Recommended() {
-    const navigate = useNavigate(); // Removed extraneous 'k'
+    const navigate = useNavigate();
     const { user, logout } = useAuth();
     const [selectedOption, setSelectedOption] = useState('');
-    const [currentQuestion, setCurrentQuestion] = useState(1);
     const [error, setError] = useState('');
-    const [userResponses, setUserResponses] = useState({
-        alcohol: '',
-        ingredients: '',
-        glass: '',
-        taste: '',
-        vegan: ''
-    });
+    const [recommendations, setRecommendations] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [currentQuestion, setCurrentQuestion] = useState(1);
+
+    useEffect(() => {
+        const fetchRecommendations = async () => {
+            setLoading(true);
+            try {
+                let filteredCocktails = [];
+                console.log('Fetching recommendations with selected option:', selectedOption);
+
+                if (selectedOption === 'with-alcohol') {
+                    const response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic');
+                    filteredCocktails = response.data.drinks || [];
+                } else if (selectedOption === 'without-alcohol') {
+                    const response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic');
+                    filteredCocktails = response.data.drinks || [];
+                }
+
+                console.log('Filtered by alcohol:', filteredCocktails);
+
+
+                setRecommendations(filteredCocktails);
+                console.log('Final recommendations:', filteredCocktails);
+            } catch (error) {
+                console.error('Error fetching recommendations:', error);
+                setError('Er is iets misgegaan bij het ophalen van aanbevelingen.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (currentQuestion === 1 && selectedOption) {
+            fetchRecommendations();
+        }
+    }, [selectedOption, currentQuestion]);
 
     const handleOptionChange = (e) => {
         setSelectedOption(e.target.value);
@@ -29,21 +57,8 @@ function Recommended() {
             setError('Maak alstublieft eerst een keuze voordat u door kan gaan');
         } else {
             setError('');
-            const questionKeys = ['alcohol', 'ingredients', 'glass', 'taste', 'vegan'];
-            setUserResponses({
-                ...userResponses,
-                [questionKeys[currentQuestion - 1]]: selectedOption
-            });
-
-            if (currentQuestion < 5) {
+            if (currentQuestion === 1) {
                 setCurrentQuestion(currentQuestion + 1);
-                setSelectedOption('');
-            } else {
-                setLoading(true);
-                setTimeout(() => {
-                    setLoading(false);
-                    console.log('User responses:', userResponses);
-                }, 2000); // TESTTIMEOUT!
             }
         }
     };
@@ -95,123 +110,34 @@ function Recommended() {
                                     </div>
                                 </>
                             )}
-                            {currentQuestion === 2 && (
-                                <>
-                                    <p className="question-text">Vraag 2</p>
-                                    <div className="options-container">
-                                        <label className="option-label">
-                                            <input
-                                                type="radio"
-                                                name="ingredients"
-                                                value="more-ingredients"
-                                                checked={selectedOption === 'more-ingredients'}
-                                                onChange={handleOptionChange}
-                                            />
-                                            Meer ingrediënten
-                                        </label>
-                                        <label className="option-label">
-                                            <input
-                                                type="radio"
-                                                name="ingredients"
-                                                value="fewer-ingredients"
-                                                checked={selectedOption === 'fewer-ingredients'}
-                                                onChange={handleOptionChange}
-                                            />
-                                            Minder ingrediënten
-                                        </label>
-                                    </div>
-                                </>
-                            )}
-                            {currentQuestion === 3 && (
-                                <>
-                                    <p className="question-text">Vraag 3</p>
-                                    <div className="options-container">
-                                        <label className="option-label">
-                                            <input
-                                                type="radio"
-                                                name="glass"
-                                                value="normal-glass"
-                                                checked={selectedOption === 'normal-glass'}
-                                                onChange={handleOptionChange}
-                                            />
-                                            Normaal glas
-                                        </label>
-                                        <label className="option-label">
-                                            <input
-                                                type="radio"
-                                                name="glass"
-                                                value="special-glass"
-                                                checked={selectedOption === 'special-glass'}
-                                                onChange={handleOptionChange}
-                                            />
-                                            Speciaal glas
-                                        </label>
-                                    </div>
-                                </>
-                            )}
-                            {currentQuestion === 4 && (
-                                <>
-                                    <p className="question-text">Vraag 4</p>
-                                    <div className="options-container">
-                                        <label className="option-label">
-                                            <input
-                                                type="radio"
-                                                name="taste"
-                                                value="fruity"
-                                                checked={selectedOption === 'fruity'}
-                                                onChange={handleOptionChange}
-                                            />
-                                            Fruitig
-                                        </label>
-                                        <label className="option-label">
-                                            <input
-                                                type="radio"
-                                                name="taste"
-                                                value="dry"
-                                                checked={selectedOption === 'dry'}
-                                                onChange={handleOptionChange}
-                                            />
-                                            Droog
-                                        </label>
-                                    </div>
-                                </>
-                            )}
-                            {currentQuestion === 5 && (
-                                <>
-                                    <p className="question-text">Vraag 5</p>
-                                    <div className="options-container">
-                                        <label className="option-label">
-                                            <input
-                                                type="radio"
-                                                name="vegan"
-                                                value="vegan"
-                                                checked={selectedOption === 'vegan'}
-                                                onChange={handleOptionChange}
-                                            />
-                                            Vegan
-                                        </label>
-                                        <label className="option-label">
-                                            <input
-                                                type="radio"
-                                                name="vegan"
-                                                value="non-vegan"
-                                                checked={selectedOption === 'non-vegan'}
-                                                onChange={handleOptionChange}
-                                            />
-                                            Niet-vegan
-                                        </label>
-                                    </div>
-                                </>
-                            )}
-                            {currentQuestion > 5 && (
+                            {currentQuestion > 1 && (
                                 <div className="cocktail-results">
-                                    <p className="completion-text">We laten nu je matchen zien!</p>
-                                    {/* Open laten voor nu*/}
-                                    <p>Matching cocktails based on your choices will be shown here.</p>
+                                    <p className="completion-text">We laten nu je matches zien!</p>
+                                    {loading ? (
+                                        <LoadingIndicator />
+                                    ) : (
+                                        <div className="cocktail-list">
+                                            {recommendations.length === 0 ? (
+                                                <p>Geen cocktails gevonden op basis van je keuze.</p>
+                                            ) : (
+                                                recommendations.map(cocktail => (
+                                                    <div
+                                                        key={cocktail.idDrink}
+                                                        className="cocktail-preview"
+                                                        onClick={() => navigate(`/cocktail/${cocktail.idDrink}`)}
+                                                    >
+                                                        <h2>{cocktail.strDrink}</h2>
+                                                        <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} />
+                                                    </div>
+                                                ))
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             )}
-                            <button className="continue-button" onClick={handleContinue} disabled={currentQuestion > 5 || loading}>
-                                {currentQuestion > 5 ? ' ' : 'Doorgaan'}
+
+                            <button className="continue-button" onClick={handleContinue} disabled={loading}>
+                                {currentQuestion > 1 ? ' ' : 'Doorgaan'}
                             </button>
                         </div>
                     </div>
