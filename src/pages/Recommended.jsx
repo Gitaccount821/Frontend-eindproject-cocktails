@@ -12,18 +12,18 @@ function Recommended() {
     const [selectedOption, setSelectedOption] = useState('');
     const [secondQuestionOption, setSecondQuestionOption] = useState('');
     const [thirdQuestionOption, setThirdQuestionOption] = useState('');
+    const [fourthQuestionOption, setFourthQuestionOption] = useState('');
     const [currentQuestion, setCurrentQuestion] = useState(1);
     const [error, setError] = useState('');
     const [recommendations, setRecommendations] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [showResults, setShowResults] = useState(false);
 
     useEffect(() => {
         const fetchRecommendations = async () => {
             setLoading(true);
             try {
                 let filteredCocktails = [];
-
-                console.log('Fetching recommendations with selected options:', selectedOption, secondQuestionOption, thirdQuestionOption);
 
 
                 if (selectedOption === 'with-alcohol') {
@@ -33,8 +33,6 @@ function Recommended() {
                     const response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic');
                     filteredCocktails = response.data.drinks || [];
                 }
-
-                console.log('Filtered by alcohol:', filteredCocktails);
 
 
                 let glassFilteredCocktails = [];
@@ -46,8 +44,6 @@ function Recommended() {
                     const specialGlassResponse = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Champagne_flute');
                     glassFilteredCocktails = specialGlassResponse.data.drinks || [];
                 }
-
-                console.log('Filtered by glass:', glassFilteredCocktails);
 
 
                 let combinedCocktails = filteredCocktails.filter(cocktail =>
@@ -65,15 +61,40 @@ function Recommended() {
                     mixFilteredCocktails = specialMixResponse.data.drinks || [];
                 }
 
-                console.log('Filtered by mix:', mixFilteredCocktails);
 
-
-                const finalRecommendations = combinedCocktails.filter(cocktail =>
+                const initialRecommendations = combinedCocktails.filter(cocktail =>
                     mixFilteredCocktails.some(mixCocktail => mixCocktail.idDrink === cocktail.idDrink)
                 );
 
+
+                let finalRecommendations = [];
+
+                if (fourthQuestionOption === 'fruity-cocktail') {
+
+                    const ingredientResponses = await Promise.all([
+                        axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Orange_juice'),
+                        axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Pineapple'),
+                        axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Strawberry')
+                    ]);
+
+                    const fruityCocktails = ingredientResponses.flatMap(response => response.data.drinks || []);
+                    finalRecommendations = initialRecommendations.filter(cocktail =>
+                        fruityCocktails.some(fruityCocktail => fruityCocktail.idDrink === cocktail.idDrink)
+                    );
+                } else if (fourthQuestionOption === 'dry-cocktail') {
+
+                    const ingredientResponses = await Promise.all([
+                        axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?i=vodka'),
+                        axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?i=gin')
+                    ]);
+
+                    const dryCocktails = ingredientResponses.flatMap(response => response.data.drinks || []);
+                    finalRecommendations = initialRecommendations.filter(cocktail =>
+                        !dryCocktails.some(dryCocktail => dryCocktail.idDrink === cocktail.idDrink)
+                    );
+                }
+
                 setRecommendations(finalRecommendations);
-                console.log('Final recommendations:', finalRecommendations);
             } catch (error) {
                 console.error('Error fetching recommendations:', error);
                 setError('Er is iets misgegaan bij het ophalen van aanbevelingen.');
@@ -82,10 +103,10 @@ function Recommended() {
             }
         };
 
-        if (currentQuestion === 3 && selectedOption && secondQuestionOption && thirdQuestionOption) {
+        if (currentQuestion === 4 && fourthQuestionOption) {
             fetchRecommendations();
         }
-    }, [selectedOption, secondQuestionOption, thirdQuestionOption, currentQuestion]);
+    }, [selectedOption, secondQuestionOption, thirdQuestionOption, fourthQuestionOption, currentQuestion]);
 
     const handleOptionChange = (e) => {
         setSelectedOption(e.target.value);
@@ -97,6 +118,10 @@ function Recommended() {
 
     const handleThirdOptionChange = (e) => {
         setThirdQuestionOption(e.target.value);
+    };
+
+    const handleFourthOptionChange = (e) => {
+        setFourthQuestionOption(e.target.value);
     };
 
     const handleContinue = () => {
@@ -121,7 +146,18 @@ function Recommended() {
                 setError('');
                 setCurrentQuestion(currentQuestion + 1);
             }
+        } else if (currentQuestion === 4) {
+            if (fourthQuestionOption === '') {
+                setError('Maak alstublieft eerst een keuze voordat u door kan gaan');
+            } else {
+                setError('');
+                setShowResults(true);
+            }
         }
+    };
+
+    const handleRefresh = () => {
+        window.location.reload();
     };
 
     return (
@@ -144,119 +180,153 @@ function Recommended() {
                         <div className="question-box">
                             {error && <p className="error-message">{error}</p>}
                             {loading && <LoadingIndicator />}
-                            {currentQuestion === 1 && (
+                            {!showResults && (
                                 <>
-                                    <p className="question-text">Vraag 1</p>
-                                    <div className="options-container">
-                                        <label className="option-label">
-                                            <input
-                                                type="radio"
-                                                name="alcohol"
-                                                value="with-alcohol"
-                                                checked={selectedOption === 'with-alcohol'}
-                                                onChange={handleOptionChange}
-                                            />
-                                            Met alcohol
-                                        </label>
-                                        <label className="option-label">
-                                            <input
-                                                type="radio"
-                                                name="alcohol"
-                                                value="without-alcohol"
-                                                checked={selectedOption === 'without-alcohol'}
-                                                onChange={handleOptionChange}
-                                            />
-                                            Zonder alcohol
-                                        </label>
-                                    </div>
-                                </>
-                            )}
-                            {currentQuestion === 2 && (
-                                <>
-                                    <p className="question-text">Vraag 2</p>
-                                    <div className="options-container">
-                                        <label className="option-label">
-                                            <input
-                                                type="radio"
-                                                name="glass"
-                                                value="normal-glass"
-                                                checked={secondQuestionOption === 'normal-glass'}
-                                                onChange={handleSecondOptionChange}
-                                            />
-                                            Normaal glas
-                                        </label>
-                                        <label className="option-label">
-                                            <input
-                                                type="radio"
-                                                name="glass"
-                                                value="special-glass"
-                                                checked={secondQuestionOption === 'special-glass'}
-                                                onChange={handleSecondOptionChange}
-                                            />
-                                            Speciaal glas
-                                        </label>
-                                    </div>
-                                </>
-                            )}
-                            {currentQuestion === 3 && (
-                                <>
-                                    <p className="question-text">Vraag 3</p>
-                                    <div className="options-container">
-                                        <label className="option-label">
-                                            <input
-                                                type="radio"
-                                                name="mix"
-                                                value="ordinary-mix"
-                                                checked={thirdQuestionOption === 'ordinary-mix'}
-                                                onChange={handleThirdOptionChange}
-                                            />
-                                            Gewone mix
-                                        </label>
-                                        <label className="option-label">
-                                            <input
-                                                type="radio"
-                                                name="mix"
-                                                value="special-mix"
-                                                checked={thirdQuestionOption === 'special-mix'}
-                                                onChange={handleThirdOptionChange}
-                                            />
-                                            Speciale mix
-                                        </label>
-                                    </div>
-                                </>
-                            )}
-                            {currentQuestion === 4 && (
-                                <div className="cocktail-results">
-                                    <p className="completion-text">We laten nu je matches zien!</p>
-                                    {loading ? (
-                                        <LoadingIndicator />
-                                    ) : (
-                                        <div className="cocktail-list">
-                                            {recommendations.length === 0 ? (
-                                                <p>Geen cocktails gevonden op basis van je keuzes.</p>
-                                            ) : (
-                                                recommendations.map(cocktail => (
-                                                    <div
-                                                        key={cocktail.idDrink}
-                                                        className="cocktail-preview"
-                                                        onClick={() => navigate(`/cocktail/${cocktail.idDrink}`)}
-                                                    >
-                                                        <h2>{cocktail.strDrink}</h2>
-                                                        <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} />
-                                                    </div>
-                                                ))
-                                            )}
-                                        </div>
+                                    {currentQuestion === 1 && (
+                                        <>
+                                            <p className="question-text">Vraag 1</p>
+                                            <div className="options-container">
+                                                <label className="option-label">
+                                                    <input
+                                                        type="radio"
+                                                        name="alcohol"
+                                                        value="with-alcohol"
+                                                        checked={selectedOption === 'with-alcohol'}
+                                                        onChange={handleOptionChange}
+                                                    />
+                                                    Met alcohol
+                                                </label>
+                                                <label className="option-label">
+                                                    <input
+                                                        type="radio"
+                                                        name="alcohol"
+                                                        value="without-alcohol"
+                                                        checked={selectedOption === 'without-alcohol'}
+                                                        onChange={handleOptionChange}
+                                                    />
+                                                    Zonder alcohol
+                                                </label>
+                                            </div>
+                                        </>
                                     )}
-                                </div>
+                                    {currentQuestion === 2 && (
+                                        <>
+                                            <p className="question-text">Vraag 2</p>
+                                            <div className="options-container">
+                                                <label className="option-label">
+                                                    <input
+                                                        type="radio"
+                                                        name="glass"
+                                                        value="normal-glass"
+                                                        checked={secondQuestionOption === 'normal-glass'}
+                                                        onChange={handleSecondOptionChange}
+                                                    />
+                                                    Normaal glas
+                                                </label>
+                                                <label className="option-label">
+                                                    <input
+                                                        type="radio"
+                                                        name="glass"
+                                                        value="special-glass"
+                                                        checked={secondQuestionOption === 'special-glass'}
+                                                        onChange={handleSecondOptionChange}
+                                                    />
+                                                    Speciaal glas
+                                                </label>
+                                            </div>
+                                        </>
+                                    )}
+                                    {currentQuestion === 3 && (
+                                        <>
+                                            <p className="question-text">Vraag 3</p>
+                                            <div className="options-container">
+                                                <label className="option-label">
+                                                    <input
+                                                        type="radio"
+                                                        name="mix"
+                                                        value="ordinary-mix"
+                                                        checked={thirdQuestionOption === 'ordinary-mix'}
+                                                        onChange={handleThirdOptionChange}
+                                                    />
+                                                    Gewone mix
+                                                </label>
+                                                <label className="option-label">
+                                                    <input
+                                                        type="radio"
+                                                        name="mix"
+                                                        value="special-mix"
+                                                        checked={thirdQuestionOption === 'special-mix'}
+                                                        onChange={handleThirdOptionChange}
+                                                    />
+                                                    Speciale mix
+                                                </label>
+                                            </div>
+                                        </>
+                                    )}
+                                    {currentQuestion === 4 && (
+                                        <>
+                                            <p className="question-text">Vraag 4</p>
+                                            <div className="options-container">
+                                                <label className="option-label">
+                                                    <input
+                                                        type="radio"
+                                                        name="fruitiness"
+                                                        value="fruity-cocktail"
+                                                        checked={fourthQuestionOption === 'fruity-cocktail'}
+                                                        onChange={handleFourthOptionChange}
+                                                    />
+                                                    Een fruitige cocktail
+                                                </label>
+                                                <label className="option-label">
+                                                    <input
+                                                        type="radio"
+                                                        name="fruitiness"
+                                                        value="dry-cocktail"
+                                                        checked={fourthQuestionOption === 'dry-cocktail'}
+                                                        onChange={handleFourthOptionChange}
+                                                    />
+                                                    Een droge cocktail
+                                                </label>
+                                            </div>
+                                        </>
+                                    )}
+                                    <button className="continue-button" onClick={handleContinue} disabled={loading}>
+                                        {currentQuestion === 4 ? 'Toon Resultaten' : 'Doorgaan'}
+                                    </button>
+                                </>
                             )}
-
-                            <button className="continue-button" onClick={handleContinue} disabled={loading}>
-                                {currentQuestion === 4 ? ' ' : 'Doorgaan'}
-                            </button>
                         </div>
                     </div>
                 </section>
+
+                {showResults && (
+                    <section className="favourites">
+                        <div className="results-message-container">
+                            <p className="large-text">We laten nu de matches zien</p>
+                        </div>
+                        <div className="cocktail-list">
+                            {recommendations.length > 0 ? (
+                                <div className="cocktail-list">
+                                    {recommendations.map(cocktail => (
+                                        <div
+                                            key={cocktail.idDrink}
+                                            className="cocktail-preview"
+                                            onClick={() => navigate(`/cocktail/${cocktail.idDrink}`)}
+                                        >
+                                            <h2>{cocktail.strDrink}</h2>
+                                            <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} />
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p>Geen resultaten gevonden.</p>
+                            )}
+                        </div>
+                        <button className="continue-button refresh-button" onClick={handleRefresh}>
+                            Terug naar start
+                        </button>
+                    </section>
+                )}
             </main>
 
             <footer className="flex-item footer">
