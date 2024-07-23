@@ -10,17 +10,19 @@ function Recommended() {
     const navigate = useNavigate();
     const { user, logout } = useAuth();
     const [selectedOption, setSelectedOption] = useState('');
+    const [secondQuestionOption, setSecondQuestionOption] = useState('');
+    const [currentQuestion, setCurrentQuestion] = useState(1);
     const [error, setError] = useState('');
     const [recommendations, setRecommendations] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [currentQuestion, setCurrentQuestion] = useState(1);
 
     useEffect(() => {
         const fetchRecommendations = async () => {
             setLoading(true);
             try {
                 let filteredCocktails = [];
-                console.log('Fetching recommendations with selected option:', selectedOption);
+                console.log('Fetching recommendations with selected options:', selectedOption, secondQuestionOption);
+
 
                 if (selectedOption === 'with-alcohol') {
                     const response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic');
@@ -33,6 +35,17 @@ function Recommended() {
                 console.log('Filtered by alcohol:', filteredCocktails);
 
 
+                if (secondQuestionOption) {
+                    const glassType = secondQuestionOption === 'normal-glass' ? 'Cocktail_glass' : 'Champagne_flute';
+                    const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=${glassType}`);
+                    const glassFilteredCocktails = response.data.drinks || [];
+                    filteredCocktails = filteredCocktails.filter(cocktail =>
+                        glassFilteredCocktails.some(glassCocktail => glassCocktail.idDrink === cocktail.idDrink)
+                    );
+                }
+
+                console.log('Filtered by glass:', filteredCocktails);
+
                 setRecommendations(filteredCocktails);
                 console.log('Final recommendations:', filteredCocktails);
             } catch (error) {
@@ -43,21 +56,32 @@ function Recommended() {
             }
         };
 
-        if (currentQuestion === 1 && selectedOption) {
+        if (currentQuestion === 2 && selectedOption && secondQuestionOption) {
             fetchRecommendations();
         }
-    }, [selectedOption, currentQuestion]);
+    }, [selectedOption, secondQuestionOption, currentQuestion]);
 
     const handleOptionChange = (e) => {
         setSelectedOption(e.target.value);
     };
 
+    const handleSecondOptionChange = (e) => {
+        setSecondQuestionOption(e.target.value);
+    };
+
     const handleContinue = () => {
-        if (selectedOption === '') {
-            setError('Maak alstublieft eerst een keuze voordat u door kan gaan');
-        } else {
-            setError('');
-            if (currentQuestion === 1) {
+        if (currentQuestion === 1) {
+            if (selectedOption === '') {
+                setError('Maak alstublieft eerst een keuze voordat u door kan gaan');
+            } else {
+                setError('');
+                setCurrentQuestion(currentQuestion + 1);
+            }
+        } else if (currentQuestion === 2) {
+            if (secondQuestionOption === '') {
+                setError('Maak alstublieft eerst een keuze voordat u door kan gaan');
+            } else {
+                setError('');
                 setCurrentQuestion(currentQuestion + 1);
             }
         }
@@ -110,7 +134,34 @@ function Recommended() {
                                     </div>
                                 </>
                             )}
-                            {currentQuestion > 1 && (
+                            {currentQuestion === 2 && (
+                                <>
+                                    <p className="question-text">Vraag 2</p>
+                                    <div className="options-container">
+                                        <label className="option-label">
+                                            <input
+                                                type="radio"
+                                                name="glass"
+                                                value="normal-glass"
+                                                checked={secondQuestionOption === 'normal-glass'}
+                                                onChange={handleSecondOptionChange}
+                                            />
+                                            Normaal glas
+                                        </label>
+                                        <label className="option-label">
+                                            <input
+                                                type="radio"
+                                                name="glass"
+                                                value="special-glass"
+                                                checked={secondQuestionOption === 'special-glass'}
+                                                onChange={handleSecondOptionChange}
+                                            />
+                                            Speciaal glas
+                                        </label>
+                                    </div>
+                                </>
+                            )}
+                            {currentQuestion === 3 && (
                                 <div className="cocktail-results">
                                     <p className="completion-text">We laten nu je matches zien!</p>
                                     {loading ? (
@@ -118,7 +169,7 @@ function Recommended() {
                                     ) : (
                                         <div className="cocktail-list">
                                             {recommendations.length === 0 ? (
-                                                <p>Geen cocktails gevonden op basis van je keuze.</p>
+                                                <p>Geen cocktails gevonden op basis van je keuzes.</p>
                                             ) : (
                                                 recommendations.map(cocktail => (
                                                     <div
@@ -137,7 +188,7 @@ function Recommended() {
                             )}
 
                             <button className="continue-button" onClick={handleContinue} disabled={loading}>
-                                {currentQuestion > 1 ? ' ' : 'Doorgaan'}
+                                {currentQuestion === 3 ? ' ' : 'Doorgaan'}
                             </button>
                         </div>
                     </div>
