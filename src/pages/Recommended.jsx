@@ -11,6 +11,7 @@ function Recommended() {
     const { user, logout } = useAuth();
     const [selectedOption, setSelectedOption] = useState('');
     const [secondQuestionOption, setSecondQuestionOption] = useState('');
+    const [thirdQuestionOption, setThirdQuestionOption] = useState('');
     const [currentQuestion, setCurrentQuestion] = useState(1);
     const [error, setError] = useState('');
     const [recommendations, setRecommendations] = useState([]);
@@ -21,7 +22,8 @@ function Recommended() {
             setLoading(true);
             try {
                 let filteredCocktails = [];
-                console.log('Fetching recommendations with selected options:', selectedOption, secondQuestionOption);
+
+                console.log('Fetching recommendations with selected options:', selectedOption, secondQuestionOption, thirdQuestionOption);
 
 
                 if (selectedOption === 'with-alcohol') {
@@ -35,19 +37,43 @@ function Recommended() {
                 console.log('Filtered by alcohol:', filteredCocktails);
 
 
-                if (secondQuestionOption) {
-                    const glassType = secondQuestionOption === 'normal-glass' ? 'Cocktail_glass' : 'Champagne_flute';
-                    const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=${glassType}`);
-                    const glassFilteredCocktails = response.data.drinks || [];
-                    filteredCocktails = filteredCocktails.filter(cocktail =>
-                        glassFilteredCocktails.some(glassCocktail => glassCocktail.idDrink === cocktail.idDrink)
-                    );
+                let glassFilteredCocktails = [];
+
+                if (secondQuestionOption === 'normal-glass') {
+                    const normalGlassResponse = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail_glass');
+                    glassFilteredCocktails = normalGlassResponse.data.drinks || [];
+                } else if (secondQuestionOption === 'special-glass') {
+                    const specialGlassResponse = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Champagne_flute');
+                    glassFilteredCocktails = specialGlassResponse.data.drinks || [];
                 }
 
-                console.log('Filtered by glass:', filteredCocktails);
+                console.log('Filtered by glass:', glassFilteredCocktails);
 
-                setRecommendations(filteredCocktails);
-                console.log('Final recommendations:', filteredCocktails);
+
+                let combinedCocktails = filteredCocktails.filter(cocktail =>
+                    glassFilteredCocktails.some(glassCocktail => glassCocktail.idDrink === cocktail.idDrink)
+                );
+
+
+                let mixFilteredCocktails = [];
+
+                if (thirdQuestionOption === 'ordinary-mix') {
+                    const ordinaryMixResponse = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink');
+                    mixFilteredCocktails = ordinaryMixResponse.data.drinks || [];
+                } else if (thirdQuestionOption === 'special-mix') {
+                    const specialMixResponse = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail');
+                    mixFilteredCocktails = specialMixResponse.data.drinks || [];
+                }
+
+                console.log('Filtered by mix:', mixFilteredCocktails);
+
+
+                const finalRecommendations = combinedCocktails.filter(cocktail =>
+                    mixFilteredCocktails.some(mixCocktail => mixCocktail.idDrink === cocktail.idDrink)
+                );
+
+                setRecommendations(finalRecommendations);
+                console.log('Final recommendations:', finalRecommendations);
             } catch (error) {
                 console.error('Error fetching recommendations:', error);
                 setError('Er is iets misgegaan bij het ophalen van aanbevelingen.');
@@ -56,10 +82,10 @@ function Recommended() {
             }
         };
 
-        if (currentQuestion === 2 && selectedOption && secondQuestionOption) {
+        if (currentQuestion === 3 && selectedOption && secondQuestionOption && thirdQuestionOption) {
             fetchRecommendations();
         }
-    }, [selectedOption, secondQuestionOption, currentQuestion]);
+    }, [selectedOption, secondQuestionOption, thirdQuestionOption, currentQuestion]);
 
     const handleOptionChange = (e) => {
         setSelectedOption(e.target.value);
@@ -67,6 +93,10 @@ function Recommended() {
 
     const handleSecondOptionChange = (e) => {
         setSecondQuestionOption(e.target.value);
+    };
+
+    const handleThirdOptionChange = (e) => {
+        setThirdQuestionOption(e.target.value);
     };
 
     const handleContinue = () => {
@@ -79,6 +109,13 @@ function Recommended() {
             }
         } else if (currentQuestion === 2) {
             if (secondQuestionOption === '') {
+                setError('Maak alstublieft eerst een keuze voordat u door kan gaan');
+            } else {
+                setError('');
+                setCurrentQuestion(currentQuestion + 1);
+            }
+        } else if (currentQuestion === 3) {
+            if (thirdQuestionOption === '') {
                 setError('Maak alstublieft eerst een keuze voordat u door kan gaan');
             } else {
                 setError('');
@@ -162,6 +199,33 @@ function Recommended() {
                                 </>
                             )}
                             {currentQuestion === 3 && (
+                                <>
+                                    <p className="question-text">Vraag 3</p>
+                                    <div className="options-container">
+                                        <label className="option-label">
+                                            <input
+                                                type="radio"
+                                                name="mix"
+                                                value="ordinary-mix"
+                                                checked={thirdQuestionOption === 'ordinary-mix'}
+                                                onChange={handleThirdOptionChange}
+                                            />
+                                            Gewone mix
+                                        </label>
+                                        <label className="option-label">
+                                            <input
+                                                type="radio"
+                                                name="mix"
+                                                value="special-mix"
+                                                checked={thirdQuestionOption === 'special-mix'}
+                                                onChange={handleThirdOptionChange}
+                                            />
+                                            Speciale mix
+                                        </label>
+                                    </div>
+                                </>
+                            )}
+                            {currentQuestion === 4 && (
                                 <div className="cocktail-results">
                                     <p className="completion-text">We laten nu je matches zien!</p>
                                     {loading ? (
@@ -188,7 +252,7 @@ function Recommended() {
                             )}
 
                             <button className="continue-button" onClick={handleContinue} disabled={loading}>
-                                {currentQuestion === 3 ? ' ' : 'Doorgaan'}
+                                {currentQuestion === 4 ? ' ' : 'Doorgaan'}
                             </button>
                         </div>
                     </div>
