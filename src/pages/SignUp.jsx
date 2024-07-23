@@ -5,14 +5,15 @@ import logoImage from "../assets/cocktaillogoheader.png";
 import newuserlogo from "../assets/newuserlogo.png";
 import { PasswordInput, UsernameInput, EmailInput } from '../components/labelinputs';
 import HeaderSection from '../components/HeaderSection';
+import LoadingIndicator from '../components/LoadingIndicator';
 
-function SignUp({ user }) { // Ensure user is passed as a prop
+function SignUp({ user }) {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(null); // New state for success message
+    const [success, setSuccess] = useState(null);
     const navigate = useNavigate();
 
     const handleNavigateToContact = () => navigate('/contact');
@@ -29,7 +30,7 @@ function SignUp({ user }) { // Ensure user is passed as a prop
     async function handleSubmit(e) {
         e.preventDefault();
         setError(null);
-        setSuccess(null); // Clear any previous success message
+        setSuccess(null);
         setLoading(true);
 
         const config = {
@@ -50,7 +51,6 @@ function SignUp({ user }) { // Ensure user is passed as a prop
             console.log('Registration successful:', response.data);
             setSuccess('Account registratie succesvol! Je wordt terugverwezen naar de login pagina');
 
-            // Redirect after 1 second
             setTimeout(() => {
                 navigate('/login');
             }, 1000);
@@ -96,6 +96,7 @@ function SignUp({ user }) { // Ensure user is passed as a prop
                         <h2 className="pink-heading">Nieuw account aanmaken</h2>
                         <img src={newuserlogo} alt="logo nieuwe gebruiker" className="cocktail-logo-login"/>
                         <div className="contact-container">
+                            {loading && <LoadingIndicator />}
                             <form onSubmit={handleSubmit}>
                                 <EmailInput
                                     id="email-field"

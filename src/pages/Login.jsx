@@ -6,6 +6,7 @@ import cocktailLogoLogin from "../assets/cocktaillogologin.png";
 import '../App.css';
 import { PasswordInput, UsernameInput } from "../components/labelinputs";
 import HeaderSection from '../components/HeaderSection';
+import LoadingIndicator from '../components/LoadingIndicator'; // Import LoadingIndicator
 
 function Login() {
     const { authenticate, loading, error, message, user } = useAuth();
@@ -44,6 +45,7 @@ function Login() {
             />
 
             <main className="main-content">
+                {loading && <LoadingIndicator />} {/* Show LoadingIndicator based on loading state */}
                 <section className="flex-item section3">
                     <div>
                         <h2 className="pink-heading">Cocktail Shaker Login</h2>

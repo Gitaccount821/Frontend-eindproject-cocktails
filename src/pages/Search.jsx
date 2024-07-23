@@ -4,10 +4,12 @@ import axios from 'axios';
 import logoImage from "../assets/cocktaillogoheader.png";
 import HeaderSection from '../components/HeaderSection';
 import { useAuth } from '../context/AuthContext';
+import { useLoading } from '../context/LoadingContext';
 
 function Search() {
     const navigate = useNavigate();
     const { user, logout } = useAuth();
+    const { setIsLoading } = useLoading();
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [selectedCocktail, setSelectedCocktail] = useState(null);
@@ -29,6 +31,7 @@ function Search() {
         }
 
         setErrorMessage('');
+        setIsLoading(true);
 
         try {
             const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`);
@@ -41,6 +44,8 @@ function Search() {
         } catch (error) {
             console.error('Error fetching data from API:', error);
             setErrorMessage('Er is iets misgegaan met het ophalen van de cocktails.');
+        } finally {
+            setIsLoading(false);
         }
     };
 

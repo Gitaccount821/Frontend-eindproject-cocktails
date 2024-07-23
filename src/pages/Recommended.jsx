@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import logoImage from "../assets/cocktaillogoheader.png";
 import HeaderSection from '../components/HeaderSection';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import LoadingIndicator from '../components/LoadingIndicator';
 
-function Search() {
-    const navigate = useNavigate(); // Use useNavigate hook
+function Recommended() {
+    const navigate = useNavigate(); // Removed extraneous 'k'
     const { user, logout } = useAuth();
     const [selectedOption, setSelectedOption] = useState('');
     const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -17,6 +18,7 @@ function Search() {
         taste: '',
         vegan: ''
     });
+    const [loading, setLoading] = useState(false);
 
     const handleOptionChange = (e) => {
         setSelectedOption(e.target.value);
@@ -37,10 +39,11 @@ function Search() {
                 setCurrentQuestion(currentQuestion + 1);
                 setSelectedOption('');
             } else {
-                // All questions answered, show matching cocktails
-                // Fetch or compute the matching cocktails based on userResponses
-                // Placeholder logic
-                console.log('User responses:', userResponses);
+                setLoading(true);
+                setTimeout(() => {
+                    setLoading(false);
+                    console.log('User responses:', userResponses);
+                }, 2000); // TESTTIMEOUT!
             }
         }
     };
@@ -64,6 +67,7 @@ function Search() {
                         <p className="large-header">Aangeraden cocktails voor jouw stemming vandaag</p>
                         <div className="question-box">
                             {error && <p className="error-message">{error}</p>}
+                            {loading && <LoadingIndicator />}
                             {currentQuestion === 1 && (
                                 <>
                                     <p className="question-text">Vraag 1</p>
@@ -202,11 +206,11 @@ function Search() {
                             {currentQuestion > 5 && (
                                 <div className="cocktail-results">
                                     <p className="completion-text">We laten nu je matchen zien!</p>
-                                    {/* Render matching cocktails here */}
+                                    {/* Open laten voor nu*/}
                                     <p>Matching cocktails based on your choices will be shown here.</p>
                                 </div>
                             )}
-                            <button className="continue-button" onClick={handleContinue} disabled={currentQuestion > 5}>
+                            <button className="continue-button" onClick={handleContinue} disabled={currentQuestion > 5 || loading}>
                                 {currentQuestion > 5 ? ' ' : 'Doorgaan'}
                             </button>
                         </div>
@@ -229,4 +233,4 @@ function Search() {
     );
 }
 
-export default Search;
+export default Recommended;

@@ -4,10 +4,13 @@ import axios from 'axios';
 import logoImage from "../assets/cocktaillogoheader.png";
 import HeaderSection from '../components/HeaderSection';
 import { useAuth } from '../context/AuthContext';
+import './Favourites.css';
+import { useLoading } from '../context/LoadingContext';
 
 function Favourites() {
     const navigate = useNavigate();
     const { user, logout } = useAuth();
+    const { setIsLoading } = useLoading();
     const [favourites, setFavourites] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -17,7 +20,7 @@ function Favourites() {
                 setErrorMessage('You must be logged in to view favourites.');
                 return;
             }
-
+            setIsLoading(true);
             try {
                 const token = localStorage.getItem('Token');
                 if (!token) {
@@ -41,7 +44,7 @@ function Favourites() {
 
                 const favouritesArray = favouritesString.split(',').filter(Boolean);
 
-                // Fetch cocktail details for each favourite
+
                 const cocktails = await Promise.all(favouritesArray.map(id =>
                     axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
                 ));
@@ -50,6 +53,9 @@ function Favourites() {
             } catch (error) {
                 console.error('Error fetching favourites:', error);
                 setErrorMessage('Er is iets misgegaan met het ophalen van favorieten.');
+            } finally {
+                setIsLoading(false);
+
             }
         };
 
@@ -86,23 +92,26 @@ function Favourites() {
                     logoImage={logoImage}
                 />
 
+                <section className="flex-item sectionfavheader">
+                    <div className="welcome-text">
+                        <h1 className="large-text-Fav">Welkom! Hier vind je all je opgeslagen recepten</h1>
+                    </div>
+                </section>
+
                 <section className="favourites">
-                    <h1 className="text-detail">Your Favourites</h1>
+                    <h1>Jouw Favorieten</h1>
                     <div className="cocktail-list">
                         {favourites.length === 0 ? (
-                            <p>You have no favourites yet.</p>
+                            <p>Je hebt nog geen opgeslagen recepten als favouriet</p>
                         ) : (
                             favourites.map((cocktail, index) => (
-                                <div key={index} className="cocktail-preview">
+                                <div key={index} className="cocktail-preview"
+                                     onClick={() => navigate(`/cocktail/${cocktail.idDrink}`)}>
+                                    <h2>{cocktail.strDrink}</h2>
                                     <img
                                         src={cocktail.strDrinkThumb}
                                         alt={cocktail.strDrink}
-                                        className="cocktail-image"
                                     />
-                                    <h2>{cocktail.strDrink}</h2>
-                                    <button onClick={() => navigate(`/cocktail/${cocktail.idDrink}`)}>
-                                        View Details
-                                    </button>
                                 </div>
                             ))
                         )}
