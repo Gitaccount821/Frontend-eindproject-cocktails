@@ -5,10 +5,12 @@ import logoImage from "../assets/cocktaillogoheader.png";
 import HeaderSection from '../components/HeaderSection';
 import { useAuth } from '../context/AuthContext';
 import './Favourites.css';
+import { useLoading } from '../context/LoadingContext';
 
 function Favourites() {
     const navigate = useNavigate();
     const { user, logout } = useAuth();
+    const { setIsLoading } = useLoading();
     const [favourites, setFavourites] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -18,7 +20,7 @@ function Favourites() {
                 setErrorMessage('You must be logged in to view favourites.');
                 return;
             }
-
+            setIsLoading(true);
             try {
                 const token = localStorage.getItem('Token');
                 if (!token) {
@@ -51,6 +53,9 @@ function Favourites() {
             } catch (error) {
                 console.error('Error fetching favourites:', error);
                 setErrorMessage('Er is iets misgegaan met het ophalen van favorieten.');
+            } finally {
+                setIsLoading(false);
+
             }
         };
 
@@ -89,7 +94,7 @@ function Favourites() {
 
                 <section className="flex-item sectionfavheader">
                     <div className="welcome-text">
-                        <h1 className="large-text">Welkom! Hier vind je all je opgeslagen recepten</h1>
+                        <h1 className="large-text-Fav">Welkom! Hier vind je all je opgeslagen recepten</h1>
                     </div>
                 </section>
 
