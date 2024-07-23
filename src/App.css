@@ -107,23 +107,23 @@ body {
     text-align: center;
 }
 
-/*Recommended*/
-
+/* Recommended Section */
 .sectionrec {
     display: flex;
-    background-size: cover;
-    background-position: center;
-    min-height: 40vh;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-end;
     background-image: url('./assets/Rec6.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 40vh;
+    padding: 20px;
 }
 
 .large-header {
     font-size: 40px;
     text-align: right;
-    margin: 20px  100px 20px 20px;
+    margin: 20px 100px 20px 20px;
     color: #fff;
 }
 
@@ -135,6 +135,7 @@ body {
     width: 100%;
     padding: 20px;
     background-image: url('./assets/Recback.png.png');
+    background-size: cover;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -204,6 +205,49 @@ body {
     margin-top: 20px;
 }
 
+.cocktail-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 20px;
+}
+
+.cocktail-preview {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.cocktail-preview:hover {
+    transform: scale(1.05);
+}
+
+.cocktail-preview img {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+.cocktail-preview h2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 5px 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+/* Additional Sections */
 .section3 {
     display: flex;
     justify-content: center;
@@ -241,7 +285,6 @@ body {
 }
 
 /* Formulier Styling */
-
 .contact-section {
     display: flex;
     justify-content: center;
@@ -519,7 +562,6 @@ body {
     text-align: center;
 }
 
-
 /* CocktailDetail.css */
 
 .cocktail-detail {
@@ -552,14 +594,12 @@ body {
     font-size: 36px;
 }
 
-
 .ingredients li {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
     font-size: 24px;
 }
-
 
 .ingredient-image {
     margin-right: 15px;
@@ -604,7 +644,6 @@ body {
 
 /* Loading bar css */
 
-
 .loading-indicator {
     position: fixed;
     top: 0;
@@ -618,7 +657,6 @@ body {
     z-index: 1000;
 }
 
-
 .loading-bar-container {
     width: 80%;
     max-width: 600px;
@@ -628,7 +666,6 @@ body {
     overflow: hidden;
 }
 
-
 .loading-bar {
     height: 100%;
     width: 0%;
@@ -636,7 +673,6 @@ body {
     border-radius: 15px 0 0 15px;
     animation: loadingAnimation 2s infinite;
 }
-
 
 @keyframes loadingAnimation {
     0% {
@@ -648,4 +684,140 @@ body {
     100% {
         width: 0%;
     }
+}
+
+/* uitprobeersels voor Recommended */
+
+.large-text {
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.results-message-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+
+.recommendations {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cocktail-preview {
+    flex: 1 0 21%;
+    margin: 10px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.cocktail-preview img {
+    max-width: 100%;
+    height: auto;
+}
+
+.continue-button {
+    display: block;
+    margin: 20px auto;
+}
+
+.refresh-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+/* insert van fav. CSS om ze her te gebruiken */
+
+
+.favourites {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-size: cover;
+    background-position: center;
+    min-height: 50vh;
+}
+
+.sectionfavheader {
+    background-image: url('../assets/CocktailFavback.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    min-height: 25vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.favourites h1 {
+    font-size: 36px;
+    color: black;
+    margin-bottom: 20px;
+}
+
+
+.cocktail-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+
+.cocktail-preview {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cocktail-preview img {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+
+.cocktail-preview h2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 5px 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.large-text-Fav {
+    font-size: 50px;
+    margin-left: 750px;
+}
+
+.favourites .refresh-button {
+    position: absolute;
+    top: 450px;
+    right: 520px;
+    background-color: darkred;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 30px 40px;
+    cursor: pointer;
 }
