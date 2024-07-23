@@ -13,6 +13,7 @@ function Recommended() {
     const [secondQuestionOption, setSecondQuestionOption] = useState('');
     const [thirdQuestionOption, setThirdQuestionOption] = useState('');
     const [fourthQuestionOption, setFourthQuestionOption] = useState('');
+    const [fifthQuestionOption, setFifthQuestionOption] = useState('');
     const [currentQuestion, setCurrentQuestion] = useState(1);
     const [error, setError] = useState('');
     const [recommendations, setRecommendations] = useState([]);
@@ -25,7 +26,6 @@ function Recommended() {
             try {
                 let filteredCocktails = [];
 
-
                 if (selectedOption === 'with-alcohol') {
                     const response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic');
                     filteredCocktails = response.data.drinks || [];
@@ -33,7 +33,6 @@ function Recommended() {
                     const response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic');
                     filteredCocktails = response.data.drinks || [];
                 }
-
 
                 let glassFilteredCocktails = [];
 
@@ -45,11 +44,9 @@ function Recommended() {
                     glassFilteredCocktails = specialGlassResponse.data.drinks || [];
                 }
 
-
                 let combinedCocktails = filteredCocktails.filter(cocktail =>
                     glassFilteredCocktails.some(glassCocktail => glassCocktail.idDrink === cocktail.idDrink)
                 );
-
 
                 let mixFilteredCocktails = [];
 
@@ -61,20 +58,18 @@ function Recommended() {
                     mixFilteredCocktails = specialMixResponse.data.drinks || [];
                 }
 
-
                 const initialRecommendations = combinedCocktails.filter(cocktail =>
                     mixFilteredCocktails.some(mixCocktail => mixCocktail.idDrink === cocktail.idDrink)
                 );
 
-
                 let finalRecommendations = [];
 
                 if (fourthQuestionOption === 'fruity-cocktail') {
-
                     const ingredientResponses = await Promise.all([
                         axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Orange_juice'),
                         axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Pineapple'),
-                        axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Strawberry')
+                        axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Strawberry'),
+                        axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Red-wine')
                     ]);
 
                     const fruityCocktails = ingredientResponses.flatMap(response => response.data.drinks || []);
@@ -82,15 +77,28 @@ function Recommended() {
                         fruityCocktails.some(fruityCocktail => fruityCocktail.idDrink === cocktail.idDrink)
                     );
                 } else if (fourthQuestionOption === 'dry-cocktail') {
-
                     const ingredientResponses = await Promise.all([
                         axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?i=vodka'),
-                        axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?i=gin')
+                        axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?i=gin'),
+                        axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?i=rum'),
+                        axios.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?i=scotch')
                     ]);
 
                     const dryCocktails = ingredientResponses.flatMap(response => response.data.drinks || []);
                     finalRecommendations = initialRecommendations.filter(cocktail =>
                         !dryCocktails.some(dryCocktail => dryCocktail.idDrink === cocktail.idDrink)
+                    );
+                }
+
+                if (fifthQuestionOption === 'vega') {
+                    const ingredientResponses = await Promise.all([
+                        axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Egg'),
+                        axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Milk')
+                    ]);
+
+                    const restrictedCocktails = ingredientResponses.flatMap(response => response.data.drinks || []);
+                    finalRecommendations = finalRecommendations.filter(cocktail =>
+                        !restrictedCocktails.some(restrictedCocktail => restrictedCocktail.idDrink === cocktail.idDrink)
                     );
                 }
 
@@ -103,10 +111,10 @@ function Recommended() {
             }
         };
 
-        if (currentQuestion === 4 && fourthQuestionOption) {
+        if (currentQuestion === 5 && fifthQuestionOption) {
             fetchRecommendations();
         }
-    }, [selectedOption, secondQuestionOption, thirdQuestionOption, fourthQuestionOption, currentQuestion]);
+    }, [selectedOption, secondQuestionOption, thirdQuestionOption, fourthQuestionOption, fifthQuestionOption, currentQuestion]);
 
     const handleOptionChange = (e) => {
         setSelectedOption(e.target.value);
@@ -122,6 +130,10 @@ function Recommended() {
 
     const handleFourthOptionChange = (e) => {
         setFourthQuestionOption(e.target.value);
+    };
+
+    const handleFifthOptionChange = (e) => {
+        setFifthQuestionOption(e.target.value);
     };
 
     const handleContinue = () => {
@@ -148,6 +160,13 @@ function Recommended() {
             }
         } else if (currentQuestion === 4) {
             if (fourthQuestionOption === '') {
+                setError('Maak alstublieft eerst een keuze voordat u door kan gaan');
+            } else {
+                setError('');
+                setCurrentQuestion(currentQuestion + 1);
+            }
+        } else if (currentQuestion === 5) {
+            if (fifthQuestionOption === '') {
                 setError('Maak alstublieft eerst een keuze voordat u door kan gaan');
             } else {
                 setError('');
@@ -290,8 +309,35 @@ function Recommended() {
                                             </div>
                                         </>
                                     )}
+                                    {currentQuestion === 5 && (
+                                        <>
+                                            <p className="question-text">Vraag 5</p>
+                                            <div className="options-container">
+                                                <label className="option-label">
+                                                    <input
+                                                        type="radio"
+                                                        name="allergens"
+                                                        value="vega"
+                                                        checked={fifthQuestionOption === 'vega'}
+                                                        onChange={handleFifthOptionChange}
+                                                    />
+                                                    Vega
+                                                </label>
+                                                <label className="option-label">
+                                                    <input
+                                                        type="radio"
+                                                        name="allergens"
+                                                        value="geen-voorkeur"
+                                                        checked={fifthQuestionOption === 'geen-voorkeur'}
+                                                        onChange={handleFifthOptionChange}
+                                                    />
+                                                    Geen voorkeur
+                                                </label>
+                                            </div>
+                                        </>
+                                    )}
                                     <button className="continue-button" onClick={handleContinue} disabled={loading}>
-                                        {currentQuestion === 4 ? 'Toon Resultaten' : 'Doorgaan'}
+                                        {currentQuestion === 5 ? 'Toon Resultaten' : 'Doorgaan'}
                                     </button>
                                 </>
                             )}
