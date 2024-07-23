@@ -10,24 +10,38 @@ import Recommended from "./pages/Recommended";
 import Favourites from "./pages/Favourites";
 import CocktailDetail from './pages/CocktailDetail';
 import { AuthProvider } from './context/Authcontext';
+import { LoadingProvider, useLoading } from './context/LoadingContext';
+import LoadingIndicator from './components/LoadingIndicator';
+
+function AppContent() {
+    const { isLoading } = useLoading();
+
+    return (
+        <>
+            {isLoading && <LoadingIndicator />}
+            <Router>
+                <AuthProvider>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/contact" element={<Contact />} />
+                        <Route path="/SignUp" element={<SignUp />} />
+                        <Route path="/Login" element={<Login />} />
+                        <Route path="/Search" element={<Search />} />
+                        <Route path="/Recommended" element={<Recommended />} />
+                        <Route path="/Favourites" element={<Favourites />} />
+                        <Route path="/cocktail/:id" element={<CocktailDetail />} />
+                    </Routes>
+                </AuthProvider>
+            </Router>
+        </>
+    );
+}
 
 function App() {
     return (
-        <Router>
-            <AuthProvider>
-                <Routes>
-                    <Route path="/" element={<Home />}/>
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/SignUp" element={<SignUp />} />
-                    <Route path="/Login" element={<Login />} />
-                    <Route path="/Search" element={<Search />} />
-                    <Route path="/Recommended" element={<Recommended />} />
-                    <Route path="/Favourites" element={<Favourites />} />
-                    <Route path="/cocktail/:id" element={<CocktailDetail />} />
-
-                </Routes>
-            </AuthProvider>
-        </Router>
+        <LoadingProvider>
+            <AppContent />
+        </LoadingProvider>
     );
 }
 

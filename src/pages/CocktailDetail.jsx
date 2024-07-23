@@ -1,14 +1,17 @@
+// pages/CocktailDetail.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import logoImage from "../assets/cocktaillogoheader.png";
 import HeaderSection from '../components/HeaderSection';
 import { useAuth } from '../context/AuthContext';
+import { useLoading } from '../context/LoadingContext';
 
 function CocktailDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
     const { user, logout } = useAuth();
+    const { isLoading, setIsLoading } = useLoading();
     const [cocktail, setCocktail] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -16,12 +19,15 @@ function CocktailDetail() {
 
     useEffect(() => {
         const fetchCocktail = async () => {
+            setIsLoading(true); // Set loading to true
             try {
                 const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
                 setCocktail(response.data.drinks[0]);
             } catch (error) {
                 console.error('Error fetching data from API:', error);
                 setErrorMessage('Er is iets misgegaan met het ophalen van de cocktail.');
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -138,8 +144,12 @@ function CocktailDetail() {
         navigate('/');
     };
 
+    if (isLoading) {
+        return null;
+    }
+
     if (!cocktail) {
-        return <p>Loading...</p>;
+        return <p>Error loading cocktail details.</p>;
     }
 
     return (
@@ -187,7 +197,7 @@ function CocktailDetail() {
                         className={`detail-button ${isFavourited ? 'blue-button' : ''}`}
                         onClick={handleFavourite}
                     >
-                        {isFavourited ? 'Al opgeslagen in Favorieten' : 'Favoriet'}
+                        {isFavourited ? 'Verwijder uit Favorieten' : 'Favoriet'}
                     </button>
                     {successMessage && <p className="success-message">{successMessage}</p>}
                     {errorMessage && <p className="error-message">{errorMessage}</p>}
