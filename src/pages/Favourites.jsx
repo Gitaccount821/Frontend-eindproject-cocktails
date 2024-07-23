@@ -87,7 +87,7 @@ function Favourites() {
                     logoImage={logoImage}
                 />
 
-                <section className="flex-item section2">
+                <section className="flex-item sectionfavheader">
                     <div className="welcome-text">
                         <h1 className="large-text">Welkom! Hier vind je all je opgeslagen recepten</h1>
                     </div>
