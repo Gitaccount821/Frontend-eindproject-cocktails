@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import logoImage from "../assets/cocktaillogoheader.png";
-import HeaderSection from '../components/HeaderSection';
-import { useAuth } from '../context/AuthContext';
-import { useLoading } from '../context/LoadingContext';
-import FooterSection from "../components/FooterSection";
-import ErrorMessage from '../components/ErrorMessage';
+import logoImage from "../../assets/cocktaillogoheader.png";
+import HeaderSection from '../../components/Headersection';
+import { useAuth } from '../../context/Authcontext';
+import { useLoading } from '../../context/LoadingContext';
+import FooterSection from "../../components/FooterSection";
+import ErrorMessage from '../../components/ErrorMessage';
 
 function CocktailDetail() {
     const { id } = useParams();

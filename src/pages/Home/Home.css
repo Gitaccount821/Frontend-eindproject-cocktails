@@ -1,0 +1,18 @@
+.large-text-Home {
+    font-size: 70px;
+}
+
+.small-text {
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+.midden-tekst-container {
+    max-width: 70%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+}

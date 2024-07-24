@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import logoImage from "../assets/cocktaillogoheader.png";
-import cocktailLogoLogin from "../assets/cocktaillogologin.png";
-import '../App.css';
-import { PasswordInput, UsernameInput } from "../components/labelinputs";
-import HeaderSection from '../components/HeaderSection';
-import LoadingIndicator from '../components/LoadingIndicator';
-import FooterSection from "../components/FooterSection";
+import { useAuth } from '../../context/Authcontext';
+import logoImage from "../../assets/cocktaillogoheader.png";
+import cocktailLogoLogin from "../../assets/cocktaillogologin.png";
+import '../../App.css';
+import { PasswordInput, UsernameInput } from "../../components/labelinputs";
+import HeaderSection from '../../components/Headersection';
+import LoadingIndicator from '../../components/LoadingIndicator';
+import FooterSection from "../../components/FooterSection";
 
 function Login() {
     const { authenticate, loading, error, message, user } = useAuth();

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import logoImage from "../assets/cocktaillogoheader.png";
-import newuserlogo from "../assets/newuserlogo.png";
-import { PasswordInput, UsernameInput, EmailInput } from '../components/labelinputs';
-import HeaderSection from '../components/HeaderSection';
-import LoadingIndicator from '../components/LoadingIndicator';
-import FooterSection from "../components/FooterSection";
-import ErrorMessage from '../components/ErrorMessage';
+import logoImage from "../../assets/cocktaillogoheader.png";
+import newuserlogo from "../../assets/newuserlogo.png";
+import { PasswordInput, UsernameInput, EmailInput } from '../../components/labelinputs';
+import HeaderSection from '../../components/Headersection';
+import LoadingIndicator from '../../components/LoadingIndicator';
+import FooterSection from "../../components/FooterSection";
+import ErrorMessage from '../../components/ErrorMessage';
 
 function SignUp({ user }) {
     const [email, setEmail] = useState('');

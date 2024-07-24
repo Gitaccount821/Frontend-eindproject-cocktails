@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import logoImage from "../assets/cocktaillogoheader.png";
-import HeaderSection from '../components/HeaderSection';
-import { useAuth } from '../context/AuthContext';
-import LoadingIndicator from '../components/LoadingIndicator';
-import FooterSection from "../components/FooterSection";
-import CocktailPreview from '../components/CocktailPreview';
-import ErrorMessage from '../components/ErrorMessage';
+import logoImage from "../../assets/cocktaillogoheader.png";
+import HeaderSection from '../../components/Headersection';
+import { useAuth } from '../../context/Authcontext';
+import LoadingIndicator from '../../components/LoadingIndicator';
+import FooterSection from "../../components/FooterSection";
+import CocktailPreview from '../../components/CocktailPreview';
+import ErrorMessage from '../../components/ErrorMessage';
 
 function Recommended() {
     const navigate = useNavigate();
@@ -351,7 +351,7 @@ function Recommended() {
                 {showResults && (
                     <section className="favourites">
                         <div className="results-message-container">
-                            <p className="large-text">We laten nu de matches zien</p>
+                            <p className="large-text-Rec">We laten nu de matches zien</p>
                         </div>
                         <div className="cocktail-list">
                             {recommendations.length > 0 ? (

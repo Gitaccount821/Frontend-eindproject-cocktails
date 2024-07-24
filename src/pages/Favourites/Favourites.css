@@ -10,7 +10,7 @@
 }
 
 .sectionfavheader {
-    background-image: url('../assets/CocktailFavback.jpg');
+    background-image: url('../../assets/CocktailFavback.jpg');
     background-size: cover;
     background-position: center;
     color: #fff;

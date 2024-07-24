@@ -1,9 +1,10 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import logoImage from "../assets/cocktaillogoheader.png";
-import HeaderSection from '../components/HeaderSection';
-import FooterSection from '../components/FooterSection';
+import { useAuth } from '../../context/Authcontext';
+import logoImage from "../../assets/cocktaillogoheader.png";
+import HeaderSection from '../../components/Headersection';
+import FooterSection from '../../components/FooterSection';
+import './Home.css';
 
 function Home() {
     const { user, logout } = useAuth();
@@ -54,9 +55,9 @@ function Home() {
                 />
 
                 <section className="flex-item section2">
-                    <div className="welcome-text">
+                    <div>
                         <p className="small-text">welkom op de site</p>
-                        <h1 className="large-text">Cocktail Shaker</h1>
+                        <h1 className="large-text-Home">Cocktail Shaker</h1>
                     </div>
                 </section>
                 <section className="flex-item section3">

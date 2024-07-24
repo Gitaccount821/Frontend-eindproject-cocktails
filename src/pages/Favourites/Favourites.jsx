@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import logoImage from "../assets/cocktaillogoheader.png";
-import HeaderSection from '../components/HeaderSection';
-import { useAuth } from '../context/AuthContext';
+import logoImage from "../../assets/cocktaillogoheader.png";
+import HeaderSection from '../../components/Headersection';
+import { useAuth } from '../../context/Authcontext';
 import './Favourites.css';
-import { useLoading } from '../context/LoadingContext';
-import FooterSection from "../components/FooterSection";
-import CocktailPreview from '../components/CocktailPreview';
-import ErrorMessage from '../components/ErrorMessage';
+import { useLoading } from '../../context/LoadingContext';
+import FooterSection from "../../components/FooterSection";
+import CocktailPreview from '../../components/CocktailPreview';
+import ErrorMessage from '../../components/ErrorMessage';
 
 function Favourites() {
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ function Favourites() {
             try {
                 const token = localStorage.getItem('Token');
                 if (!token) {
-                    setErrorMessage('You must be logged in to view favourites.');
+                    setErrorMessage('Je moet ingelogd zijn om je favourieten recepten te zien');
                     return;
                 }
 

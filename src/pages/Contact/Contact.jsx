@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import logoImage from "../assets/cocktaillogoheader.png";
-import HeaderSection from '../components/HeaderSection';
-import { useAuth } from '../context/AuthContext';
-import FooterSection from "../components/FooterSection";
+import logoImage from "../../assets/cocktaillogoheader.png";
+import HeaderSection from '../../components/Headersection';
+import { useAuth } from '../../context/Authcontext';
+import FooterSection from "../../components/FooterSection";
 
 function Contact() {
     const navigate = useNavigate();
