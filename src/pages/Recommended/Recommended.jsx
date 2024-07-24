@@ -5,9 +5,9 @@ import logoImage from "../../assets/cocktaillogoheader.png";
 import HeaderSection from '../../components/Headersection';
 import { useAuth } from '../../context/Authcontext';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
-import FooterSection from "../../components/FooterSection";
+import FooterSection from "../../components/FooterSection/FooterSection";
 import CocktailPreview from '../../components/CocktailPreview/CocktailPreview';
-import ErrorMessage from '../../components/ErrorMessage';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './Recommended.css'
 
 function Recommended() {

@@ -6,9 +6,9 @@ import HeaderSection from '../../components/Headersection';
 import { useAuth } from '../../context/Authcontext';
 import './Favourites.css';
 import { useLoading } from '../../context/LoadingContext';
-import FooterSection from "../../components/FooterSection";
+import FooterSection from "../../components/FooterSection/FooterSection";
 import CocktailPreview from '../../components/CocktailPreview/CocktailPreview';
-import ErrorMessage from '../../components/ErrorMessage';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 
 function Favourites() {

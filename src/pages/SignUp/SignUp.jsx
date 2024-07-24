@@ -6,8 +6,8 @@ import newuserlogo from "../../assets/newuserlogo.png";
 import { PasswordInput, UsernameInput, EmailInput } from '../../components/labelinputs';
 import HeaderSection from '../../components/Headersection';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
-import FooterSection from "../../components/FooterSection";
-import ErrorMessage from '../../components/ErrorMessage';
+import FooterSection from "../../components/FooterSection/FooterSection";
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 function SignUp({ user }) {
     const [email, setEmail] = useState('');
@@ -116,10 +116,9 @@ function SignUp({ user }) {
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                                 <ErrorMessage message={error} /> {}
-                                {success && <p className="success">{success}</p>}
+                                {success && <p>{success}</p>}
                                 <button
                                     type="submit"
-                                    className="form-button"
                                     disabled={loading}
                                 >
                                     Creëer nieuw account

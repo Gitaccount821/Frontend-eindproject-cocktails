@@ -5,8 +5,9 @@ import logoImage from "../../assets/cocktaillogoheader.png";
 import HeaderSection from '../../components/Headersection';
 import { useAuth } from '../../context/Authcontext';
 import { useLoading } from '../../context/LoadingContext';
-import FooterSection from "../../components/FooterSection";
-import ErrorMessage from '../../components/ErrorMessage';
+import FooterSection from "../../components/FooterSection/FooterSection";
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import './Search.css'
 
 function Search() {
     const navigate = useNavigate();

@@ -7,7 +7,7 @@ import '../../App.css';
 import { PasswordInput, UsernameInput } from "../../components/labelinputs";
 import HeaderSection from '../../components/Headersection';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
-import FooterSection from "../../components/FooterSection";
+import FooterSection from "../../components/FooterSection/FooterSection";
 
 function Login() {
     const { authenticate, loading, error, message, user } = useAuth();

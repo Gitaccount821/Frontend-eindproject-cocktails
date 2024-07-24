@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/Authcontext';
 import logoImage from "../../assets/cocktaillogoheader.png";
 import HeaderSection from '../../components/Headersection';
-import FooterSection from '../../components/FooterSection';
+import FooterSection from '../../components/FooterSection/FooterSection';
 import './Home.css';
 
 function Home() {
