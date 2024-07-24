@@ -17,7 +17,7 @@ body {
     padding: 0;
 }
 
-/* Secties Home pagina, refactor button/header reusable later */
+/* Reusables */
 
 .app-container {
     display: flex;
@@ -32,9 +32,6 @@ body {
     box-sizing: border-box;
     background-color: #faf0e6;
 }
-
-
-
 
 .button {
     margin-left: 30px;
@@ -63,24 +60,6 @@ body {
     cursor: not-allowed;
 }
 
-
-
-.section2 {
-    background-image: url('./assets/cocktailbackgroundhome.png');
-    background-size: cover;
-    background-position: center;
-    color: #fff;
-    min-height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-/* Reusable */
-
-
-
 .cocktail-list {
     display: flex;
     flex-wrap: wrap;
@@ -88,7 +67,6 @@ body {
     gap: 50px;
     margin-top: 20px;
 }
-
 
 .section3 {
     display: flex;
@@ -99,16 +77,9 @@ body {
     background-color: #faf0e6;
 }
 
-
-
 .flex-item {
     padding: 20px;
 }
-
-
-
-/* Reuseable */
-
 
 .contact-container {
     display: flex;
@@ -187,24 +158,6 @@ body {
     text-decoration: underline;
 }
 
-
-
-
-
-.suggestion-item:hover {
-    background-color: #f1f1f1;
-}
-
-/* Tekst opmaak, refactor later als reusable? Zoek ook betere tekst opmaak */
-
-
-
-.head-contactformulier {
-    color: #b1a748;
-}
-
-/* reusable */
-
 .pink-heading {
     color: #FF00FE;
     font-size: 36px;
@@ -212,17 +165,11 @@ body {
     margin-bottom: 20px;
 }
 
-/* reusable */
 .cocktail-logo-login {
     width: 100px;
     height: auto;
     margin: 0 20px 20px;
 }
-
-
-
-/* Reusables */
-
 
 .favourites {
     display: flex;
@@ -235,25 +182,6 @@ body {
     background-color: #faf0e6;
 }
 
-.sectionfavheader {
-    background-image: url('../assets/CocktailFavback.jpg');
-    background-size: cover;
-    background-position: center;
-    color: #fff;
-    min-height: 25vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.favourites h1 {
-    font-size: 36px;
-    color: black;
-    margin-bottom: 20px;
-}
-
-
 .cocktail-list {
     display: flex;
     flex-wrap: wrap;
@@ -261,21 +189,3 @@ body {
     gap: 20px;
 }
 
-
-
-.large-text-Fav {
-    font-size: 50px;
-    margin-left: 750px;
-}
-
-.favourites .refresh-button {
-    position: absolute;
-    top: 450px;
-    right: 520px;
-    background-color: darkred;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 30px 40px;
-    cursor: pointer;
-}

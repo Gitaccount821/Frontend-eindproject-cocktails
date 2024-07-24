@@ -22,20 +22,13 @@
 
 .loading-bar {
     height: 100%;
-    width: 0%;
     background-color: #3498db;
     border-radius: 15px 0 0 15px;
     animation: loadingAnimation 2s infinite;
 }
 
 @keyframes loadingAnimation {
-    0% {
-        width: 0%;
-    }
     50% {
         width: 100%;
-    }
-    100% {
-        width: 0%;
     }
 }

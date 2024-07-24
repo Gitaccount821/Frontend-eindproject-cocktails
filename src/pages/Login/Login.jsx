@@ -10,7 +10,7 @@ import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator
 import FooterSection from "../../components/FooterSection/FooterSection";
 
 function Login() {
-    const { authenticate, loading, error, message, user } = useAuth();
+    const { authenticate, loading, error, message, user, logout } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -22,14 +22,18 @@ function Login() {
 
     const handleNavigateToContact = () => navigate('/contact');
     const handleNavigateToLogin = () => navigate('/login');
-    const handleLogout = () => {
-        logout();
-        navigate('/');
-    };
     const handleNavigateToSearch = () => navigate('/search');
     const handleNavigateToRecommended = () => navigate('/Recommended');
     const handleNavigateToFavourites = () => navigate('/Favourites');
     const handleNavigateHome = () => navigate('/');
+
+    // Ensure `logout` is called correctly
+    const handleLogout = () => {
+        if (logout) {
+            logout();
+        }
+        navigate('/');
+    };
 
     return (
         <div className="app-container">
@@ -63,7 +67,7 @@ function Login() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
-                                <button>
+                                <button type="submit" disabled={loading}>
                                     Inloggen
                                 </button>
                                 {error && <p className="error">{error}</p>}

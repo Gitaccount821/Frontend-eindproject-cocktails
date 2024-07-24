@@ -16,3 +16,15 @@
     align-items: flex-start;
     text-align: left;
 }
+
+.section2 {
+    background-image: url('../../assets/cocktailbackgroundhome.png');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

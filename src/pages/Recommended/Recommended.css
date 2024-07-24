@@ -46,7 +46,6 @@
     text-align: center;
     width: 100%;
     padding: 20px;
-    background-image: url('./assets/Recback.png.png');
     background-size: cover;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -100,4 +99,16 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.favourites .refresh-button {
+    position: absolute;
+    top: 450px;
+    right: 520px;
+    background-color: darkred;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 30px 40px;
+    cursor: pointer;
 }

@@ -3,7 +3,7 @@
 }
 
 .text-detail {
-    padding: 50px 0px 10px 265px;
+    padding: 50px 0 10px 265px;
     font-size: 40px;
 }
 
@@ -14,9 +14,8 @@
 }
 
 .cocktail-image {
-    margin: 0px 0px 20px 70px;
+    margin: 0 0 20px 70px;
     max-width: 500px;
-
 }
 
 .ingredients {
@@ -25,7 +24,7 @@
 }
 
 .text-ingredients {
-    margin: 0px 0px 20px 70px;
+    margin: 0 0 20px 70px;
     font-size: 36px;
 }
 
@@ -71,4 +70,3 @@
     margin: 50px 10px 10px 120px;
     font-size: 30px;
 }
-
