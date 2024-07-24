@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import './Headersection.css'
 
 const HeaderSection = ({
                            handleNavigateHome,
@@ -15,7 +16,7 @@ const HeaderSection = ({
     const location = useLocation();
 
     return (
-        <section className="flex-container section1">
+        <section className="section1">
             <div className="logo-container" onClick={handleNavigateHome} style={{ cursor: 'pointer' }}>
                 <img src={logoImage} alt="Logo" className="logo" />
             </div>

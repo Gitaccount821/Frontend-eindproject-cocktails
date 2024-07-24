@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import logoImage from "../../assets/cocktaillogoheader.png";
-import HeaderSection from '../../components/Headersection';
+import HeaderSection from '../../components/Headersection/Headersection';
 import { useAuth } from '../../context/Authcontext';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import FooterSection from "../../components/FooterSection/FooterSection";

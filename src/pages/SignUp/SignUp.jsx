@@ -4,7 +4,7 @@ import axios from 'axios';
 import logoImage from "../../assets/cocktaillogoheader.png";
 import newuserlogo from "../../assets/newuserlogo.png";
 import { PasswordInput, UsernameInput, EmailInput } from '../../components/labelinputs';
-import HeaderSection from '../../components/Headersection';
+import HeaderSection from '../../components/Headersection/Headersection';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import FooterSection from "../../components/FooterSection/FooterSection";
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';

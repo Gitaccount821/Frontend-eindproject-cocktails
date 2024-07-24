@@ -5,7 +5,7 @@ import logoImage from "../../assets/cocktaillogoheader.png";
 import cocktailLogoLogin from "../../assets/cocktaillogologin.png";
 import '../../App.css';
 import { PasswordInput, UsernameInput } from "../../components/labelinputs";
-import HeaderSection from '../../components/Headersection';
+import HeaderSection from '../../components/Headersection/Headersection';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import FooterSection from "../../components/FooterSection/FooterSection";
 
@@ -63,7 +63,7 @@ function Login() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
-                                <button type="submit" disabled={loading}>
+                                <button>
                                     Inloggen
                                 </button>
                                 {error && <p className="error">{error}</p>}

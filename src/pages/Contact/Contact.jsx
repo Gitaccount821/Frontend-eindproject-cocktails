@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import logoImage from "../../assets/cocktaillogoheader.png";
-import HeaderSection from '../../components/Headersection';
+import HeaderSection from '../../components/Headersection/Headersection';
 import { useAuth } from '../../context/Authcontext';
 import FooterSection from "../../components/FooterSection/FooterSection";
 import './Contact.css';
