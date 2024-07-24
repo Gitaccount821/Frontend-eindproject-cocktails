@@ -7,6 +7,7 @@ import { useAuth } from '../../context/Authcontext';
 import { useLoading } from '../../context/LoadingContext';
 import FooterSection from "../../components/FooterSection";
 import ErrorMessage from '../../components/ErrorMessage';
+import './CocktailDetail.css'
 
 function CocktailDetail() {
     const { id } = useParams();

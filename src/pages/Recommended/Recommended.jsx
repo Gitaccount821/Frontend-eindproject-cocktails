@@ -4,7 +4,7 @@ import axios from 'axios';
 import logoImage from "../../assets/cocktaillogoheader.png";
 import HeaderSection from '../../components/Headersection';
 import { useAuth } from '../../context/Authcontext';
-import LoadingIndicator from '../../components/LoadingIndicator';
+import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import FooterSection from "../../components/FooterSection";
 import CocktailPreview from '../../components/CocktailPreview';
 import ErrorMessage from '../../components/ErrorMessage';

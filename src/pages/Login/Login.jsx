@@ -6,7 +6,7 @@ import cocktailLogoLogin from "../../assets/cocktaillogologin.png";
 import '../../App.css';
 import { PasswordInput, UsernameInput } from "../../components/labelinputs";
 import HeaderSection from '../../components/Headersection';
-import LoadingIndicator from '../../components/LoadingIndicator';
+import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import FooterSection from "../../components/FooterSection";
 
 function Login() {

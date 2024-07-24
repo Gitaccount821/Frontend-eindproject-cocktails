@@ -11,7 +11,7 @@ import Favourites from "./pages/Favourites/Favourites";
 import CocktailDetail from './pages/CocktailDetail/CocktailDetail';
 import { AuthProvider } from './context/Authcontext';
 import { LoadingProvider, useLoading } from './context/LoadingContext';
-import LoadingIndicator from './components/LoadingIndicator';
+import LoadingIndicator from './components/LoadingIndicator/LoadingIndicator';
 
 
 function AppContent() {
