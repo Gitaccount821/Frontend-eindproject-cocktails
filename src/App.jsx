@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import Home from './pages/Home/Home';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Contact from './pages/Contact/Contact';
 import SignUp from "./pages/SignUp/SignUp";
 import Login from "./pages/Login/Login";
 import Search from "./pages/Search/Search";
@@ -12,6 +11,8 @@ import CocktailDetail from './pages/CocktailDetail/CocktailDetail';
 import { AuthProvider } from './context/Authcontext';
 import { LoadingProvider, useLoading } from './context/LoadingContext';
 import LoadingIndicator from './components/LoadingIndicator/LoadingIndicator';
+import Contact from './pages/Contact/Contact';
+
 
 
 function AppContent() {

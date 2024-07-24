@@ -7,8 +7,9 @@ import { useAuth } from '../../context/Authcontext';
 import './Favourites.css';
 import { useLoading } from '../../context/LoadingContext';
 import FooterSection from "../../components/FooterSection";
-import CocktailPreview from '../../components/CocktailPreview';
+import CocktailPreview from '../../components/CocktailPreview/CocktailPreview';
 import ErrorMessage from '../../components/ErrorMessage';
+
 
 function Favourites() {
     const navigate = useNavigate();

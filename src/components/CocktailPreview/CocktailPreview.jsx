@@ -1,4 +1,6 @@
 import React from 'react';
+import './CocktailPreview.css'
+
 
 const CocktailPreview = ({ cocktail, onClick }) => (
     <div className="cocktail-preview" onClick={onClick}>
