@@ -7,6 +7,7 @@ import { useAuth } from '../context/AuthContext';
 import './Favourites.css';
 import { useLoading } from '../context/LoadingContext';
 import FooterSection from "../components/FooterSection";
+import CocktailPreview from '../components/CocktailPreview';
 
 function Favourites() {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ function Favourites() {
     useEffect(() => {
         const fetchFavourites = async () => {
             if (!user) {
-                setErrorMessage('You must be logged in to view favourites.');
+                setErrorMessage('Je moet ingelogd zijn om je favourieten recepten te zien');
                 return;
             }
             setIsLoading(true);
@@ -44,7 +45,6 @@ function Favourites() {
                 }
 
                 const favouritesArray = favouritesString.split(',').filter(Boolean);
-
 
                 const cocktails = await Promise.all(favouritesArray.map(id =>
                     axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
@@ -106,14 +106,11 @@ function Favourites() {
                             <p>Je hebt nog geen opgeslagen recepten als favouriet</p>
                         ) : (
                             favourites.map((cocktail, index) => (
-                                <div key={index} className="cocktail-preview"
-                                     onClick={() => navigate(`/cocktail/${cocktail.idDrink}`)}>
-                                    <h2>{cocktail.strDrink}</h2>
-                                    <img
-                                        src={cocktail.strDrinkThumb}
-                                        alt={cocktail.strDrink}
-                                    />
-                                </div>
+                                <CocktailPreview
+                                    key={index}
+                                    cocktail={cocktail}
+                                    onClick={() => navigate(`/cocktail/${cocktail.idDrink}`)}
+                                />
                             ))
                         )}
                     </div>

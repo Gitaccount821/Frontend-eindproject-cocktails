@@ -6,6 +6,7 @@ import HeaderSection from '../components/HeaderSection';
 import { useAuth } from '../context/AuthContext';
 import LoadingIndicator from '../components/LoadingIndicator';
 import FooterSection from "../components/FooterSection";
+import CocktailPreview from '../components/CocktailPreview';
 
 function Recommended() {
     const navigate = useNavigate();
@@ -178,11 +179,6 @@ function Recommended() {
 
     const handleRefresh = () => {
         window.location.reload();
-    };
-
-
-    const handleNavigateToContact = () => {
-        navigate('/contact');
     };
 
     return (
@@ -360,14 +356,11 @@ function Recommended() {
                             {recommendations.length > 0 ? (
                                 <div className="cocktail-list">
                                     {recommendations.map(cocktail => (
-                                        <div
+                                        <CocktailPreview
                                             key={cocktail.idDrink}
-                                            className="cocktail-preview"
+                                            cocktail={cocktail}
                                             onClick={() => navigate(`/cocktail/${cocktail.idDrink}`)}
-                                        >
-                                            <h2>{cocktail.strDrink}</h2>
-                                            <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} />
-                                        </div>
+                                        />
                                     ))}
                                 </div>
                             ) : (
@@ -380,10 +373,11 @@ function Recommended() {
                     </section>
                 )}
             </main>
+
             <FooterSection
                 contactText="neem contact op"
                 credits={["In opdracht van:", "Novi Hogeschool"]}
-                onContactClick={handleNavigateToContact}
+                onContactClick={() => navigate('/contact')}
             />
         </div>
     );
