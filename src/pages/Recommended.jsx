@@ -5,6 +5,7 @@ import logoImage from "../assets/cocktaillogoheader.png";
 import HeaderSection from '../components/HeaderSection';
 import { useAuth } from '../context/AuthContext';
 import LoadingIndicator from '../components/LoadingIndicator';
+import FooterSection from "../components/FooterSection";
 
 function Recommended() {
     const navigate = useNavigate();
@@ -177,6 +178,11 @@ function Recommended() {
 
     const handleRefresh = () => {
         window.location.reload();
+    };
+
+
+    const handleNavigateToContact = () => {
+        navigate('/contact');
     };
 
     return (
@@ -374,18 +380,11 @@ function Recommended() {
                     </section>
                 )}
             </main>
-
-            <footer className="flex-item footer">
-                <div className="footer-left">
-                    <button className="button" onClick={() => navigate('/contact')}>
-                        <p className="contact-text">neem contact op</p>
-                    </button>
-                </div>
-                <div className="footer-right">
-                    <p>In opdracht van:</p>
-                    <p>Novi Hogeschool</p>
-                </div>
-            </footer>
+            <FooterSection
+                contactText="neem contact op"
+                credits={["In opdracht van:", "Novi Hogeschool"]}
+                onContactClick={handleNavigateToContact}
+            />
         </div>
     );
 }

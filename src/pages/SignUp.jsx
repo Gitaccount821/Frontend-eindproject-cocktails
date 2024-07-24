@@ -6,6 +6,7 @@ import newuserlogo from "../assets/newuserlogo.png";
 import { PasswordInput, UsernameInput, EmailInput } from '../components/labelinputs';
 import HeaderSection from '../components/HeaderSection';
 import LoadingIndicator from '../components/LoadingIndicator';
+import FooterSection from "../components/FooterSection";
 
 function SignUp({ user }) {
     const [email, setEmail] = useState('');
@@ -128,17 +129,11 @@ function SignUp({ user }) {
                 </section>
             </main>
 
-            <footer className="flex-item footer">
-                <div className="footer-left">
-                    <button className="button" onClick={handleNavigateToContact}>
-                        <p className="contact-text">neem contact op</p>
-                    </button>
-                </div>
-                <div className="footer-right">
-                    <p>In opdracht van:</p>
-                    <p>Novi Hogeschool</p>
-                </div>
-            </footer>
+            <FooterSection
+                contactText="neem contact op"
+                credits={["In opdracht van:", "Novi Hogeschool"]}
+                onContactClick={handleNavigateToContact}
+            />
         </div>
     );
 }

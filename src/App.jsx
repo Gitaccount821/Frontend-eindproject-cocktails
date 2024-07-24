@@ -13,6 +13,7 @@ import { AuthProvider } from './context/Authcontext';
 import { LoadingProvider, useLoading } from './context/LoadingContext';
 import LoadingIndicator from './components/LoadingIndicator';
 
+
 function AppContent() {
     const { isLoading } = useLoading();
 

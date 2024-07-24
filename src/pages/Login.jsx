@@ -6,7 +6,8 @@ import cocktailLogoLogin from "../assets/cocktaillogologin.png";
 import '../App.css';
 import { PasswordInput, UsernameInput } from "../components/labelinputs";
 import HeaderSection from '../components/HeaderSection';
-import LoadingIndicator from '../components/LoadingIndicator'; // Import LoadingIndicator
+import LoadingIndicator from '../components/LoadingIndicator';
+import FooterSection from "../components/FooterSection"; // Import LoadingIndicator
 
 function Login() {
     const { authenticate, loading, error, message, user } = useAuth();
@@ -74,17 +75,11 @@ function Login() {
                 </section>
             </main>
 
-            <footer className="flex-item footer">
-                <div className="footer-left">
-                    <button className="button" onClick={handleNavigateToContact}>
-                        <p className="contact-text">neem contact op</p>
-                    </button>
-                </div>
-                <div className="footer-right">
-                    <p>In opdracht van:</p>
-                    <p>Novi Hogeschool</p>
-                </div>
-            </footer>
+            <FooterSection
+                contactText="neem contact op"
+                credits={["In opdracht van:", "Novi Hogeschool"]}
+                onContactClick={handleNavigateToContact}
+            />
         </div>
     );
 }
