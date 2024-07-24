@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -7,6 +6,7 @@ import HeaderSection from '../components/HeaderSection';
 import { useAuth } from '../context/AuthContext';
 import { useLoading } from '../context/LoadingContext';
 import FooterSection from "../components/FooterSection";
+import ErrorMessage from '../components/ErrorMessage';
 
 function CocktailDetail() {
     const { id } = useParams();
@@ -20,7 +20,7 @@ function CocktailDetail() {
 
     useEffect(() => {
         const fetchCocktail = async () => {
-            setIsLoading(true); // Set loading to true
+            setIsLoading(true);
             try {
                 const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
                 setCocktail(response.data.drinks[0]);
@@ -64,14 +64,14 @@ function CocktailDetail() {
 
     const handleFavourite = async () => {
         if (!user) {
-            setErrorMessage('You must be logged in to add to favourites.');
+            setErrorMessage('Je moet eerst inloggen voordat je favorieten recepten kan opslaan');
             return;
         }
 
         try {
             const token = localStorage.getItem('Token');
             if (!token) {
-                setErrorMessage('You must be logged in to add to favourites.');
+                setErrorMessage('Je moet eerst inloggen voordat je favorieten recepten kan opslaan');
                 return;
             }
 
@@ -200,8 +200,8 @@ function CocktailDetail() {
                     >
                         {isFavourited ? 'Verwijder uit Favorieten' : 'Favoriet'}
                     </button>
+                    <ErrorMessage message={errorMessage} />
                     {successMessage && <p className="success-message">{successMessage}</p>}
-                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                 </section>
             </main>
             <FooterSection

@@ -7,6 +7,7 @@ import { PasswordInput, UsernameInput, EmailInput } from '../components/labelinp
 import HeaderSection from '../components/HeaderSection';
 import LoadingIndicator from '../components/LoadingIndicator';
 import FooterSection from "../components/FooterSection";
+import ErrorMessage from '../components/ErrorMessage';
 
 function SignUp({ user }) {
     const [email, setEmail] = useState('');
@@ -55,7 +56,7 @@ function SignUp({ user }) {
             setTimeout(() => {
                 navigate('/login');
             }, 1000);
-        } catch(e) {
+        } catch (e) {
             console.error('Registration error:', e);
 
             if (e.response && e.response.data && e.response.data.message) {
@@ -114,7 +115,7 @@ function SignUp({ user }) {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
-                                {error && <p className="error">{error}</p>}
+                                <ErrorMessage message={error} /> {}
                                 {success && <p className="success">{success}</p>}
                                 <button
                                     type="submit"

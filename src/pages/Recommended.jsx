@@ -7,6 +7,7 @@ import { useAuth } from '../context/AuthContext';
 import LoadingIndicator from '../components/LoadingIndicator';
 import FooterSection from "../components/FooterSection";
 import CocktailPreview from '../components/CocktailPreview';
+import ErrorMessage from '../components/ErrorMessage';
 
 function Recommended() {
     const navigate = useNavigate();
@@ -199,7 +200,7 @@ function Recommended() {
                     <div className="welcome-text">
                         <p className="large-header">Aangeraden cocktails voor jouw stemming vandaag</p>
                         <div className="question-box">
-                            {error && <p className="error-message">{error}</p>}
+                            {error && <ErrorMessage message={error} />} {/* Use ErrorMessage component */}
                             {loading && <LoadingIndicator />}
                             {!showResults && (
                                 <>

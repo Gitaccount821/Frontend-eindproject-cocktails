@@ -7,7 +7,7 @@ import '../App.css';
 import { PasswordInput, UsernameInput } from "../components/labelinputs";
 import HeaderSection from '../components/HeaderSection';
 import LoadingIndicator from '../components/LoadingIndicator';
-import FooterSection from "../components/FooterSection"; // Import LoadingIndicator
+import FooterSection from "../components/FooterSection";
 
 function Login() {
     const { authenticate, loading, error, message, user } = useAuth();
@@ -46,7 +46,7 @@ function Login() {
             />
 
             <main className="main-content">
-                {loading && <LoadingIndicator />} {/* Show LoadingIndicator based on loading state */}
+                {loading && <LoadingIndicator />}
                 <section className="flex-item section3">
                     <div>
                         <h2 className="pink-heading">Cocktail Shaker Login</h2>

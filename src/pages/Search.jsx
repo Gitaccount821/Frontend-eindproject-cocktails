@@ -6,6 +6,7 @@ import HeaderSection from '../components/HeaderSection';
 import { useAuth } from '../context/AuthContext';
 import { useLoading } from '../context/LoadingContext';
 import FooterSection from "../components/FooterSection";
+import ErrorMessage from '../components/ErrorMessage';
 
 function Search() {
     const navigate = useNavigate();
@@ -103,7 +104,7 @@ function Search() {
                                 className="search-input"
                             />
                         </form>
-                        {errorMessage && <p className="error-message">{errorMessage}</p>}
+                        <ErrorMessage message={errorMessage} /> {}
                         {searchResults.length > 0 && (
                             <ul className="suggestions-list">
                                 {searchResults.map(result => (

@@ -8,6 +8,7 @@ import './Favourites.css';
 import { useLoading } from '../context/LoadingContext';
 import FooterSection from "../components/FooterSection";
 import CocktailPreview from '../components/CocktailPreview';
+import ErrorMessage from '../components/ErrorMessage';
 
 function Favourites() {
     const navigate = useNavigate();
@@ -56,7 +57,6 @@ function Favourites() {
                 setErrorMessage('Er is iets misgegaan met het ophalen van favorieten.');
             } finally {
                 setIsLoading(false);
-
             }
         };
 
@@ -73,10 +73,6 @@ function Favourites() {
     const handleNavigateToRecommended = () => navigate('/Recommended');
     const handleNavigateToFavourites = () => navigate('/Favourites');
     const handleNavigateHome = () => navigate('/');
-
-    if (errorMessage) {
-        return <p>{errorMessage}</p>;
-    }
 
     return (
         <div className="app-container">
@@ -95,25 +91,29 @@ function Favourites() {
 
                 <section className="flex-item sectionfavheader">
                     <div className="welcome-text">
-                        <h1 className="large-text-Fav">Welkom! Hier vind je all je opgeslagen recepten</h1>
+                        <h1 className="large-text-Fav">Welkom! Hier vind je al je opgeslagen recepten</h1>
                     </div>
                 </section>
 
                 <section className="favourites">
                     <h1>Jouw Favorieten</h1>
-                    <div className="cocktail-list">
-                        {favourites.length === 0 ? (
-                            <p>Je hebt nog geen opgeslagen recepten als favouriet</p>
-                        ) : (
-                            favourites.map((cocktail, index) => (
-                                <CocktailPreview
-                                    key={index}
-                                    cocktail={cocktail}
-                                    onClick={() => navigate(`/cocktail/${cocktail.idDrink}`)}
-                                />
-                            ))
-                        )}
-                    </div>
+                    {errorMessage ? (
+                        <ErrorMessage message={errorMessage} />
+                    ) : (
+                        <div className="cocktail-list">
+                            {favourites.length === 0 ? (
+                                <p>Je hebt nog geen opgeslagen recepten als favouriet</p>
+                            ) : (
+                                favourites.map((cocktail, index) => (
+                                    <CocktailPreview
+                                        key={index}
+                                        cocktail={cocktail}
+                                        onClick={() => navigate(`/cocktail/${cocktail.idDrink}`)}
+                                    />
+                                ))
+                            )}
+                        </div>
+                    )}
                 </section>
             </main>
             <FooterSection
