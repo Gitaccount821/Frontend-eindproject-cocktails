@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import logoImage from "../assets/cocktaillogoheader.png";
-import HeaderSection from '../components/HeaderSection';
-import { useAuth } from '../context/AuthContext';
-import { useLoading } from '../context/LoadingContext';
+import logoImage from "../../assets/cocktaillogoheader.png";
+import HeaderSection from '../../components/Headersection/Headersection';
+import { useAuth } from '../../context/Authcontext';
+import { useLoading } from '../../context/LoadingContext';
+import FooterSection from "../../components/FooterSection/FooterSection";
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import './Search.css'
 
 function Search() {
     const navigate = useNavigate();
@@ -102,7 +105,7 @@ function Search() {
                                 className="search-input"
                             />
                         </form>
-                        {errorMessage && <p className="error-message">{errorMessage}</p>}
+                        <ErrorMessage message={errorMessage} /> {}
                         {searchResults.length > 0 && (
                             <ul className="suggestions-list">
                                 {searchResults.map(result => (
@@ -128,17 +131,11 @@ function Search() {
                     </div>
                 </section>
             </main>
-            <footer className="flex-item footer">
-                <div className="footer-left">
-                    <button className="button" onClick={handleNavigateToContact}>
-                        <p className="contact-text">neem contact op</p>
-                    </button>
-                </div>
-                <div className="footer-right">
-                    <p>In opdracht van:</p>
-                    <p>Novi Hogeschool</p>
-                </div>
-            </footer>
+            <FooterSection
+                contactText="neem contact op"
+                credits={["In opdracht van:", "Novi Hogeschool"]}
+                onContactClick={handleNavigateToContact}
+            />
         </div>
     );
 }

@@ -1,0 +1,22 @@
+.sectionfavheader {
+    background-image: url('../../assets/CocktailFavback.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    min-height: 25vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.favourites h1 {
+    font-size: 36px;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.large-text-Fav {
+    font-size: 50px;
+    margin-left: 750px;
+}

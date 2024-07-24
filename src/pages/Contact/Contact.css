@@ -1,0 +1,12 @@
+.contact-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding: 40px 20px;
+    background-color: #faf0e6;
+}
+
+.head-contactformulier {
+    color: #b1a748;
+}

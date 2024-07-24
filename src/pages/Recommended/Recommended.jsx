@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import logoImage from "../assets/cocktaillogoheader.png";
-import HeaderSection from '../components/HeaderSection';
-import { useAuth } from '../context/AuthContext';
-import LoadingIndicator from '../components/LoadingIndicator';
+import logoImage from "../../assets/cocktaillogoheader.png";
+import HeaderSection from '../../components/Headersection/Headersection';
+import { useAuth } from '../../context/Authcontext';
+import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
+import FooterSection from "../../components/FooterSection/FooterSection";
+import CocktailPreview from '../../components/CocktailPreview/CocktailPreview';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import './Recommended.css'
 
 function Recommended() {
     const navigate = useNavigate();
@@ -197,7 +201,7 @@ function Recommended() {
                     <div className="welcome-text">
                         <p className="large-header">Aangeraden cocktails voor jouw stemming vandaag</p>
                         <div className="question-box">
-                            {error && <p className="error-message">{error}</p>}
+                            {error && <ErrorMessage message={error} />} {/* Use ErrorMessage component */}
                             {loading && <LoadingIndicator />}
                             {!showResults && (
                                 <>
@@ -348,20 +352,17 @@ function Recommended() {
                 {showResults && (
                     <section className="favourites">
                         <div className="results-message-container">
-                            <p className="large-text">We laten nu de matches zien</p>
+                            <p className="large-text-Rec">We laten nu de matches zien</p>
                         </div>
                         <div className="cocktail-list">
                             {recommendations.length > 0 ? (
                                 <div className="cocktail-list">
                                     {recommendations.map(cocktail => (
-                                        <div
+                                        <CocktailPreview
                                             key={cocktail.idDrink}
-                                            className="cocktail-preview"
+                                            cocktail={cocktail}
                                             onClick={() => navigate(`/cocktail/${cocktail.idDrink}`)}
-                                        >
-                                            <h2>{cocktail.strDrink}</h2>
-                                            <img src={cocktail.strDrinkThumb} alt={cocktail.strDrink} />
-                                        </div>
+                                        />
                                     ))}
                                 </div>
                             ) : (
@@ -375,17 +376,11 @@ function Recommended() {
                 )}
             </main>
 
-            <footer className="flex-item footer">
-                <div className="footer-left">
-                    <button className="button" onClick={() => navigate('/contact')}>
-                        <p className="contact-text">neem contact op</p>
-                    </button>
-                </div>
-                <div className="footer-right">
-                    <p>In opdracht van:</p>
-                    <p>Novi Hogeschool</p>
-                </div>
-            </footer>
+            <FooterSection
+                contactText="neem contact op"
+                credits={["In opdracht van:", "Novi Hogeschool"]}
+                onContactClick={() => navigate('/contact')}
+            />
         </div>
     );
 }

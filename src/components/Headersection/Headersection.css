@@ -1,0 +1,36 @@
+.section1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #000;
+    width: 100%;
+    color: #fff;
+    padding: 20px;
+}
+
+.logo-container {
+    margin-right: 140px;
+    padding: 0 0 0 15px;
+}
+
+
+.logo {
+    width: 120px;
+    height: 100px;
+}
+
+.buttons-container {
+    display: flex;
+}
+
+
+.login {
+    margin-left: 50px;
+    padding: 10px 50px;
+    background-color: #8b32a8;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-right: 10px;
+}

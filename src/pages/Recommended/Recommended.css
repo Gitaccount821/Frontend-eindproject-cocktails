@@ -1,0 +1,114 @@
+.sectionrec {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    background-image: url('../../assets/rec6.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 40vh;
+    padding: 20px;
+}
+
+.large-header {
+    font-size: 40px;
+    text-align: right;
+    margin: 20px 100px 20px 20px;
+    color: #fff;
+}
+
+.question-text {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+
+.option-label input {
+    margin-right: 10px;
+    accent-color: #007bff;
+    width: 20px;
+    height: 20px;
+}
+
+
+.completion-text {
+    font-size: 24px;
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.question-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+    background-size: cover;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.options-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.option-label {
+    display: flex;
+    align-items: center;
+    font-size: 30px;
+    color: #fff;
+    padding: 10px 100px;
+}
+
+.continue-button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 20px auto;
+}
+
+.continue-button:hover {
+    background-color: #555;
+}
+
+.results-message-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.large-text-Rec {
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.refresh-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.favourites .refresh-button {
+    position: absolute;
+    top: 450px;
+    right: 520px;
+    background-color: darkred;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 30px 40px;
+    cursor: pointer;
+}

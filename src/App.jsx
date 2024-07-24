@@ -1,17 +1,19 @@
 import React from 'react';
 import './App.css';
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Contact from './pages/Contact';
-import SignUp from "./pages/SignUp";
-import Login from "./pages/Login";
-import Search from "./pages/Search";
-import Recommended from "./pages/Recommended";
-import Favourites from "./pages/Favourites";
-import CocktailDetail from './pages/CocktailDetail';
+import SignUp from "./pages/SignUp/SignUp";
+import Login from "./pages/Login/Login";
+import Search from "./pages/Search/Search";
+import Recommended from "./pages/Recommended/Recommended";
+import Favourites from "./pages/Favourites/Favourites";
+import CocktailDetail from './pages/CocktailDetail/CocktailDetail';
 import { AuthProvider } from './context/Authcontext';
 import { LoadingProvider, useLoading } from './context/LoadingContext';
-import LoadingIndicator from './components/LoadingIndicator';
+import LoadingIndicator from './components/LoadingIndicator/LoadingIndicator';
+import Contact from './pages/Contact/Contact';
+
+
 
 function AppContent() {
     const { isLoading } = useLoading();

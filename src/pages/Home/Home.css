@@ -1,0 +1,30 @@
+.large-text-Home {
+    font-size: 70px;
+}
+
+.small-text {
+    font-size: 30px;
+    margin-bottom: 40px;
+}
+
+.midden-tekst-container {
+    max-width: 70%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.section2 {
+    background-image: url('../../assets/cocktailbackgroundhome.png');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

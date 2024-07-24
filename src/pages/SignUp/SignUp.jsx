@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import logoImage from "../assets/cocktaillogoheader.png";
-import newuserlogo from "../assets/newuserlogo.png";
-import { PasswordInput, UsernameInput, EmailInput } from '../components/labelinputs';
-import HeaderSection from '../components/HeaderSection';
-import LoadingIndicator from '../components/LoadingIndicator';
+import logoImage from "../../assets/cocktaillogoheader.png";
+import newuserlogo from "../../assets/newuserlogo.png";
+import { PasswordInput, UsernameInput, EmailInput } from '../../components/labelinputs';
+import HeaderSection from '../../components/Headersection/Headersection';
+import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
+import FooterSection from "../../components/FooterSection/FooterSection";
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 function SignUp({ user }) {
     const [email, setEmail] = useState('');
@@ -54,7 +56,7 @@ function SignUp({ user }) {
             setTimeout(() => {
                 navigate('/login');
             }, 1000);
-        } catch(e) {
+        } catch (e) {
             console.error('Registration error:', e);
 
             if (e.response && e.response.data && e.response.data.message) {
@@ -113,11 +115,10 @@ function SignUp({ user }) {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
-                                {error && <p className="error">{error}</p>}
-                                {success && <p className="success">{success}</p>}
+                                <ErrorMessage message={error} /> {}
+                                {success && <p>{success}</p>}
                                 <button
                                     type="submit"
-                                    className="form-button"
                                     disabled={loading}
                                 >
                                     Creëer nieuw account
@@ -128,17 +129,11 @@ function SignUp({ user }) {
                 </section>
             </main>
 
-            <footer className="flex-item footer">
-                <div className="footer-left">
-                    <button className="button" onClick={handleNavigateToContact}>
-                        <p className="contact-text">neem contact op</p>
-                    </button>
-                </div>
-                <div className="footer-right">
-                    <p>In opdracht van:</p>
-                    <p>Novi Hogeschool</p>
-                </div>
-            </footer>
+            <FooterSection
+                contactText="neem contact op"
+                credits={["In opdracht van:", "Novi Hogeschool"]}
+                onContactClick={handleNavigateToContact}
+            />
         </div>
     );
 }

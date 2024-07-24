@@ -1,11 +1,13 @@
-// pages/CocktailDetail.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import logoImage from "../assets/cocktaillogoheader.png";
-import HeaderSection from '../components/HeaderSection';
-import { useAuth } from '../context/AuthContext';
-import { useLoading } from '../context/LoadingContext';
+import logoImage from "../../assets/cocktaillogoheader.png";
+import HeaderSection from '../../components/Headersection/Headersection';
+import { useAuth } from '../../context/Authcontext';
+import { useLoading } from '../../context/LoadingContext';
+import FooterSection from "../../components/FooterSection/FooterSection";
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import './CocktailDetail.css'
 
 function CocktailDetail() {
     const { id } = useParams();
@@ -19,7 +21,7 @@ function CocktailDetail() {
 
     useEffect(() => {
         const fetchCocktail = async () => {
-            setIsLoading(true); // Set loading to true
+            setIsLoading(true);
             try {
                 const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
                 setCocktail(response.data.drinks[0]);
@@ -63,14 +65,14 @@ function CocktailDetail() {
 
     const handleFavourite = async () => {
         if (!user) {
-            setErrorMessage('You must be logged in to add to favourites.');
+            setErrorMessage('Je moet eerst inloggen voordat je favorieten recepten kan opslaan');
             return;
         }
 
         try {
             const token = localStorage.getItem('Token');
             if (!token) {
-                setErrorMessage('You must be logged in to add to favourites.');
+                setErrorMessage('Je moet eerst inloggen voordat je favorieten recepten kan opslaan');
                 return;
             }
 
@@ -199,21 +201,15 @@ function CocktailDetail() {
                     >
                         {isFavourited ? 'Verwijder uit Favorieten' : 'Favoriet'}
                     </button>
+                    <ErrorMessage message={errorMessage} />
                     {successMessage && <p className="success-message">{successMessage}</p>}
-                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                 </section>
             </main>
-            <footer className="flex-item footer">
-                <div className="footer-left">
-                    <button className="button" onClick={handleNavigateToContact}>
-                        <p className="contact-text">neem contact op</p>
-                    </button>
-                </div>
-                <div className="footer-right">
-                    <p>In opdracht van:</p>
-                    <p>Novi Hogeschool</p>
-                </div>
-            </footer>
+            <FooterSection
+                contactText="neem contact op"
+                credits={["In opdracht van:", "Novi Hogeschool"]}
+                onContactClick={handleNavigateToContact}
+            />
         </div>
     );
 }

@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import logoImage from "../assets/cocktaillogoheader.png";
-import cocktailLogoLogin from "../assets/cocktaillogologin.png";
-import '../App.css';
-import { PasswordInput, UsernameInput } from "../components/labelinputs";
-import HeaderSection from '../components/HeaderSection';
-import LoadingIndicator from '../components/LoadingIndicator'; // Import LoadingIndicator
+import { useAuth } from '../../context/Authcontext';
+import logoImage from "../../assets/cocktaillogoheader.png";
+import cocktailLogoLogin from "../../assets/cocktaillogologin.png";
+import '../../App.css';
+import { PasswordInput, UsernameInput } from "../../components/labelinputs";
+import HeaderSection from '../../components/Headersection/Headersection';
+import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
+import FooterSection from "../../components/FooterSection/FooterSection";
 
 function Login() {
-    const { authenticate, loading, error, message, user } = useAuth();
+    const { authenticate, loading, error, message, user, logout } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -21,14 +22,18 @@ function Login() {
 
     const handleNavigateToContact = () => navigate('/contact');
     const handleNavigateToLogin = () => navigate('/login');
-    const handleLogout = () => {
-        logout();
-        navigate('/');
-    };
     const handleNavigateToSearch = () => navigate('/search');
     const handleNavigateToRecommended = () => navigate('/Recommended');
     const handleNavigateToFavourites = () => navigate('/Favourites');
     const handleNavigateHome = () => navigate('/');
+
+    // Ensure `logout` is called correctly
+    const handleLogout = () => {
+        if (logout) {
+            logout();
+        }
+        navigate('/');
+    };
 
     return (
         <div className="app-container">
@@ -45,7 +50,7 @@ function Login() {
             />
 
             <main className="main-content">
-                {loading && <LoadingIndicator />} {/* Show LoadingIndicator based on loading state */}
+                {loading && <LoadingIndicator />}
                 <section className="flex-item section3">
                     <div>
                         <h2 className="pink-heading">Cocktail Shaker Login</h2>
@@ -74,17 +79,11 @@ function Login() {
                 </section>
             </main>
 
-            <footer className="flex-item footer">
-                <div className="footer-left">
-                    <button className="button" onClick={handleNavigateToContact}>
-                        <p className="contact-text">neem contact op</p>
-                    </button>
-                </div>
-                <div className="footer-right">
-                    <p>In opdracht van:</p>
-                    <p>Novi Hogeschool</p>
-                </div>
-            </footer>
+            <FooterSection
+                contactText="neem contact op"
+                credits={["In opdracht van:", "Novi Hogeschool"]}
+                onContactClick={handleNavigateToContact}
+            />
         </div>
     );
 }

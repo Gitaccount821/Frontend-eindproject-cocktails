@@ -34,7 +34,7 @@ export const UsernameInput = ({ id, value, onChange }) => {
 export const EmailInput = ({ id, value, onChange }) => {
     return (
         <label htmlFor={id}>
-            Emailadres:
+            E-mailadres:
             <input
                 type="email"
                 id={id}

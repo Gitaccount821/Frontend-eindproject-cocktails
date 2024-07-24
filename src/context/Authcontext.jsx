@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
 
             setTimeout(() => {
                 navigate('/');
-            }, 2000);
+            }, 1000);
         } catch (err) {
             console.error('Authentication error:', err);
             setError('Verkeerde gebruikersnaam of wachtwoord');
