@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/Authcontext';
+import React, {useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+import {useAuth} from '../../context/Authcontext';
 import logoImage from "../../assets/cocktaillogoheader.png";
 import cocktailLogoLogin from "../../assets/cocktaillogologin.png";
 import '../../App.css';
-import { PasswordInput, UsernameInput } from "../../components/labelinputs";
+import {PasswordInput, UsernameInput} from "../../components/labelinputs";
 import HeaderSection from '../../components/Headersection/Headersection';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import FooterSection from "../../components/FooterSection/FooterSection";
 
 function Login() {
-    const { authenticate, loading, error, message, user, logout } = useAuth();
+    const {authenticate, loading, error, message, user, logout} = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -27,7 +27,6 @@ function Login() {
     const handleNavigateToFavourites = () => navigate('/Favourites');
     const handleNavigateHome = () => navigate('/');
 
-    // Ensure `logout` is called correctly
     const handleLogout = () => {
         if (logout) {
             logout();
@@ -35,8 +34,7 @@ function Login() {
         navigate('/');
     };
 
-    return (
-        <div className="app-container">
+    return (<div className="app-container">
             <HeaderSection
                 handleNavigateHome={handleNavigateHome}
                 handleNavigateToContact={handleNavigateToContact}
@@ -50,7 +48,7 @@ function Login() {
             />
 
             <main className="main-content">
-                {loading && <LoadingIndicator />}
+                {loading && <LoadingIndicator/>}
                 <section className="flex-item section3">
                     <div>
                         <h2 className="pink-heading">Cocktail Shaker Login</h2>
@@ -73,7 +71,8 @@ function Login() {
                                 {error && <p className="error">{error}</p>}
                                 {message && <p className="success">{message}</p>}
                             </form>
-                            <p style={{textAlign: 'right'}}>Nog geen account? <Link to="/signup">Registreer hier</Link></p>
+                            <p style={{textAlign: 'right'}}>Nog geen account? <Link to="/signup">Registreer hier</Link>
+                            </p>
                         </div>
                     </div>
                 </section>
@@ -84,8 +83,7 @@ function Login() {
                 credits={["In opdracht van:", "Novi Hogeschool"]}
                 onContactClick={handleNavigateToContact}
             />
-        </div>
-    );
+        </div>);
 }
 
 export default Login;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const PasswordInput = ({ id, value, onChange }) => {
+export const PasswordInput = ({id, value, onChange}) => {
     return (
         <label htmlFor={id}>
             Wachtwoord:
@@ -15,7 +15,7 @@ export const PasswordInput = ({ id, value, onChange }) => {
     );
 };
 
-export const UsernameInput = ({ id, value, onChange }) => {
+export const UsernameInput = ({id, value, onChange}) => {
     return (
         <label htmlFor={id}>
             Gebruikersnaam:
@@ -31,7 +31,7 @@ export const UsernameInput = ({ id, value, onChange }) => {
 };
 
 
-export const EmailInput = ({ id, value, onChange }) => {
+export const EmailInput = ({id, value, onChange}) => {
     return (
         <label htmlFor={id}>
             E-mailadres:

@@ -1,13 +1,13 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import {createContext, useContext, useState, useEffect} from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {jwtDecode} from "jwt-decode";
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const response = await axios.post(
                 'https://api.datavortex.nl/cocktailshaker/users/authenticate',
-                { username, password },
+                {username, password},
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
                 }
             );
 
-            const { jwt: Token } = response.data;
+            const {jwt: Token} = response.data;
 
             if (!Token) {
                 setError('Verkeerde Token ontvangen');
@@ -95,7 +95,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, error, message, authenticate, logout }}>
+        <AuthContext.Provider value={{user, loading, error, message, authenticate, logout}}>
             {children}
         </AuthContext.Provider>
     );

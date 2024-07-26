@@ -1,7 +1,7 @@
 import React from 'react';
 import './Footer.css'
 
-const FooterSection = ({ contactText, credits, onContactClick }) => (
+const FooterSection = ({contactText, credits, onContactClick}) => (
     <footer className="footer">
         <div className="footer-left">
             <button className="button" onClick={onContactClick}>

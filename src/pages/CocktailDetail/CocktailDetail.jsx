@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {useParams, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import logoImage from "../../assets/cocktaillogoheader.png";
 import HeaderSection from '../../components/Headersection/Headersection';
-import { useAuth } from '../../context/Authcontext';
-import { useLoading } from '../../context/LoadingContext';
+import {useAuth} from '../../context/Authcontext';
+import {useLoading} from '../../context/LoadingContext';
 import FooterSection from "../../components/FooterSection/FooterSection";
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './CocktailDetail.css'
 
 function CocktailDetail() {
-    const { id } = useParams();
+    const {id} = useParams();
     const navigate = useNavigate();
-    const { user, logout } = useAuth();
-    const { isLoading, setIsLoading } = useLoading();
+    const {user, logout} = useAuth();
+    const {isLoading, setIsLoading} = useLoading();
     const [cocktail, setCocktail] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -92,7 +92,7 @@ function CocktailDetail() {
                 const updatedFavourites = currentFavouritesArray.filter(favId => favId !== id).join(',');
                 const updateResponse = await axios.put(
                     `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
-                    { info: updatedFavourites },
+                    {info: updatedFavourites},
                     {
                         headers: {
                             Authorization: token,
@@ -114,7 +114,7 @@ function CocktailDetail() {
                 const updatedFavourites = [...currentFavouritesArray, id].join(',');
                 const updateResponse = await axios.put(
                     `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
-                    { info: updatedFavourites },
+                    {info: updatedFavourites},
                     {
                         headers: {
                             Authorization: token,
@@ -201,7 +201,7 @@ function CocktailDetail() {
                     >
                         {isFavourited ? 'Verwijder uit Favorieten' : 'Favoriet'}
                     </button>
-                    <ErrorMessage message={errorMessage} />
+                    <ErrorMessage message={errorMessage}/>
                     {successMessage && <p className="success-message">{successMessage}</p>}
                 </section>
             </main>
