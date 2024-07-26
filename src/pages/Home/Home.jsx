@@ -1,13 +1,13 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/Authcontext';
+import {useNavigate} from 'react-router-dom';
+import {useAuth} from '../../context/Authcontext';
 import logoImage from "../../assets/cocktaillogoheader.png";
 import HeaderSection from '../../components/Headersection/Headersection';
 import FooterSection from '../../components/FooterSection/FooterSection';
 import './Home.css';
 
 function Home() {
-    const { user, logout } = useAuth();
+    const {user, logout} = useAuth();
     const navigate = useNavigate();
 
     const handleNavigateToContact = () => {

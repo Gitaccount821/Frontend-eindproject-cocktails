@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import logoImage from "../../assets/cocktaillogoheader.png";
 import HeaderSection from '../../components/Headersection/Headersection';
-import { useAuth } from '../../context/Authcontext';
+import {useAuth} from '../../context/Authcontext';
 import './Favourites.css';
-import { useLoading } from '../../context/LoadingContext';
+import {useLoading} from '../../context/LoadingContext';
 import FooterSection from "../../components/FooterSection/FooterSection";
 import CocktailPreview from '../../components/CocktailPreview/CocktailPreview';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
@@ -13,52 +13,51 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 function Favourites() {
     const navigate = useNavigate();
-    const { user, logout } = useAuth();
-    const { setIsLoading } = useLoading();
+    const {user, logout} = useAuth();
+    const {setIsLoading} = useLoading();
     const [favourites, setFavourites] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const fetchFavourites = async () => {
-            if (!user) {
-                setErrorMessage('Je moet ingelogd zijn om je favourieten recepten te zien');
-                return;
-            }
             setIsLoading(true);
-            try {
-                const token = localStorage.getItem('Token');
-                if (!token) {
-                    setErrorMessage('Je moet ingelogd zijn om je favourieten recepten te zien');
-                    return;
+            if (user) {
+                try {
+                    const token = localStorage.getItem('Token');
+                    if (!token) {
+                        setErrorMessage('Je moet ingelogd zijn om je favourieten recepten te zien');
+                        return;
+                    }
+
+                    const userResponse = await axios.get(`https://api.datavortex.nl/cocktailshaker/users/${user.username}`, {
+                        headers: {
+                            Authorization: token,
+                            'Content-Type': 'application/json',
+                            'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
+                        },
+                    });
+                    const favouritesString = userResponse.data.info || '';
+
+                    if (!favouritesString) {
+                        setFavourites([]);
+                        return;
+                    }
+
+                    const favouritesArray = favouritesString.split(',').filter(Boolean);
+
+                    const cocktails = await Promise.all(favouritesArray.map(id =>
+                        axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+                    ));
+
+                    setFavourites(cocktails.map(res => res.data.drinks[0]));
+                } catch (error) {
+                    console.error('Error fetching favourites:', error);
+                    setErrorMessage('Er is iets misgegaan met het ophalen van favorieten.');
+                } finally {
+                    setIsLoading(false);
                 }
-
-                const userResponse = await axios.get(`https://api.datavortex.nl/cocktailshaker/users/${user.username}`, {
-                    headers: {
-                        Authorization: token,
-                        'Content-Type': 'application/json',
-                        'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
-                    },
-                });
-                const favouritesString = userResponse.data.info || '';
-
-                if (!favouritesString) {
-                    setFavourites([]);
-                    return;
-                }
-
-                const favouritesArray = favouritesString.split(',').filter(Boolean);
-
-                const cocktails = await Promise.all(favouritesArray.map(id =>
-                    axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
-                ));
-
-                setFavourites(cocktails.map(res => res.data.drinks[0]));
-            } catch (error) {
-                console.error('Error fetching favourites:', error);
-                setErrorMessage('Er is iets misgegaan met het ophalen van favorieten.');
-            } finally {
-                setIsLoading(false);
             }
+
         };
 
         fetchFavourites();
@@ -99,7 +98,7 @@ function Favourites() {
                 <section className="favourites">
                     <h1>Jouw Favorieten</h1>
                     {errorMessage ? (
-                        <ErrorMessage message={errorMessage} />
+                        <ErrorMessage message={errorMessage}/>
                     ) : (
                         <div className="cocktail-list">
                             {favourites.length === 0 ? (

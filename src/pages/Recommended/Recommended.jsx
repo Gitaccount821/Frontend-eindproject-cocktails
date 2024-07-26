@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import logoImage from "../../assets/cocktaillogoheader.png";
 import HeaderSection from '../../components/Headersection/Headersection';
-import { useAuth } from '../../context/Authcontext';
+import {useAuth} from '../../context/Authcontext';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import FooterSection from "../../components/FooterSection/FooterSection";
 import CocktailPreview from '../../components/CocktailPreview/CocktailPreview';
@@ -12,7 +12,7 @@ import './Recommended.css'
 
 function Recommended() {
     const navigate = useNavigate();
-    const { user, logout } = useAuth();
+    const {user, logout} = useAuth();
     const [selectedOption, setSelectedOption] = useState('');
     const [secondQuestionOption, setSecondQuestionOption] = useState('');
     const [thirdQuestionOption, setThirdQuestionOption] = useState('');
@@ -94,7 +94,7 @@ function Recommended() {
                     );
                 }
 
-                if (fifthQuestionOption === 'vega') {
+                if (fifthQuestionOption === 'vegan') {
                     const ingredientResponses = await Promise.all([
                         axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Egg'),
                         axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Milk')
@@ -189,7 +189,10 @@ function Recommended() {
                 <HeaderSection
                     handleNavigateHome={() => navigate('/')}
                     handleNavigateToContact={() => navigate('/contact')}
-                    handleLogout={() => { logout(); navigate('/'); }}
+                    handleLogout={() => {
+                        logout();
+                        navigate('/');
+                    }}
                     handleNavigateToLogin={() => navigate('/login')}
                     handleNavigateToSearch={() => navigate('/search')}
                     handleNavigateToRecommended={() => navigate('/Recommended')}
@@ -201,8 +204,8 @@ function Recommended() {
                     <div className="welcome-text">
                         <p className="large-header">Aangeraden cocktails voor jouw stemming vandaag</p>
                         <div className="question-box">
-                            {error && <ErrorMessage message={error} />} {/* Use ErrorMessage component */}
-                            {loading && <LoadingIndicator />}
+                            {error && <ErrorMessage message={error}/>} {/* Use ErrorMessage component */}
+                            {loading && <LoadingIndicator/>}
                             {!showResults && (
                                 <>
                                     {currentQuestion === 1 && (
@@ -271,7 +274,7 @@ function Recommended() {
                                                         checked={thirdQuestionOption === 'ordinary-mix'}
                                                         onChange={handleThirdOptionChange}
                                                     />
-                                                    Gewone mix
+                                                    Klassieke mix
                                                 </label>
                                                 <label className="option-label">
                                                     <input
@@ -321,11 +324,11 @@ function Recommended() {
                                                     <input
                                                         type="radio"
                                                         name="allergens"
-                                                        value="vega"
-                                                        checked={fifthQuestionOption === 'vega'}
+                                                        value="vegan"
+                                                        checked={fifthQuestionOption === 'vegan'}
                                                         onChange={handleFifthOptionChange}
                                                     />
-                                                    Vega
+                                                    Vegan
                                                 </label>
                                                 <label className="option-label">
                                                     <input

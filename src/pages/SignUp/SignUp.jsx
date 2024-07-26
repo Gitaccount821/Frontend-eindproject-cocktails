@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import logoImage from "../../assets/cocktaillogoheader.png";
 import newuserlogo from "../../assets/newuserlogo.png";
-import { PasswordInput, UsernameInput, EmailInput } from '../../components/labelinputs';
+import {PasswordInput, UsernameInput, EmailInput} from '../../components/labelinputs';
 import HeaderSection from '../../components/Headersection/Headersection';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import FooterSection from "../../components/FooterSection/FooterSection";
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
-function SignUp({ user }) {
+function SignUp({user}) {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -47,7 +47,7 @@ function SignUp({ user }) {
                 username,
                 password,
                 email,
-                authorities: [{ authority: 'USER' }],
+                authorities: [{authority: 'USER'}],
             }, config);
 
             console.log('Registration successful:', response.data);
@@ -98,7 +98,7 @@ function SignUp({ user }) {
                         <h2 className="pink-heading">Nieuw account aanmaken</h2>
                         <img src={newuserlogo} alt="logo nieuwe gebruiker" className="cocktail-logo-login"/>
                         <div className="contact-container">
-                            {loading && <LoadingIndicator />}
+                            {loading && <LoadingIndicator/>}
                             <form onSubmit={handleSubmit}>
                                 <EmailInput
                                     id="email-field"
@@ -115,8 +115,8 @@ function SignUp({ user }) {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
-                                <ErrorMessage message={error} /> {}
-                                {success && <p>{success}</p>}
+                                <ErrorMessage message={error}/> {}
+                                {success && <p className="success">{success}</p>}
                                 <button
                                     type="submit"
                                     disabled={loading}

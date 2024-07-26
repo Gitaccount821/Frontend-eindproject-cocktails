@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import logoImage from "../../assets/cocktaillogoheader.png";
 import HeaderSection from '../../components/Headersection/Headersection';
-import { useAuth } from '../../context/Authcontext';
-import { useLoading } from '../../context/LoadingContext';
+import {useAuth} from '../../context/Authcontext';
+import {useLoading} from '../../context/LoadingContext';
 import FooterSection from "../../components/FooterSection/FooterSection";
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './Search.css'
 
 function Search() {
     const navigate = useNavigate();
-    const { user, logout } = useAuth();
-    const { setIsLoading } = useLoading();
+    const {user, logout} = useAuth();
+    const {setIsLoading} = useLoading();
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [selectedCocktail, setSelectedCocktail] = useState(null);
@@ -105,7 +105,7 @@ function Search() {
                                 className="search-input"
                             />
                         </form>
-                        <ErrorMessage message={errorMessage} /> {}
+                        <ErrorMessage message={errorMessage}/> {}
                         {searchResults.length > 0 && (
                             <ul className="suggestions-list">
                                 {searchResults.map(result => (
@@ -114,7 +114,7 @@ function Search() {
                                         onClick={() => handleSelectSuggestion(result)}
                                         className="suggestion-item"
                                     >
-                                        <img src={result.thumbnail} alt={result.name} className="thumbnail" />
+                                        <img src={result.thumbnail} alt={result.name} className="thumbnail"/>
                                         {result.name}
                                     </li>
                                 ))}
@@ -124,7 +124,8 @@ function Search() {
                             <div className="selected-cocktail" onClick={() => handleCocktailClick(selectedCocktail.id)}>
                                 <div className="selected-cocktail-overlay">
                                     <p className="selected-cocktail-text">{selectedCocktail.name}</p>
-                                    <img src={selectedCocktail.thumbnail.replace('/preview', '')} alt={selectedCocktail.name} className="large-thumbnail" />
+                                    <img src={selectedCocktail.thumbnail.replace('/preview', '')}
+                                         alt={selectedCocktail.name} className="large-thumbnail"/>
                                 </div>
                             </div>
                         )}
