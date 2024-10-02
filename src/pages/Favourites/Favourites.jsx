@@ -31,7 +31,7 @@ function Favourites() {
 
                     const userResponse = await axios.get(`https://api.datavortex.nl/cocktailshaker/users/${user.username}`, {
                         headers: {
-                            Authorization: token,
+                            Authorization: `Bearer ${token}`,
                             'Content-Type': 'application/json',
                             'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
                         },

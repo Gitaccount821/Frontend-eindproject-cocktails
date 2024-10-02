@@ -45,7 +45,7 @@ function CocktailDetail() {
 
                     const userResponse = await axios.get(`https://api.datavortex.nl/cocktailshaker/users/${user.username}`, {
                         headers: {
-                            Authorization: token,
+                            Authorization: `Bearer ${token}`,
                             'Content-Type': 'application/json',
                             'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
                         },
@@ -55,7 +55,8 @@ function CocktailDetail() {
                     const currentFavouritesArray = currentFavourites.split(',').filter(Boolean);
                     setIsFavourited(currentFavouritesArray.includes(id));
                 } catch (error) {
-                    console.error('Error checking if cocktail is favourited:', error);
+                    console.error('Error checking if cocktail is favourited:', error.response ? error.response.data : error.message);
+                    setErrorMessage('Er is iets misgegaan bij het controleren van je favorieten.');
                 }
             }
         };
@@ -78,7 +79,7 @@ function CocktailDetail() {
 
             const userResponse = await axios.get(`https://api.datavortex.nl/cocktailshaker/users/${user.username}`, {
                 headers: {
-                    Authorization: token,
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
                     'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
                 },
@@ -95,7 +96,7 @@ function CocktailDetail() {
                     {info: updatedFavourites},
                     {
                         headers: {
-                            Authorization: token,
+                            Authorization: `Bearer ${token}`,
                             'Content-Type': 'application/json',
                             'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
                         },
@@ -117,7 +118,7 @@ function CocktailDetail() {
                     {info: updatedFavourites},
                     {
                         headers: {
-                            Authorization: token,
+                            Authorization: `Bearer ${token}`,
                             'Content-Type': 'application/json',
                             'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
                         },
