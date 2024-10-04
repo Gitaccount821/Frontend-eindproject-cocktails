@@ -1,11 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import logoImage from "../../assets/cocktaillogoheader.png";
-import HeaderSection from '../../components/Headersection/Headersection';
 import {useAuth} from '../../context/Authcontext';
 import {useLoading} from '../../context/LoadingContext';
-import FooterSection from "../../components/FooterSection/FooterSection";
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './CocktailDetail.css'
 
@@ -139,13 +136,6 @@ function CocktailDetail() {
         }
     };
 
-    const handleNavigateHome = () => navigate('/');
-    const handleNavigateToContact = () => navigate('/contact');
-    const handleNavigateToLogin = () => navigate('/login');
-    const handleLogout = () => {
-        logout();
-        navigate('/');
-    };
 
     if (isLoading) {
         return null;
@@ -158,17 +148,6 @@ function CocktailDetail() {
     return (
         <div className="app-container">
             <main className="main-content">
-                <HeaderSection
-                    handleNavigateHome={handleNavigateHome}
-                    handleNavigateToContact={handleNavigateToContact}
-                    handleLogout={handleLogout}
-                    handleNavigateToLogin={handleNavigateToLogin}
-                    handleNavigateToSearch={() => navigate('/search')}
-                    handleNavigateToRecommended={() => navigate('/Recommended')}
-                    handleNavigateToFavourites={() => navigate('/Favourites')}
-                    user={user}
-                    logoImage={logoImage}
-                />
 
                 <section className="cocktail-detail">
                     <h1 className="text-detail">{cocktail.strDrink}</h1>
@@ -206,11 +185,6 @@ function CocktailDetail() {
                     {successMessage && <p className="success-message">{successMessage}</p>}
                 </section>
             </main>
-            <FooterSection
-                contactText="neem contact op"
-                credits={["In opdracht van:", "Novi Hogeschool"]}
-                onContactClick={handleNavigateToContact}
-            />
         </div>
     );
 }

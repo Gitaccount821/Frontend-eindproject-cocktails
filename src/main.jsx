@@ -1,4 +1,3 @@
-// Main.jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, useNavigate } from 'react-router-dom';

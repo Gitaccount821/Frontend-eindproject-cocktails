@@ -1,11 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import logoImage from "../../assets/cocktaillogoheader.png";
-import HeaderSection from '../../components/Headersection/Headersection';
 import {useAuth} from '../../context/Authcontext';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
-import FooterSection from "../../components/FooterSection/FooterSection";
 import CocktailPreview from '../../components/CocktailPreview/CocktailPreview';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './Recommended.css'
@@ -28,7 +25,7 @@ function Recommended() {
         const fetchRecommendations = async () => {
             setLoading(true);
             try {
-                let filteredCocktails = [];
+                var filteredCocktails = [];
 
                 if (selectedOption === 'with-alcohol') {
                     const response = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic');
@@ -38,7 +35,7 @@ function Recommended() {
                     filteredCocktails = response.data.drinks || [];
                 }
 
-                let glassFilteredCocktails = [];
+                var glassFilteredCocktails = [];
 
                 if (secondQuestionOption === 'normal-glass') {
                     const normalGlassResponse = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?g=Cocktail_glass');
@@ -48,11 +45,11 @@ function Recommended() {
                     glassFilteredCocktails = specialGlassResponse.data.drinks || [];
                 }
 
-                let combinedCocktails = filteredCocktails.filter(cocktail =>
+                const combinedCocktails = filteredCocktails.filter(cocktail =>
                     glassFilteredCocktails.some(glassCocktail => glassCocktail.idDrink === cocktail.idDrink)
                 );
 
-                let mixFilteredCocktails = [];
+                var mixFilteredCocktails = [];
 
                 if (thirdQuestionOption === 'ordinary-mix') {
                     const ordinaryMixResponse = await axios.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink');
@@ -66,7 +63,7 @@ function Recommended() {
                     mixFilteredCocktails.some(mixCocktail => mixCocktail.idDrink === cocktail.idDrink)
                 );
 
-                let finalRecommendations = [];
+                var finalRecommendations = [];
 
                 if (fourthQuestionOption === 'fruity-cocktail') {
                     const ingredientResponses = await Promise.all([
@@ -186,20 +183,6 @@ function Recommended() {
     return (
         <div className="app-container">
             <main className="main-content">
-                <HeaderSection
-                    handleNavigateHome={() => navigate('/')}
-                    handleNavigateToContact={() => navigate('/contact')}
-                    handleLogout={() => {
-                        logout();
-                        navigate('/');
-                    }}
-                    handleNavigateToLogin={() => navigate('/login')}
-                    handleNavigateToSearch={() => navigate('/search')}
-                    handleNavigateToRecommended={() => navigate('/Recommended')}
-                    handleNavigateToFavourites={() => navigate('/Favourites')}
-                    user={user}
-                    logoImage={logoImage}
-                />
                 <section className="flex-item sectionrec">
                     <div className="welcome-text">
                         <p className="large-header">Aangeraden cocktails voor jouw stemming vandaag</p>
@@ -379,11 +362,6 @@ function Recommended() {
                 )}
             </main>
 
-            <FooterSection
-                contactText="neem contact op"
-                credits={["In opdracht van:", "Novi Hogeschool"]}
-                onContactClick={() => navigate('/contact')}
-            />
         </div>
     );
 }
