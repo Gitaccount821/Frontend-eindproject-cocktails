@@ -23,6 +23,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #faf0e6;
 }
 
 .main-content {
@@ -147,6 +148,7 @@ body {
 
 .contact-container p {
     margin-top: 10px;
+
 }
 
 .contact-container p a {
