@@ -1,16 +1,16 @@
-import React, {useState, useEffect} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {useAuth} from '../../context/Authcontext';
-import {useLoading} from '../../context/LoadingContext';
+import { useAuth } from '../../context/Authcontext';
+import { useLoading } from '../../context/LoadingContext';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import './CocktailDetail.css'
+import './CocktailDetail.css';
 
 function CocktailDetail() {
-    const {id} = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
-    const {user, logout} = useAuth();
-    const {isLoading, setIsLoading} = useLoading();
+    const { user, logout } = useAuth();
+    const { isLoading, setIsLoading } = useLoading();
     const [cocktail, setCocktail] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -23,8 +23,7 @@ function CocktailDetail() {
                 const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
                 setCocktail(response.data.drinks[0]);
             } catch (error) {
-                console.error('Error fetching data from API:', error);
-                setErrorMessage('Er is iets misgegaan met het ophalen van de cocktail.');
+                handleError('fetching cocktail', error);
             } finally {
                 setIsLoading(false);
             }
@@ -41,19 +40,14 @@ function CocktailDetail() {
                     if (!token) return;
 
                     const userResponse = await axios.get(`https://api.datavortex.nl/cocktailshaker/users/${user.username}`, {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            'Content-Type': 'application/json',
-                            'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
-                        },
+                        headers: createAuthHeaders(token),
                     });
 
                     const currentFavourites = userResponse.data.info || '';
                     const currentFavouritesArray = currentFavourites.split(',').filter(Boolean);
                     setIsFavourited(currentFavouritesArray.includes(id));
                 } catch (error) {
-                    console.error('Error checking if cocktail is favourited:', error.response ? error.response.data : error.message);
-                    setErrorMessage('Er is iets misgegaan bij het controleren van je favorieten.');
+                    handleError('checking favorites', error);
                 }
             }
         };
@@ -62,93 +56,87 @@ function CocktailDetail() {
     }, [user, id]);
 
     const handleFavourite = async () => {
-        if (!user) {
-            setErrorMessage('Je moet eerst inloggen voordat je favorieten recepten kan opslaan');
-            return;
-        }
+        const token = localStorage.getItem('Token');
 
-        try {
-            const token = localStorage.getItem('Token');
-            if (!token) {
+        switch (true) {
+            case !user:
                 setErrorMessage('Je moet eerst inloggen voordat je favorieten recepten kan opslaan');
                 return;
-            }
 
-            const userResponse = await axios.get(`https://api.datavortex.nl/cocktailshaker/users/${user.username}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'application/json',
-                    'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
-                },
-            });
+            case !token:
+                setErrorMessage('Je moet eerst inloggen voordat je favorieten recepten kan opslaan');
+                return;
 
-            const currentFavourites = userResponse.data.info || '';
-            const currentFavouritesArray = currentFavourites.split(',').filter(Boolean);
+            default:
+                try {
+                    const userResponse = await axios.get(`https://api.datavortex.nl/cocktailshaker/users/${user.username}`, {
+                        headers: createAuthHeaders(token),
+                    });
 
-            if (currentFavouritesArray.includes(id)) {
+                    const currentFavourites = userResponse.data.info || '';
+                    const currentFavouritesArray = currentFavourites.split(',').filter(Boolean);
 
-                const updatedFavourites = currentFavouritesArray.filter(favId => favId !== id).join(',');
-                const updateResponse = await axios.put(
-                    `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
-                    {info: updatedFavourites},
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            'Content-Type': 'application/json',
-                            'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
-                        },
-                    }
-                );
+                    const updateResponse = await updateFavourites(
+                        currentFavouritesArray.includes(id),
+                        currentFavouritesArray,
+                        token
+                    );
 
-                if (updateResponse.status === 200 || updateResponse.status === 204) {
-                    setIsFavourited(false);
-                    setSuccessMessage('Het recept is uit favorieten verwijderd.');
-                    setErrorMessage('');
-                } else {
-                    setErrorMessage(`Unexpected response status: ${updateResponse.status}`);
+                    handleResponse(updateResponse.status, currentFavouritesArray.includes(id));
+                } catch (error) {
+                    handleError('updating favorites', error);
                 }
-            } else {
-
-                const updatedFavourites = [...currentFavouritesArray, id].join(',');
-                const updateResponse = await axios.put(
-                    `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
-                    {info: updatedFavourites},
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            'Content-Type': 'application/json',
-                            'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
-                        },
-                    }
-                );
-
-                if (updateResponse.status === 200 || updateResponse.status === 204) {
-                    setIsFavourited(true);
-                    setSuccessMessage('Het recept is opgeslagen als favoriet!');
-                    setErrorMessage('');
-                } else {
-                    setErrorMessage(`Unexpected response status: ${updateResponse.status}`);
-                }
-            }
-        } catch (error) {
-            console.error('Error updating favourites:', error.response ? error.response.data : error.message);
-            setErrorMessage('Er is iets misgegaan bij het toevoegen aan favorieten.');
         }
     };
 
+    // Helper function voor authorisatie
+    const createAuthHeaders = (token) => ({
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
+    });
 
-    if (isLoading) {
-        return null;
-    }
+    // Helper function voor het updaten van gebruiker favourieten
+    const updateFavourites = async (isFavourite, currentFavouritesArray, token) => {
+        const updatedFavourites = isFavourite
+            ? currentFavouritesArray.filter(favId => favId !== id).join(',')
+            : [...currentFavouritesArray, id].join(',');
 
-    if (!cocktail) {
-        return <p>Error loading cocktail details.</p>;
-    }
+        return await axios.put(
+            `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
+            { info: updatedFavourites },
+            { headers: createAuthHeaders(token) }
+        );
+    };
+
+    // Switch statement voor updaten van berichten
+    const handleResponse = (status, isRemoving) => {
+        switch (status) {
+            case 200:
+            case 204:
+                setIsFavourited(!isRemoving);
+                setSuccessMessage(isRemoving ? 'Het recept is uit favorieten verwijderd.' : 'Het recept is opgeslagen als favoriet!');
+                setErrorMessage('');
+                break;
+            default:
+                setErrorMessage(`Unexpected response status: ${status}`);
+                break;
+        }
+    };
+
+    // Helper function errors
+    const handleError = (context, error) => {
+        console.error(`Error ${context}:`, error);
+        setErrorMessage(`Er is iets misgegaan bij ${context}.`);
+    };
+
+    if (isLoading) return null;
+
+    if (!cocktail) return <p>Error loading cocktail details.</p>;
 
     return (
         <div className="app-container">
             <main className="main-content">
-
                 <section className="cocktail-detail">
                     <h1 className="text-detail">{cocktail.strDrink}</h1>
                     <div className="cocktail-detail-content">
@@ -175,13 +163,14 @@ function CocktailDetail() {
                             </ul>
                         </div>
                     </div>
-                    <button type="button"
-                            className={`detail-button ${isFavourited ? 'blue-button' : ''}`}
+                    <button
+                        type="button"
+                        className={`detail-button ${isFavourited ? 'blue-button' : ''}`}
                         onClick={handleFavourite}
                     >
                         {isFavourited ? 'Verwijder uit Favorieten' : 'Favoriet'}
                     </button>
-                    <ErrorMessage message={errorMessage}/>
+                    <ErrorMessage message={errorMessage} />
                     {successMessage && <p className="success-message">{successMessage}</p>}
                 </section>
             </main>

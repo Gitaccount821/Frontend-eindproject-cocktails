@@ -1,4 +1,3 @@
-// Favourites.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../context/Authcontext';
@@ -6,12 +5,13 @@ import './Favourites.css';
 import { useLoading } from '../../context/LoadingContext';
 import CocktailPreview from '../../components/CocktailPreview/CocktailPreview';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-
+import { useNavigate } from 'react-router-dom';
 function Favourites() {
     const { user, logout } = useAuth();
     const { setIsLoading } = useLoading();
     const [favourites, setFavourites] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchFavourites = async () => {
@@ -74,9 +74,9 @@ function Favourites() {
                         {favourites.length === 0 ? (
                             <p>Je hebt nog geen opgeslagen recepten als favouriet</p>
                         ) : (
-                            favourites.map((cocktail, index) => (
+                            favourites.map((cocktail) => (
                                 <CocktailPreview
-                                    key={index}
+                                    key={cocktail.idDrink}
                                     cocktail={cocktail}
                                     onClick={() => navigate(`/cocktail/${cocktail.idDrink}`)}
                                 />

@@ -11,6 +11,7 @@
 .logo-container {
     margin-right: 140px;
     padding: 0 0 0 15px;
+    cursor: pointer;
 }
 
 
@@ -33,4 +34,10 @@
     border-radius: 50px;
     cursor: pointer;
     margin-right: 10px;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: default;
 }
