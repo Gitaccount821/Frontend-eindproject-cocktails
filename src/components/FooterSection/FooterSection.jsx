@@ -1,12 +1,13 @@
 import React from 'react';
-import './Footer.css'
+import { Link } from 'react-router-dom';
+import './Footer.css';
 
-const FooterSection = ({contactText, credits, onContactClick}) => (
+const FooterSection = ({ contactText, credits }) => (
     <footer className="footer">
         <div className="footer-left">
-            <button className="button" onClick={onContactClick}>
-                <p className="contact-text">{contactText}</p>
-            </button>
+            <Link to="/contact" className="button-footer">
+                <p className="contact-text">Neem contact op</p>
+            </Link>
         </div>
         <div className="footer-right">
             {credits.map((line, index) => (

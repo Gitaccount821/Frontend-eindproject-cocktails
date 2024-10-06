@@ -326,7 +326,7 @@ function Recommended() {
                                             </div>
                                         </>
                                     )}
-                                    <button className="continue-button" onClick={handleContinue} disabled={loading}>
+                                    <button className="continue-button" onClick={handleContinue} disabled={loading}> type="button"
                                         {currentQuestion === 5 ? 'Toon Resultaten' : 'Doorgaan'}
                                     </button>
                                 </>
@@ -355,7 +355,7 @@ function Recommended() {
                                 <p>Geen resultaten gevonden.</p>
                             )}
                         </div>
-                        <button className="continue-button refresh-button" onClick={handleRefresh}>
+                        <button className="continue-button refresh-button" onClick={handleRefresh}> type="button"
                             Terug naar start
                         </button>
                     </section>

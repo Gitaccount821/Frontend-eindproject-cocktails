@@ -175,8 +175,8 @@ function CocktailDetail() {
                             </ul>
                         </div>
                     </div>
-                    <button
-                        className={`detail-button ${isFavourited ? 'blue-button' : ''}`}
+                    <button type="button"
+                            className={`detail-button ${isFavourited ? 'blue-button' : ''}`}
                         onClick={handleFavourite}
                     >
                         {isFavourited ? 'Verwijder uit Favorieten' : 'Favoriet'}
