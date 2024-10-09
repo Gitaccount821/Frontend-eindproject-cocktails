@@ -1,22 +1,17 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import logoImage from "../../assets/cocktaillogoheader.png";
-import HeaderSection from '../../components/Headersection/Headersection';
-import {useAuth} from '../../context/Authcontext';
+import { useAuth } from '../../context/Authcontext';
 import './Favourites.css';
-import {useLoading} from '../../context/LoadingContext';
-import FooterSection from "../../components/FooterSection/FooterSection";
+import { useLoading } from '../../context/LoadingContext';
 import CocktailPreview from '../../components/CocktailPreview/CocktailPreview';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-
-
+import { useNavigate } from 'react-router-dom';
 function Favourites() {
-    const navigate = useNavigate();
-    const {user, logout} = useAuth();
-    const {setIsLoading} = useLoading();
+    const { user, logout } = useAuth();
+    const { setIsLoading } = useLoading();
     const [favourites, setFavourites] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchFavourites = async () => {
@@ -31,7 +26,7 @@ function Favourites() {
 
                     const userResponse = await axios.get(`https://api.datavortex.nl/cocktailshaker/users/${user.username}`, {
                         headers: {
-                            Authorization: token,
+                            Authorization: `Bearer ${token}`,
                             'Content-Type': 'application/json',
                             'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
                         },
@@ -57,70 +52,39 @@ function Favourites() {
                     setIsLoading(false);
                 }
             }
-
         };
 
         fetchFavourites();
-    }, [user]);
-
-    const handleNavigateToContact = () => navigate('/contact');
-    const handleNavigateToLogin = () => navigate('/login');
-    const handleLogout = () => {
-        logout();
-        navigate('/');
-    };
-    const handleNavigateToSearch = () => navigate('/search');
-    const handleNavigateToRecommended = () => navigate('/Recommended');
-    const handleNavigateToFavourites = () => navigate('/Favourites');
-    const handleNavigateHome = () => navigate('/');
+    }, [user, setIsLoading]);
 
     return (
         <div className="app-container">
-            <main className="main-content">
-                <HeaderSection
-                    handleNavigateHome={handleNavigateHome}
-                    handleNavigateToContact={handleNavigateToContact}
-                    handleLogout={handleLogout}
-                    handleNavigateToLogin={handleNavigateToLogin}
-                    handleNavigateToSearch={handleNavigateToSearch}
-                    handleNavigateToRecommended={handleNavigateToRecommended}
-                    handleNavigateToFavourites={handleNavigateToFavourites}
-                    user={user}
-                    logoImage={logoImage}
-                />
+            <section className="flex-item sectionfavheader">
+                <div className="welcome-text">
+                    <h1 className="large-text-Fav">Welkom! Hier vind je al je opgeslagen recepten</h1>
+                </div>
+            </section>
 
-                <section className="flex-item sectionfavheader">
-                    <div className="welcome-text">
-                        <h1 className="large-text-Fav">Welkom! Hier vind je al je opgeslagen recepten</h1>
+            <section className="favourites">
+                <h1>Jouw Favorieten</h1>
+                {errorMessage ? (
+                    <ErrorMessage message={errorMessage} />
+                ) : (
+                    <div className="cocktail-list">
+                        {favourites.length === 0 ? (
+                            <p>Je hebt nog geen opgeslagen recepten als favouriet</p>
+                        ) : (
+                            favourites.map((cocktail) => (
+                                <CocktailPreview
+                                    key={cocktail.idDrink}
+                                    cocktail={cocktail}
+                                    onClick={() => navigate(`/cocktail/${cocktail.idDrink}`)}
+                                />
+                            ))
+                        )}
                     </div>
-                </section>
-
-                <section className="favourites">
-                    <h1>Jouw Favorieten</h1>
-                    {errorMessage ? (
-                        <ErrorMessage message={errorMessage}/>
-                    ) : (
-                        <div className="cocktail-list">
-                            {favourites.length === 0 ? (
-                                <p>Je hebt nog geen opgeslagen recepten als favouriet</p>
-                            ) : (
-                                favourites.map((cocktail, index) => (
-                                    <CocktailPreview
-                                        key={index}
-                                        cocktail={cocktail}
-                                        onClick={() => navigate(`/cocktail/${cocktail.idDrink}`)}
-                                    />
-                                ))
-                            )}
-                        </div>
-                    )}
-                </section>
-            </main>
-            <FooterSection
-                contactText="neem contact op"
-                credits={["In opdracht van:", "Novi Hogeschool"]}
-                onContactClick={handleNavigateToContact}
-            />
+                )}
+            </section>
         </div>
     );
 }

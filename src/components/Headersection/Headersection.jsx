@@ -1,51 +1,59 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
-import './Headersection.css'
+import { useLocation, Link } from 'react-router-dom';
+import './Headersection.css';
 
-const HeaderSection = ({
-                           handleNavigateHome,
-                           handleNavigateToContact,
-                           handleLogout,
-                           handleNavigateToLogin,
-                           handleNavigateToSearch,
-                           handleNavigateToRecommended,
-                           handleNavigateToFavourites,
-                           logoImage,
-                           user
-                       }) => {
+const HeaderSection = ({ handleLogout, logoImage, user }) => {
     const location = useLocation();
 
+    // Nieuwe Helper functie toegevoegd:
+    const isActive = (path) => location.pathname === path;
+
     return (
-        <section className="section1">
-            <div className="logo-container" onClick={handleNavigateHome} style={{ cursor: 'pointer' }}>
+        <header className="section1">
+            <Link to="/" className="logo-container">
                 <img src={logoImage} alt="Logo" className="logo" />
-            </div>
-            <div className="buttons-container">
-                { user && (
+            </Link>
+            <nav className="buttons-container">
+                {user && (
                     <>
-                        <button className="button" onClick={handleNavigateToRecommended} disabled={location.pathname === '/Recommended'}>
+                        <Link
+                            to="/Recommended"
+                            className={`button ${isActive('/Recommended') ? 'disabled' : ''}`}
+                        >
                             Aangeraden Cocktails
-                        </button>
-                        <button className="button" onClick={handleNavigateToFavourites} disabled={location.pathname === '/Favourites'}>
+                        </Link>
+                        <Link
+                            to="/Favourites"
+                            className={`button ${isActive('/Favourites') ? 'disabled' : ''}`}
+                        >
                             Favorieten Cocktails
-                        </button>
+                        </Link>
                     </>
                 )}
-                <button className="button" onClick={handleNavigateToSearch} disabled={location.pathname === '/search'}>
+                <Link
+                    to="/search"
+                    className={`button ${isActive('/search') ? 'disabled' : ''}`}
+                >
                     Zoeken naar Cocktails
-                </button>
-                <button className="button" onClick={handleNavigateToContact} disabled={location.pathname === '/contact'}>
+                </Link>
+                <Link
+                    to="/contact"
+                    className={`button ${isActive('/contact') ? 'disabled' : ''}`}
+                >
                     Contact
-                </button>
-                { user ? (
+                </Link>
+                {user ? (
                     <button className="login" onClick={handleLogout}>Uitloggen</button>
                 ) : (
-                    <button className="login" onClick={handleNavigateToLogin} disabled={location.pathname === '/login'}>
+                    <Link
+                        to="/login"
+                        className={`login ${isActive('/login') ? 'disabled' : ''}`}
+                    >
                         Login
-                    </button>
+                    </Link>
                 )}
-            </div>
-        </section>
+            </nav>
+        </header>
     );
 };
 

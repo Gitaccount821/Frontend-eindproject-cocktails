@@ -1,13 +1,13 @@
-import {createContext, useContext, useState, useEffect} from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom';
-import {jwtDecode} from "jwt-decode";
+import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -17,7 +17,8 @@ export const AuthProvider = ({children}) => {
     useEffect(() => {
         const token = localStorage.getItem('Token');
         if (token) {
-            const username = jwtDecode(token).sub
+            const rawToken = token.replace('Bearer ', '');
+            const username = jwtDecode(rawToken).sub;
             fetchUserData(username, token);
         }
     }, []);
@@ -29,7 +30,7 @@ export const AuthProvider = ({children}) => {
         try {
             const response = await axios.post(
                 'https://api.datavortex.nl/cocktailshaker/users/authenticate',
-                {username, password},
+                { username, password },
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -38,16 +39,15 @@ export const AuthProvider = ({children}) => {
                 }
             );
 
-            const {jwt: Token} = response.data;
+            const { jwt: Token } = response.data;
 
             if (!Token) {
                 setError('Verkeerde Token ontvangen');
                 return;
             }
 
-            const bearerToken = `Bearer ${Token}`;
-            localStorage.setItem('Token', bearerToken);
-            await fetchUserData(username, bearerToken);
+            localStorage.setItem('Token', Token);
+            await fetchUserData(username, Token);
             setMessage('Log in successful! Je wordt terugverwezen naar de Home Pagina');
 
             setTimeout(() => {
@@ -61,7 +61,6 @@ export const AuthProvider = ({children}) => {
         }
     };
 
-
     const fetchUserData = async (username, token) => {
         if (!token) return;
 
@@ -73,7 +72,7 @@ export const AuthProvider = ({children}) => {
                 `https://api.datavortex.nl/cocktailshaker/users/${username}`,
                 {
                     headers: {
-                        Authorization: token,
+                        Authorization: `Bearer ${token}`,
                         'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
                     },
                 }
@@ -92,10 +91,11 @@ export const AuthProvider = ({children}) => {
         setUser(null);
         setMessage(null);
         setError(null);
+        navigate('/login');
     };
 
     return (
-        <AuthContext.Provider value={{user, loading, error, message, authenticate, logout}}>
+        <AuthContext.Provider value={{ user, loading, error, message, authenticate, logout }}>
             {children}
         </AuthContext.Provider>
     );

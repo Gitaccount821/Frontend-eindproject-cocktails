@@ -1,12 +1,9 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import logoImage from "../../assets/cocktaillogoheader.png";
 import newuserlogo from "../../assets/newuserlogo.png";
 import {PasswordInput, UsernameInput, EmailInput} from '../../components/labelinputs';
-import HeaderSection from '../../components/Headersection/Headersection';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
-import FooterSection from "../../components/FooterSection/FooterSection";
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 function SignUp({user}) {
@@ -18,16 +15,7 @@ function SignUp({user}) {
     const [success, setSuccess] = useState(null);
     const navigate = useNavigate();
 
-    const handleNavigateToContact = () => navigate('/contact');
-    const handleNavigateToLogin = () => navigate('/login');
-    const handleLogout = () => {
-        logout();
-        navigate('/');
-    };
-    const handleNavigateToSearch = () => navigate('/search');
-    const handleNavigateToRecommended = () => navigate('/Recommended');
-    const handleNavigateToFavourites = () => navigate('/Favourites');
-    const handleNavigateHome = () => navigate('/');
+
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -81,17 +69,6 @@ function SignUp({user}) {
     return (
         <div className="app-container">
             <main className="main-content">
-                <HeaderSection
-                    handleNavigateHome={handleNavigateHome}
-                    handleNavigateToContact={handleNavigateToContact}
-                    handleLogout={handleLogout}
-                    handleNavigateToLogin={handleNavigateToLogin}
-                    handleNavigateToSearch={handleNavigateToSearch}
-                    handleNavigateToRecommended={handleNavigateToRecommended}
-                    handleNavigateToFavourites={handleNavigateToFavourites}
-                    user={user}
-                    logoImage={logoImage}
-                />
 
                 <section className="flex-item section3">
                     <div>
@@ -129,11 +106,6 @@ function SignUp({user}) {
                 </section>
             </main>
 
-            <FooterSection
-                contactText="neem contact op"
-                credits={["In opdracht van:", "Novi Hogeschool"]}
-                onContactClick={handleNavigateToContact}
-            />
         </div>
     );
 }

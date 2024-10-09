@@ -1,11 +1,8 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
-import logoImage from "../../assets/cocktaillogoheader.png";
-import HeaderSection from '../../components/Headersection/Headersection';
 import {useAuth} from '../../context/Authcontext';
 import {useLoading} from '../../context/LoadingContext';
-import FooterSection from "../../components/FooterSection/FooterSection";
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './Search.css'
 
@@ -18,13 +15,6 @@ function Search() {
     const [selectedCocktail, setSelectedCocktail] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleNavigateToContact = () => navigate('/contact');
-    const handleNavigateHome = () => navigate('/');
-    const handleNavigateToLogin = () => navigate('/login');
-    const handleLogout = () => {
-        logout();
-        navigate('/');
-    };
 
     const handleSearch = async (query) => {
         if (query.trim() === '') {
@@ -82,17 +72,7 @@ function Search() {
     return (
         <div className="app-container">
             <main className="main-content">
-                <HeaderSection
-                    handleNavigateHome={handleNavigateHome}
-                    handleNavigateToContact={handleNavigateToContact}
-                    handleLogout={handleLogout}
-                    handleNavigateToLogin={handleNavigateToLogin}
-                    handleNavigateToSearch={() => navigate('/search')}
-                    handleNavigateToRecommended={() => navigate('/Recommended')}
-                    handleNavigateToFavourites={() => navigate('/Favourites')}
-                    user={user}
-                    logoImage={logoImage}
-                />
+
                 <section className="search-section">
                     <div className="search-container">
                         <p className="search-prompt">Vul hieronder je gezochte cocktail in!</p>
@@ -132,11 +112,7 @@ function Search() {
                     </div>
                 </section>
             </main>
-            <FooterSection
-                contactText="neem contact op"
-                credits={["In opdracht van:", "Novi Hogeschool"]}
-                onContactClick={handleNavigateToContact}
-            />
+
         </div>
     );
 }
