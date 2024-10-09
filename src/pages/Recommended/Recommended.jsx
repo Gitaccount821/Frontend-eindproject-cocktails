@@ -6,6 +6,7 @@ import CocktailPreview from '../../components/CocktailPreview/CocktailPreview';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './Recommended.css';
 
+
 function Recommended() {
     const navigate = useNavigate();
     const [selectedOption, setSelectedOption] = useState('');
