@@ -1,48 +1,18 @@
 import React from 'react';
 
-export const PasswordInput = ({id, value, onChange}) => {
+const InputField = ({ id, type, value, onChange, label, placeholder }) => {
     return (
         <label htmlFor={id}>
-            Wachtwoord:
+            {label}
             <input
-                type="password"
+                type={type}
                 id={id}
                 value={value}
                 onChange={onChange}
-                placeholder="Vul hier je wachtwoord in"
+                placeholder={placeholder}
             />
         </label>
     );
 };
 
-export const UsernameInput = ({id, value, onChange}) => {
-    return (
-        <label htmlFor={id}>
-            Gebruikersnaam:
-            <input
-                type="text"
-                id={id}
-                value={value}
-                onChange={onChange}
-                placeholder="Vul hier je gebruikersnaam in"
-            />
-        </label>
-    );
-};
-
-
-export const EmailInput = ({id, value, onChange}) => {
-    return (
-        <label htmlFor={id}>
-            E-mailadres:
-            <input
-                type="email"
-                id={id}
-                name="email"
-                value={value}
-                onChange={onChange}
-                placeholder="Vul hier je email in"
-            />
-        </label>
-    );
-};
+export default InputField;

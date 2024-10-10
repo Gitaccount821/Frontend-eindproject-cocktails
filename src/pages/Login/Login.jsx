@@ -4,11 +4,11 @@ import { useAuth } from '../../context/Authcontext';
 import { useLoading } from '../../context/LoadingContext';
 import cocktailLogoLogin from "../../assets/cocktaillogologin.png";
 import '../../App.css';
-import { PasswordInput, UsernameInput } from "../../components/labelinputs";
+import InputField from "../../components/labelinputs";
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 
 function Login() {
-    const { authenticate, error, message, user, logout } = useAuth();
+    const { authenticate, error, message, user } = useAuth();
     const { isLoading, setIsLoading, loadingProgress, setLoadingProgress } = useLoading();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -46,15 +46,21 @@ function Login() {
                         <img src={cocktailLogoLogin} alt="Cocktail Logo Login" className="cocktail-logo-login" />
                         <div className="contact-container">
                             <form onSubmit={handleSubmit}>
-                                <UsernameInput
+                                <InputField
                                     id="username-field"
+                                    type="text"
+                                    label="Gebruikersnaam:"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
+                                    placeholder="Vul hier je gebruikersnaam in"
                                 />
-                                <PasswordInput
+                                <InputField
                                     id="password-field"
+                                    type="password"
+                                    label="Wachtwoord:"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                    placeholder="Vul hier je wachtwoord in"
                                 />
                                 <button type="submit" disabled={isLoading}>
                                     {isLoading ? 'Loading...' : 'Inloggen'}
