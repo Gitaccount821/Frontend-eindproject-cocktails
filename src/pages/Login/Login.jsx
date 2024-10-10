@@ -4,7 +4,7 @@ import { useAuth } from '../../context/Authcontext';
 import { useLoading } from '../../context/LoadingContext';
 import cocktailLogoLogin from "../../assets/cocktaillogologin.png";
 import '../../App.css';
-import InputField from "../../components/labelinputs";
+import InputField from "../../components/Labelinputs/labelinputs";
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 
 function Login() {

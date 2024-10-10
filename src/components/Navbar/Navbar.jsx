@@ -1,52 +1,75 @@
 import React from 'react';
-import { useLocation, Link } from 'react-router-dom';
-import './Navbar.css';
+import NavLink from '../NavLink/NavLink';
+import { useLocation } from 'react-router-dom';
+import Button from '../Button/Button';
 
 const Navbar = ({ handleLogout, user }) => {
     const location = useLocation();
 
-    // Help functie actieve link
+    // Helper functie
     const isActive = (path) => location.pathname === path;
 
     return (
         <nav className="buttons-container">
             {user && (
                 <>
-                    <Link
+                    <NavLink
                         to="/Recommended"
-                        className={`button ${isActive('/Recommended') ? 'disabled' : ''}`}
+                        disabled={isActive('/Recommended')}
                     >
                         Aangeraden Cocktails
-                    </Link>
-                    <Link
+                    </NavLink>
+                    <NavLink
                         to="/Favourites"
-                        className={`button ${isActive('/Favourites') ? 'disabled' : ''}`}
+                        disabled={isActive('/Favourites')}
                     >
                         Favorieten Cocktails
-                    </Link>
+                    </NavLink>
                 </>
             )}
-            <Link
+            <NavLink
                 to="/search"
-                className={`button ${isActive('/search') ? 'disabled' : ''}`}
+                disabled={isActive('/search')}
             >
                 Zoeken naar Cocktails
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
                 to="/contact"
-                className={`button ${isActive('/contact') ? 'disabled' : ''}`}
+                disabled={isActive('/contact')}
             >
                 Contact
-            </Link>
+            </NavLink>
             {user ? (
-                <button className="login" onClick={handleLogout}>Uitloggen</button>
+                <Button
+                    onClick={handleLogout}
+                    style={{
+                        marginLeft: '50px',
+                        padding: '10px 50px',
+                        backgroundColor: '#8b32a8',
+                        color: '#ffffff',
+                        borderRadius: '50px',
+                        cursor: 'pointer',
+                        marginRight: '10px',
+                    }}
+                >
+                    Uitloggen
+                </Button>
             ) : (
-                <Link
+                <NavLink
                     to="/login"
-                    className={`login ${isActive('/login') ? 'disabled' : ''}`}
+                    style={{
+                        marginLeft: '50px',
+                        padding: '10px 50px',
+                        backgroundColor: '#8b32a8',
+                        color: '#ffffff',
+                        borderRadius: '50px',
+                        cursor: 'pointer',
+                        marginRight: '10px',
+                    }}
+                    disabled={isActive('/login')}
                 >
                     Login
-                </Link>
+                </NavLink>
             )}
         </nav>
     );

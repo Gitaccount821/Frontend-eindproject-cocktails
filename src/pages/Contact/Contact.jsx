@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuth } from '../../context/Authcontext';
 import './Contact.css';
+import Button from '../../components/Button/Button'
 
 function Contact() {
     const { user, logout } = useAuth();
@@ -40,7 +41,10 @@ function Contact() {
                                 <label htmlFor="bericht">Bericht</label>
                                 <textarea id="bericht" name="bericht"></textarea>
                             </div>
-                            <button type="submit" className="button center-button">Verstuur</button>
+                            <Button type="submit">
+                                Verstuur
+                            </Button>
+
                         </form>
                     </div>
                 </section>
