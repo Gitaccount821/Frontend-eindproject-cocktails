@@ -23,10 +23,13 @@ export const AuthProvider = ({ children }) => {
         }
     }, []);
 
-    const authenticate = async (username, password) => {
+    const authenticate = async (username, password, updateLoadingProgress) => {
         setLoading(true);
         setError(null);
         setMessage(null);
+
+        updateLoadingProgress(10);
+
         try {
             const response = await axios.post(
                 'https://api.datavortex.nl/cocktailshaker/users/authenticate',
@@ -39,10 +42,13 @@ export const AuthProvider = ({ children }) => {
                 }
             );
 
+            updateLoadingProgress(50);
+
             const { jwt: Token } = response.data;
 
             if (!Token) {
                 setError('Verkeerde Token ontvangen');
+                updateLoadingProgress(100);
                 return;
             }
 
@@ -50,12 +56,16 @@ export const AuthProvider = ({ children }) => {
             await fetchUserData(username, Token);
             setMessage('Log in successful! Je wordt terugverwezen naar de Home Pagina');
 
+            updateLoadingProgress(90);
+
             setTimeout(() => {
+                updateLoadingProgress(100);
                 navigate('/');
             }, 1000);
         } catch (err) {
             console.error('Authentication error:', err);
             setError('Verkeerde gebruikersnaam of wachtwoord');
+            updateLoadingProgress(100);
         } finally {
             setLoading(false);
         }

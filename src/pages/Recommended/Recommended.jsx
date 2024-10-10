@@ -296,7 +296,7 @@ function Recommended() {
                                 )}
                             </div>
                             <button className="refresh-button" onClick={handleRefresh}>
-                                Vernieuwen
+                                Terug naar Start
                             </button>
                         </div>
                     )}
