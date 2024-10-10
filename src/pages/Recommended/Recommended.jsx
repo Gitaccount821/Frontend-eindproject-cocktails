@@ -18,6 +18,7 @@ function Recommended() {
     const [error, setError] = useState('');
     const [recommendations, setRecommendations] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [loadingProgress, setLoadingProgress] = useState(0);
     const [showResults, setShowResults] = useState(false);
 
 // Helper Functies:
@@ -139,21 +140,28 @@ function Recommended() {
     useEffect(() => {
         const fetchRecommendations = async () => {
             setLoading(true);
+            setLoadingProgress(0);
+
             try {
                 const filteredCocktails = await filterCocktailsByType(selectedOption);
+                setLoadingProgress(20);
+
                 const glassFilteredCocktails = await filterCocktailsByGlass(secondQuestionOption);
+                setLoadingProgress(40);
 
                 const combinedCocktails = filteredCocktails.filter(cocktail =>
                     glassFilteredCocktails.some(glassCocktail => glassCocktail.idDrink === cocktail.idDrink)
                 );
 
                 const mixFilteredCocktails = await filterCocktailsByMix(thirdQuestionOption);
+                setLoadingProgress(60);
 
                 const initialRecommendations = combinedCocktails.filter(cocktail =>
                     mixFilteredCocktails.some(mixCocktail => mixCocktail.idDrink === cocktail.idDrink)
                 );
 
                 let finalRecommendations = await filterByFlavor(fourthQuestionOption, initialRecommendations);
+                setLoadingProgress(80);
 
                 if (fifthQuestionOption === 'vegan') {
                     finalRecommendations = await applyVeganFilter(finalRecommendations);
@@ -165,6 +173,7 @@ function Recommended() {
                 setError('Er is iets misgegaan bij het ophalen van aanbevelingen.');
             } finally {
                 setLoading(false);
+                setLoadingProgress(100);
             }
         };
 
@@ -239,8 +248,8 @@ function Recommended() {
                     <div className="welcome-text">
                         <p className="large-header">Aangeraden cocktails voor jouw stemming vandaag</p>
                         <div className="question-box">
-                            {error && <ErrorMessage message={error}/>}
-                            {loading && <LoadingIndicator/>}
+                            {error && <ErrorMessage message={error} />}
+                            {loading && <LoadingIndicator loadingProgress={loadingProgress} />}
 
                             {!showResults && (
                                 <>
@@ -287,7 +296,7 @@ function Recommended() {
                                 )}
                             </div>
                             <button className="refresh-button" onClick={handleRefresh}>
-                                Vernieuwen
+                                Terug naar Start
                             </button>
                         </div>
                     )}

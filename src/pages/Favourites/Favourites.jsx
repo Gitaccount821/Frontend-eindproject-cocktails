@@ -6,9 +6,11 @@ import { useLoading } from '../../context/LoadingContext';
 import CocktailPreview from '../../components/CocktailPreview/CocktailPreview';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { useNavigate } from 'react-router-dom';
+import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
+
 function Favourites() {
-    const { user, logout } = useAuth();
-    const { setIsLoading } = useLoading();
+    const { user } = useAuth();
+    const { setIsLoading, loadingProgress, setLoadingProgress } = useLoading();
     const [favourites, setFavourites] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
@@ -16,13 +18,20 @@ function Favourites() {
     useEffect(() => {
         const fetchFavourites = async () => {
             setIsLoading(true);
-            if (user) {
-                try {
+            setLoadingProgress(0);
+            let progressInterval;
+
+            try {
+                if (user) {
                     const token = localStorage.getItem('Token');
                     if (!token) {
                         setErrorMessage('Je moet ingelogd zijn om je favourieten recepten te zien');
                         return;
                     }
+
+                    progressInterval = setInterval(() => {
+                        setLoadingProgress(prev => (prev < 90 ? prev + 10 : prev));
+                    }, 200);
 
                     const userResponse = await axios.get(`https://api.datavortex.nl/cocktailshaker/users/${user.username}`, {
                         headers: {
@@ -40,25 +49,31 @@ function Favourites() {
 
                     const favouritesArray = favouritesString.split(',').filter(Boolean);
 
+
                     const cocktails = await Promise.all(favouritesArray.map(id =>
                         axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
                     ));
 
                     setFavourites(cocktails.map(res => res.data.drinks[0]));
-                } catch (error) {
-                    console.error('Error fetching favourites:', error);
-                    setErrorMessage('Er is iets misgegaan met het ophalen van favorieten.');
-                } finally {
-                    setIsLoading(false);
                 }
+            } catch (error) {
+                console.error('Error fetching favourites:', error);
+                setErrorMessage('Er is iets misgegaan met het ophalen van favorieten.');
+            } finally {
+                if (progressInterval) clearInterval(progressInterval);
+                setLoadingProgress(100);
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, 300);
             }
         };
 
         fetchFavourites();
-    }, [user, setIsLoading]);
+    }, [user, setIsLoading, setLoadingProgress]);
 
     return (
         <div className="app-container">
+            {loadingProgress < 100 && <LoadingIndicator loadingProgress={loadingProgress} />} {/* Show loading indicator */}
             <section className="flex-item sectionfavheader">
                 <div className="welcome-text">
                     <h1 className="large-text-Fav">Welkom! Hier vind je al je opgeslagen recepten</h1>

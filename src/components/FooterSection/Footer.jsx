@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
-const FooterSection = ({ contactText, credits }) => (
+const Footer = ({ contactText, credits }) => (
     <footer className="footer">
         <div className="footer-left">
             <Link to="/contact" className="button-footer">
@@ -17,4 +17,4 @@ const FooterSection = ({ contactText, credits }) => (
     </footer>
 );
 
-export default FooterSection;
+export default Footer;

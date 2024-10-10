@@ -1,20 +1,19 @@
-import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {useAuth} from '../../context/Authcontext';
-import {useLoading} from '../../context/LoadingContext';
+import { useAuth } from '../../context/Authcontext';
+import { useLoading } from '../../context/LoadingContext';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import './Search.css'
+import './Search.css';
 
 function Search() {
     const navigate = useNavigate();
-    const {user, logout} = useAuth();
-    const {setIsLoading} = useLoading();
+    const { user, logout } = useAuth();
+    const { setIsLoading } = useLoading();
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [selectedCocktail, setSelectedCocktail] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
-
 
     const handleSearch = async (query) => {
         if (query.trim() === '') {
@@ -43,26 +42,18 @@ function Search() {
     };
 
     const handleInputChange = (e) => {
-        const query = e.target.value;
-        setSearchQuery(query);
-        handleSearch(query);
+        setSearchQuery(e.target.value);
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        handleSearch(searchQuery);
     };
 
     const handleSelectSuggestion = (cocktail) => {
         setSearchQuery(cocktail.name);
         setSelectedCocktail(cocktail);
         setSearchResults([]);
-    };
-
-    const handleSearchSubmit = (e) => {
-        e.preventDefault();
-        if (searchQuery.trim() === '') {
-            setErrorMessage('Vul alsjeblieft een waarde in');
-            return;
-        }
-
-        setErrorMessage('');
-        setSelectedCocktail(searchResults.find(cocktail => cocktail.name.toLowerCase() === searchQuery.toLowerCase()) || null);
     };
 
     const handleCocktailClick = (id) => {
@@ -72,7 +63,6 @@ function Search() {
     return (
         <div className="app-container">
             <main className="main-content">
-
                 <section className="search-section">
                     <div className="search-container">
                         <p className="search-prompt">Vul hieronder je gezochte cocktail in!</p>
@@ -85,7 +75,7 @@ function Search() {
                                 className="search-input"
                             />
                         </form>
-                        <ErrorMessage message={errorMessage}/> {}
+                        <ErrorMessage message={errorMessage} />
                         {searchResults.length > 0 && (
                             <ul className="suggestions-list">
                                 {searchResults.map(result => (
@@ -94,7 +84,7 @@ function Search() {
                                         onClick={() => handleSelectSuggestion(result)}
                                         className="suggestion-item"
                                     >
-                                        <img src={result.thumbnail} alt={result.name} className="thumbnail"/>
+                                        <img src={result.thumbnail} alt={result.name} className="thumbnail" />
                                         {result.name}
                                     </li>
                                 ))}
@@ -105,14 +95,13 @@ function Search() {
                                 <div className="selected-cocktail-overlay">
                                     <p className="selected-cocktail-text">{selectedCocktail.name}</p>
                                     <img src={selectedCocktail.thumbnail.replace('/preview', '')}
-                                         alt={selectedCocktail.name} className="large-thumbnail"/>
+                                         alt={selectedCocktail.name} className="large-thumbnail" />
                                 </div>
                             </div>
                         )}
                     </div>
                 </section>
             </main>
-
         </div>
     );
 }
