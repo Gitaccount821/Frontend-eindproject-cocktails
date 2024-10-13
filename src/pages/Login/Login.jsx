@@ -4,11 +4,14 @@ import { useAuth } from '../../context/Authcontext';
 import { useLoading } from '../../context/LoadingContext';
 import cocktailLogoLogin from "../../assets/cocktaillogologin.png";
 import '../../App.css';
-import { PasswordInput, UsernameInput } from "../../components/labelinputs";
+import InputField from "../../components/Labelinputs/labelinputs";
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
+import AppContainer from '../../components/AppContainer/AppContainer';
+import MainContent from '../../components/MainContent/MainContent';
+import ContactContainer from '../../components/ContactContainer/ContactContainer';
 
 function Login() {
-    const { authenticate, error, message, user, logout } = useAuth();
+    const { authenticate, error, message, user } = useAuth();
     const { isLoading, setIsLoading, loadingProgress, setLoadingProgress } = useLoading();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -37,24 +40,30 @@ function Login() {
     };
 
     return (
-        <div className="app-container">
-            <main className="main-content">
+<AppContainer>
+    <MainContent>
                 {isLoading && <LoadingIndicator loadingProgress={loadingProgress} />}
                 <section className="flex-item section3">
                     <div>
                         <h2 className="pink-heading">Cocktail Shaker Login</h2>
                         <img src={cocktailLogoLogin} alt="Cocktail Logo Login" className="cocktail-logo-login" />
-                        <div className="contact-container">
+                        <ContactContainer>
                             <form onSubmit={handleSubmit}>
-                                <UsernameInput
+                                <InputField
                                     id="username-field"
+                                    type="text"
+                                    label="Gebruikersnaam:"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
+                                    placeholder="Vul hier je gebruikersnaam in"
                                 />
-                                <PasswordInput
+                                <InputField
                                     id="password-field"
+                                    type="password"
+                                    label="Wachtwoord:"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                    placeholder="Vul hier je wachtwoord in"
                                 />
                                 <button type="submit" disabled={isLoading}>
                                     {isLoading ? 'Loading...' : 'Inloggen'}
@@ -63,11 +72,11 @@ function Login() {
                                 {message && <p className="success">{message}</p>}
                             </form>
                             <p style={{ textAlign: 'right' }}>Nog geen account? <Link to="/signup">Registreer hier</Link></p>
-                        </div>
+                        </ContactContainer>
                     </div>
                 </section>
-            </main>
-        </div>
+        </MainContent>
+</AppContainer>
     );
 }
 

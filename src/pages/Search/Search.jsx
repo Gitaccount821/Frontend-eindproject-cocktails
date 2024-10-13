@@ -5,6 +5,8 @@ import { useAuth } from '../../context/Authcontext';
 import { useLoading } from '../../context/LoadingContext';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './Search.css';
+import AppContainer from '../../components/AppContainer/AppContainer';
+import MainContent from '../../components/MainContent/MainContent';
 
 function Search() {
     const navigate = useNavigate();
@@ -18,7 +20,7 @@ function Search() {
     const handleSearch = async (query) => {
         if (query.trim() === '') {
             setSearchResults([]);
-            setErrorMessage('Vul alsjeblieft een waarde in');
+            setErrorMessage('Vul alsjeblieft een naam in');
             return;
         }
 
@@ -61,8 +63,8 @@ function Search() {
     };
 
     return (
-        <div className="app-container">
-            <main className="main-content">
+<AppContainer>
+    <MainContent>
                 <section className="search-section">
                     <div className="search-container">
                         <p className="search-prompt">Vul hieronder je gezochte cocktail in!</p>
@@ -101,8 +103,8 @@ function Search() {
                         )}
                     </div>
                 </section>
-            </main>
-        </div>
+        </MainContent>
+</AppContainer>
     );
 }
 

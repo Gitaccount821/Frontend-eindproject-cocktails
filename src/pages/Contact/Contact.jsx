@@ -1,15 +1,19 @@
 import React from 'react';
 import { useAuth } from '../../context/Authcontext';
 import './Contact.css';
+import Button from '../../components/Button/Button'
+import AppContainer from '../../components/AppContainer/AppContainer';
+import MainContent from '../../components/MainContent/MainContent';
+import ContactContainer from '../../components/ContactContainer/ContactContainer';
 
 function Contact() {
     const { user, logout } = useAuth();
 
     return (
-        <div className="app-container">
-            <main className="main-content">
+        <AppContainer>
+            <MainContent>
                 <section className="contact-section">
-                    <div className="contact-container">
+                    <ContactContainer>
                         <h1 className="head-contactformulier">Stuur ons een bericht</h1>
                         <form className="contact-form">
                             <div className="form-group">
@@ -40,12 +44,15 @@ function Contact() {
                                 <label htmlFor="bericht">Bericht</label>
                                 <textarea id="bericht" name="bericht"></textarea>
                             </div>
-                            <button type="submit" className="button center-button">Verstuur</button>
+                            <Button type="submit">
+                                Verstuur
+                            </Button>
+
                         </form>
-                    </div>
+                    </ContactContainer>
                 </section>
-            </main>
-        </div>
+                </MainContent>
+            </AppContainer>
     );
 }
 

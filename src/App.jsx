@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Home from './pages/Home/Home';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import SignUp from './pages/SignUp/SignUp';
 import Login from './pages/Login/Login';
 import Search from './pages/Search/Search';
@@ -11,8 +11,14 @@ import CocktailDetail from './pages/CocktailDetail/CocktailDetail';
 import Contact from './pages/Contact/Contact';
 import Header from './components/Headersection/Header';
 import Footer from './components/FooterSection/Footer';
+import PageNotFound from './pages/404PageNotFound/pagenotfound';
 import logoImage from './assets/cocktaillogoheader.png';
 import { useAuth } from './context/Authcontext';
+
+function PrivateRoute({ children }) {
+    const { user } = useAuth();
+    return user ? children : <Navigate to="/Login" />;
+}
 
 function App() {
     const { user, logout } = useAuth();
@@ -35,8 +41,19 @@ function App() {
                 <Route path="/Login" element={<Login />} />
                 <Route path="/Search" element={<Search />} />
                 <Route path="/Recommended" element={<Recommended />} />
-                <Route path="/Favourites" element={<Favourites />} />
-                <Route path="/cocktail/:id" element={<CocktailDetail />} />
+
+                <Route path="/Favourites" element={
+                    <PrivateRoute>
+                        <Favourites />
+                    </PrivateRoute>
+                } />
+                <Route path="/cocktail/:id" element={
+                    <PrivateRoute>
+                        <CocktailDetail />
+                    </PrivateRoute>
+                } />
+
+                <Route path="*" element={<PageNotFound />} />
             </Routes>
             <Footer
                 contactText="Neem contact op"

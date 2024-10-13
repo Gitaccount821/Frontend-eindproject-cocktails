@@ -5,6 +5,8 @@ import { useAuth } from '../../context/Authcontext';
 import { useLoading } from '../../context/LoadingContext';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './CocktailDetail.css';
+import AppContainer from '../../components/AppContainer/AppContainer';
+import MainContent from '../../components/MainContent/MainContent';
 
 function CocktailDetail() {
     const { id } = useParams();
@@ -135,8 +137,8 @@ function CocktailDetail() {
     if (!cocktail) return <p>Error loading cocktail details.</p>;
 
     return (
-        <div className="app-container">
-            <main className="main-content">
+        <AppContainer>
+            <MainContent>
                 <section className="cocktail-detail">
                     <h1 className="text-detail">{cocktail.strDrink}</h1>
                     <div className="cocktail-detail-content">
@@ -173,8 +175,8 @@ function CocktailDetail() {
                     <ErrorMessage message={errorMessage} />
                     {successMessage && <p className="success-message">{successMessage}</p>}
                 </section>
-            </main>
-        </div>
+                </MainContent>
+        </AppContainer>
     );
 }
 

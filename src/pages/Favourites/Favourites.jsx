@@ -7,6 +7,8 @@ import CocktailPreview from '../../components/CocktailPreview/CocktailPreview';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { useNavigate } from 'react-router-dom';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
+import AppContainer from '../../components/AppContainer/AppContainer';
+
 
 function Favourites() {
     const { user } = useAuth();
@@ -72,7 +74,7 @@ function Favourites() {
     }, [user, setIsLoading, setLoadingProgress]);
 
     return (
-        <div className="app-container">
+        <AppContainer>
             {loadingProgress < 100 && <LoadingIndicator loadingProgress={loadingProgress} />} {/* Show loading indicator */}
             <section className="flex-item sectionfavheader">
                 <div className="welcome-text">
@@ -100,7 +102,7 @@ function Favourites() {
                     </div>
                 )}
             </section>
-        </div>
+            </AppContainer>
     );
 }
 

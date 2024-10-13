@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import newuserlogo from "../../assets/newuserlogo.png";
-import { PasswordInput, UsernameInput, EmailInput } from '../../components/labelinputs';
+import InputField from '../../components/Labelinputs/labelinputs';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { useLoading } from '../../context/LoadingContext';
+import AppContainer from '../../components/AppContainer/AppContainer';
+import MainContent from '../../components/MainContent/MainContent';
+import ContactContainer from '../../components/ContactContainer/ContactContainer';
 
-function SignUp({ user }) {
+
+function SignUp() {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -87,41 +91,50 @@ function SignUp({ user }) {
     }
 
     return (
-        <div className="app-container">
-            <main className="main-content">
+<AppContainer>
+    <MainContent>
                 <section className="flex-item section3">
                     <div>
                         <h2 className="pink-heading">Nieuw account aanmaken</h2>
                         <img src={newuserlogo} alt="logo nieuwe gebruiker" className="cocktail-logo-login" />
-                        <div className="contact-container">
+                        <ContactContainer>
                             {isLoading && <LoadingIndicator loadingProgress={loadingProgress} />}
                             <form onSubmit={handleSubmit}>
-                                <EmailInput
+                                <InputField
                                     id="email-field"
+                                    type="email"
+                                    label="E-mailadres:"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Vul hier je email in"
                                 />
-                                <UsernameInput
+                                <InputField
                                     id="username-field"
+                                    type="text"
+                                    label="Gebruikersnaam:"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
+                                    placeholder="Vul hier je gebruikersnaam in"
                                 />
-                                <PasswordInput
+                                <InputField
                                     id="password-field"
+                                    type="password"
+                                    label="Wachtwoord:"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                    placeholder="Vul hier je wachtwoord in"
                                 />
-                                <ErrorMessage message={error} /> {}
+                                <ErrorMessage message={error} />
                                 {success && <p className="success">{success}</p>}
                                 <button type="submit" disabled={isLoading}>
                                     {isLoading ? 'Loading...' : 'Creëer nieuw account'}
                                 </button>
                             </form>
-                        </div>
+                        </ContactContainer>
                     </div>
                 </section>
-            </main>
-        </div>
+        </MainContent>
+</AppContainer>
     );
 }
 
