@@ -1,0 +1,20 @@
+.app-container h1 {
+    font-size: 120px;
+    color: red;
+    margin: 0;
+}
+
+.app-container p {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+.app-container a {
+    font-size: 24px;
+    color: #ff6b6b;
+    text-decoration: none;
+}
+
+.app-container a:hover {
+    text-decoration: underline;
+}

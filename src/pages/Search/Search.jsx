@@ -18,7 +18,7 @@ function Search() {
     const handleSearch = async (query) => {
         if (query.trim() === '') {
             setSearchResults([]);
-            setErrorMessage('Vul alsjeblieft een waarde in');
+            setErrorMessage('Vul alsjeblieft een naam in');
             return;
         }
 
