@@ -17,29 +17,11 @@ body {
     padding: 0;
 }
 
-/* Reusables */
+/* Globale CSS*/
 
-.app-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #faf0e6;
-}
 
-.main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    background-color: #faf0e6;
-}
-
-.cocktail-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 50px;
-    margin-top: 20px;
+.flex-item {
+    padding: 20px;
 }
 
 .section3 {
@@ -49,88 +31,6 @@ body {
     text-align: center;
     padding: 0 20px;
     background-color: #faf0e6;
-}
-
-.flex-item {
-    padding: 20px;
-}
-
-.contact-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 800px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.contact-container h2 {
-    color: #FF00FE;
-}
-
-.contact-container form {
-    margin-top: 20px;
-    width: 100%;
-}
-
-.contact-container form label {
-    margin-bottom: 10px;
-}
-
-.contact-container form input,
-.contact-container form textarea {
-    width: calc(100% - 20px);
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-.contact-container form textarea {
-    height: 100px;
-    resize: vertical;
-}
-
-.contact-container form button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #FF00FE;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.contact-container form button:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-}
-
-.contact-container .error {
-    color: red;
-    margin-top: 10px;
-}
-
-.contact-container .success {
-    color: green;
-    margin-top: 10px;
-}
-
-.contact-container p {
-    margin-top: 10px;
-
-}
-
-.contact-container p a {
-    color: #FF00FE;
-    text-decoration: none;
-}
-
-.contact-container p a:hover {
-    text-decoration: underline;
 }
 
 .pink-heading {
@@ -146,21 +46,6 @@ body {
     margin: 0 20px 20px;
 }
 
-.favourites {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-size: cover;
-    background-position: center;
-    min-height: 50vh;
-    background-color: #faf0e6;
+h1 {
+    font-size: 70px;
 }
-
-.cocktail-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 20px;
-}
-

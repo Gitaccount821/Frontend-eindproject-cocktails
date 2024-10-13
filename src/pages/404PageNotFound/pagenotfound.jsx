@@ -1,14 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './pagenotfound.css';
+import AppContainer from '../../components/AppContainer/AppContainer';
 
 function PageNotFound() {
     return (
-        <div className="app-container">
-            <h1>404</h1>
-            <p>Deze pagina bestaat niet!</p>
-            <Link to="/">Ga terug naar de Home pagina</Link>
-        </div>
+        <AppContainer>
+            <section className="page-not-found-container">
+                <h1>404</h1>
+                <h2>Deze pagina bestaat niet!</h2>
+                <Link to="/" className="home-link">
+                    Ga terug naar de Home pagina
+                </Link>
+            </section>
+        </AppContainer>
     );
 }
 

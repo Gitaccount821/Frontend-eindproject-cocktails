@@ -6,6 +6,9 @@ import cocktailLogoLogin from "../../assets/cocktaillogologin.png";
 import '../../App.css';
 import InputField from "../../components/Labelinputs/labelinputs";
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
+import AppContainer from '../../components/AppContainer/AppContainer';
+import MainContent from '../../components/MainContent/MainContent';
+import ContactContainer from '../../components/ContactContainer/ContactContainer';
 
 function Login() {
     const { authenticate, error, message, user } = useAuth();
@@ -37,14 +40,14 @@ function Login() {
     };
 
     return (
-        <div className="app-container">
-            <main className="main-content">
+<AppContainer>
+    <MainContent>
                 {isLoading && <LoadingIndicator loadingProgress={loadingProgress} />}
                 <section className="flex-item section3">
                     <div>
                         <h2 className="pink-heading">Cocktail Shaker Login</h2>
                         <img src={cocktailLogoLogin} alt="Cocktail Logo Login" className="cocktail-logo-login" />
-                        <div className="contact-container">
+                        <ContactContainer>
                             <form onSubmit={handleSubmit}>
                                 <InputField
                                     id="username-field"
@@ -69,11 +72,11 @@ function Login() {
                                 {message && <p className="success">{message}</p>}
                             </form>
                             <p style={{ textAlign: 'right' }}>Nog geen account? <Link to="/signup">Registreer hier</Link></p>
-                        </div>
+                        </ContactContainer>
                     </div>
                 </section>
-            </main>
-        </div>
+        </MainContent>
+</AppContainer>
     );
 }
 

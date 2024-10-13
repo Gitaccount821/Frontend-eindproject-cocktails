@@ -1,20 +1,22 @@
-.app-container h1 {
-    font-size: 120px;
-    color: red;
-    margin: 0;
+.page-not-found-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
 }
 
-.app-container p {
-    font-size: 24px;
-    margin: 20px 0;
-}
 
-.app-container a {
-    font-size: 24px;
-    color: #ff6b6b;
-    text-decoration: none;
-}
-
-.app-container a:hover {
+.home-link {
+    font-size: 2rem;
+    color: blue;
     text-decoration: underline;
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 25px;
+}
+
+.home-link:hover {
+    color: darkblue;
 }

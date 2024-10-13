@@ -6,6 +6,10 @@ import InputField from '../../components/Labelinputs/labelinputs';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { useLoading } from '../../context/LoadingContext';
+import AppContainer from '../../components/AppContainer/AppContainer';
+import MainContent from '../../components/MainContent/MainContent';
+import ContactContainer from '../../components/ContactContainer/ContactContainer';
+
 
 function SignUp() {
     const [email, setEmail] = useState('');
@@ -87,13 +91,13 @@ function SignUp() {
     }
 
     return (
-        <div className="app-container">
-            <main className="main-content">
+<AppContainer>
+    <MainContent>
                 <section className="flex-item section3">
                     <div>
                         <h2 className="pink-heading">Nieuw account aanmaken</h2>
                         <img src={newuserlogo} alt="logo nieuwe gebruiker" className="cocktail-logo-login" />
-                        <div className="contact-container">
+                        <ContactContainer>
                             {isLoading && <LoadingIndicator loadingProgress={loadingProgress} />}
                             <form onSubmit={handleSubmit}>
                                 <InputField
@@ -126,11 +130,11 @@ function SignUp() {
                                     {isLoading ? 'Loading...' : 'Creëer nieuw account'}
                                 </button>
                             </form>
-                        </div>
+                        </ContactContainer>
                     </div>
                 </section>
-            </main>
-        </div>
+        </MainContent>
+</AppContainer>
     );
 }
 

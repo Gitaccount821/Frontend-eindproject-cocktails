@@ -46,9 +46,7 @@ const Navbar = ({ handleLogout, user }) => {
                         marginLeft: '50px',
                         padding: '10px 50px',
                         backgroundColor: '#8b32a8',
-                        color: '#ffffff',
                         borderRadius: '50px',
-                        cursor: 'pointer',
                         marginRight: '10px',
                     }}
                 >

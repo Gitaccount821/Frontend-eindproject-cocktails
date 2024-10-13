@@ -6,6 +6,8 @@ import CocktailPreview from '../../components/CocktailPreview/CocktailPreview';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './Recommended.css';
 import Button from '../../components/Button/Button'
+import AppContainer from '../../components/AppContainer/AppContainer';
+import MainContent from '../../components/MainContent/MainContent';
 
 
 function Recommended() {
@@ -240,11 +242,12 @@ function Recommended() {
         window.location.reload();
     };
 
+
     // De Main
 
     return (
-        <div className="app-container">
-            <main className="main-content">
+<AppContainer>
+    <MainContent>
                 <section className="flex-item sectionrec">
                     <div className="welcome-text">
                         <p className="large-header">Aangeraden cocktails voor jouw stemming vandaag</p>
@@ -325,8 +328,8 @@ function Recommended() {
                         </div>
                     )}
                 </section>
-            </main>
-        </div>
+        </MainContent>
+</AppContainer>
     );
 
 }
