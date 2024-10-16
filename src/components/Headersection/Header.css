@@ -6,6 +6,7 @@
     width: 100%;
     color: var(--main-color-white);
     padding: var(--spacing-medium);
+
 }
 
 .logo-container {
@@ -30,3 +31,29 @@
     opacity: 0.6;
     cursor: default;
 }
+
+@media (max-width: 900px) {
+    .sectionHeader {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo-container {
+        margin-right: 0;
+    }
+
+    .logo {
+        width: 130px;
+    }
+
+    .buttons-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button {
+        padding: 7px 10px;
+        font-size: var(--font-size-small);
+    }
+}
+

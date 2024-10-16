@@ -1,6 +1,5 @@
 :root {
     --color-label-input: #007bff;
-    --color-background-refresh-button: darkred;
     --color-continuebutton: #333;
 }
 
@@ -110,14 +109,4 @@
     margin: 200px 20px;
 }
 
-.refresh-button {
-    position: absolute;
-    top: 450px;
-    right: 520px;
-    background-color: var(--color-background-refresh-button);
-    color: var(--main-color-white);
-    border: none;
-    border-radius: 5px;
-    padding: 30px 40px;
-    cursor: pointer;
-}
+

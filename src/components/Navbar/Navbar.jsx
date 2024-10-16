@@ -43,7 +43,7 @@ const Navbar = ({ handleLogout, user }) => {
                 <Button
                     onClick={handleLogout}
                     style={{
-                        marginLeft: '50px',
+                        marginLeft: '20px',
                         padding: '10px 50px',
                         backgroundColor: '#8b32a8',
                         borderRadius: '50px',
@@ -56,7 +56,7 @@ const Navbar = ({ handleLogout, user }) => {
                 <NavLink
                     to="/login"
                     style={{
-                        marginLeft: '50px',
+                        marginLeft: '20px',
                         padding: '10px 50px',
                         backgroundColor: '#8b32a8',
                         color: '#ffffff',

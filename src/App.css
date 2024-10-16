@@ -24,10 +24,11 @@ body {
 
 :root {
     --font-size-h1: 70px;
+    --font-size-h1-smallscreen: 60px;
     --font-size-h2: 30px;
     --font-size-small: 18px;
     --font-size-medium: 25px;
-    --font-size-mediumbig: 22px;
+    --font-size-mediumsmall: 22px;
     --font-size-big: 36px;
     --font-size-huge: 50px;
     --color-background-sections: #faf0e6;
@@ -81,4 +82,14 @@ h1 {
 
 h2 {
     font-size: var(--font-size-h2);
+}
+
+@media(max-width: 900px) {
+    h1 {
+        font-size: var(--font-size-h1-smallscreen);
+    }
+
+    h2 {
+        font-size: var(--font-size-small);
+    }
 }

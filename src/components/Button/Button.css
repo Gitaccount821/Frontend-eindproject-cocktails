@@ -26,3 +26,29 @@
     cursor: not-allowed;
 }
 
+.refresh-button {
+    position: absolute;
+    top: 350px;
+    right: 250px;
+    background-color: darkred;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 50px 120px;
+    cursor: pointer;
+
+}
+
+@media (max-width: 900px) {
+    .refresh-button {
+        top: 650px;
+        right: 100px;
+    }
+}
+
+@media (max-width: 570px) {
+    .refresh-button {
+        top: 670px;
+        right: 80px;
+    }
+}

@@ -50,7 +50,7 @@
 .detail-button {
     margin-left: 250px;
     padding: 15px 25px;
-    font-size: var(--font-size-mediumbig);
+    font-size: var(--font-size-mediumsmall);
     background-color: var(--color-background-favbutton);
     color: var(--color-button-background);
     border: none;

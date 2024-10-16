@@ -310,17 +310,7 @@ function Recommended() {
                             </div>
                             <Button
                                 onClick={handleRefresh}
-                                style={{
-                                    position: 'absolute',
-                                    top: '450px',
-                                    right: '520px',
-                                    backgroundColor: 'darkred',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderRadius: '5px',
-                                    padding: '30px 40px',
-                                    cursor: 'pointer',
-                                }}
+                                className="refresh-button"
                             >
                                 Terug naar Start
                             </Button>

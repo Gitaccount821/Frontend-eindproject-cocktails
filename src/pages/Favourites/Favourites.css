@@ -26,7 +26,7 @@
 
 .large-text-Fav {
     font-size: var(--font-size-huge);
-    margin-left: 750px;
+    margin-left: 450px;
 }
 
 .cocktail-list {
@@ -35,3 +35,11 @@
     justify-content: flex-start;
     gap:  var(--font-size-medium);
 }
+
+@media(max-width: 900px) {
+    .large-text-Fav {
+        font-size: var(--font-size-big);
+        margin-left: 250px;
+    }
+}
+

@@ -1,3 +1,8 @@
+:root {
+    --font-size-mediumbig: 30px ;
+}
+
+
 .small-text {
     font-size: var(--font-size-big);
     margin-bottom: 40px;
@@ -23,4 +28,16 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+@media(max-width: 900px) {
+    .small-text {
+        font-size: var(--font-size-mediumbig);
+    }
+}
+
+@media (max-width: 570px) {
+    .small-text {
+        font-size: var(--font-size-medium);
+    }
 }
