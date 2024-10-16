@@ -248,7 +248,7 @@ function Recommended() {
     return (
 <AppContainer>
     <MainContent>
-                <section className="flex-item sectionrec">
+                <section className="flex-item section-recommended-top">
                     <div className="welcome-text">
                         <p className="large-header">Aangeraden cocktails voor jouw stemming vandaag</p>
                         <div className="question-box">

@@ -7,6 +7,7 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import './CocktailDetail.css';
 import AppContainer from '../../components/AppContainer/AppContainer';
 import MainContent from '../../components/MainContent/MainContent';
+import Button from '../../components/Button/Button'
 
 function CocktailDetail() {
     const { id } = useParams();
@@ -165,13 +166,13 @@ function CocktailDetail() {
                             </ul>
                         </div>
                     </div>
-                    <button
+                    <Button
                         type="button"
-                        className={`detail-button ${isFavourited ? 'blue-button' : ''}`}
                         onClick={handleFavourite}
+                        className={`detail-button ${isFavourited ? 'blue-button' : ''}`}
                     >
                         {isFavourited ? 'Verwijder uit Favorieten' : 'Favoriet'}
-                    </button>
+                    </Button>
                     <ErrorMessage message={errorMessage} />
                     {successMessage && <p className="success-message">{successMessage}</p>}
                 </section>

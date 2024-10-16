@@ -1,8 +1,8 @@
 .button {
     margin-left: 30px;
-    padding: 10px 20px;
-    background-color: #000;
-    color: #ffffff;
+    padding: var(--spacing-small) var(--spacing-medium);
+    background-color: var(--color-button-background);
+    color:  var(--main-color-white);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -11,8 +11,8 @@
 }
 
 .button:hover {
-    background-color: #6b2491;
-    border-radius: 20px;
+    background-color: var(--color-button-hover);
+    border-radius: var(--spacing-medium);
     transform: scale(1.1);
 }
 
@@ -21,8 +21,8 @@
 }
 
 .button:disabled {
-    background-color: #000;
-    color: grey;
+    background-color: var(--color-button-background);
+    color: var(--color-button-disabled);
     cursor: not-allowed;
 }
 

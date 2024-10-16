@@ -1,5 +1,5 @@
 .small-text {
-    font-size: 30px;
+    font-size: var(--font-size-big);
     margin-bottom: 40px;
 }
 
@@ -13,11 +13,11 @@
     text-align: left;
 }
 
-.section2 {
+.sectionHome {
     background-image: url('../../assets/cocktailbackgroundhome.png');
     background-size: cover;
     background-position: center;
-    color: #fff;
+    color: var(--main-color-white);
     min-height: 50vh;
     display: flex;
     justify-content: center;

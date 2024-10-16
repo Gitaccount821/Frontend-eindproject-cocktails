@@ -5,7 +5,7 @@ import './Header.css';
 
 const Header = ({ handleLogout, logoImage, user }) => {
     return (
-        <header className="section1">
+        <header className="sectionHeader">
             <Link to="/" className="logo-container">
                 <img src={logoImage} alt="Logo" className="logo" />
             </Link>
