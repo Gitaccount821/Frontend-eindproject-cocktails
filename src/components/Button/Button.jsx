@@ -7,6 +7,7 @@ function Button({
                     disabled = false,
                     children,
                     style = {},
+                    className = '',
                     loading = false,
                 }) {
     return (
@@ -14,7 +15,7 @@ function Button({
             type={type}
             onClick={onClick}
             disabled={disabled || loading}
-            className="button"
+            className={`button ${className}`}
             style={style}
         >
             {loading && <span className="loading-spinner"></span>}

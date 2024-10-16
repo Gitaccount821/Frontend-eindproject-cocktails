@@ -4,32 +4,32 @@
     align-items: center;
     width: 100%;
     max-width: 800px;
-    background-color: #fff;
-    padding: 20px;
+    background-color: var(--main-color-white);
+    padding: var(--spacing-medium);
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .contact-container h2 {
-    color: #FF00FE;
+    color: var(--color-pink);
 }
 
 .contact-container form {
-    margin-top: 20px;
+    margin-top: var(--spacing-medium);
     width: 100%;
 }
 
 .contact-container form label {
-    margin-bottom: 10px;
+    margin-bottom: var(--spacing-small);
 }
 
 .contact-container form input,
 .contact-container form textarea {
     width: calc(100% - 20px);
-    padding: 10px;
+    padding: var(--spacing-small);
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: var(--font-size-small);
 }
 
 .contact-container form textarea {
@@ -38,13 +38,13 @@
 }
 
 .contact-container form button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #FF00FE;
-    color: white;
+    margin-top: var(--spacing-small);
+    padding: var(--spacing-small) var(--spacing-medium);
+    background-color: var(--color-pink);
+    color: var(--main-color-white);
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: var(--font-size-small);
 }
 
 .contact-container form button:disabled {
@@ -53,21 +53,21 @@
 }
 
 .contact-container .error {
-    color: red;
-    margin-top: 10px;
+    color: var(--color-error);
+    margin-top: var(--spacing-small);
 }
 
 .contact-container .success {
-    color: green;
-    margin-top: 10px;
+    color: var(--color-succes);
+    margin-top: var(--spacing-small);
 }
 
 .contact-container p {
-    margin-top: 10px;
+    margin-top: var(--spacing-small);
 }
 
 .contact-container p a {
-    color: #FF00FE;
+    color: var(--color-pink);
     text-decoration: none;
 }
 

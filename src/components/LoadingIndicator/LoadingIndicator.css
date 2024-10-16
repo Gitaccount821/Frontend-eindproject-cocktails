@@ -1,3 +1,7 @@
+root{
+    --color-loadingbar: #3498db;
+}
+
 .loading-indicator {
     position: fixed;
     top: 50%;
@@ -23,7 +27,7 @@
 
 .loading-bar {
     height: 100%;
-    background-color: #3498db;
+    background-color: var(--color-loadingbar);
     border-radius: 15px 0 0 15px;
     transition: width 0.2s ease-in-out;
 }
@@ -33,9 +37,9 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    color: black;
+    color: var(--color-button-background);
     font: bold;
     font-weight: bold;
-    font-size: 18px;
+    font-size: var(--font-size-small);
     z-index: 1;
 }

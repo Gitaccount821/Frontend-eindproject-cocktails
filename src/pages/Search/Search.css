@@ -1,9 +1,12 @@
+:root {
+   --color-suggestion-hover: #f1f1f1;
+}
+
 .search-section {
     display: flex;
     justify-content: center;
     flex: 1;
-    padding: 40px 20px;
-    background-color: #faf0e6;
+    padding: var(--spacing-large);
 }
 
 .search-container {
@@ -11,15 +14,15 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    background-color: #fff;
-    padding: 20px;
+    background-color: var(--main-color-white);
+    padding: var(--spacing-medium);
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .search-prompt {
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: var(--font-size-small);
+    margin-bottom: var(--spacing-small);
     text-align: center;
 }
 
@@ -31,8 +34,8 @@
 }
 
 .search-input {
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: var(--spacing-small);
+    margin-bottom: var(--spacing-small);
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -47,33 +50,33 @@
     max-width: 600px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #fff;
+    background-color: var(--main-color-white);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .suggestion-item {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: var(--spacing-small);
     cursor: pointer;
     border-bottom: 1px solid #ddd;
     transition: background-color 0.3s ease;
 }
 
 .suggestion-item:hover {
-    background-color: #f1f1f1;
+    background-color: var(--color-suggestion-hover);
 }
 
 .thumbnail {
-    margin-right: 10px;
-    border-radius: 5px;
+    margin-right: var(--spacing-small);
+    border-radius: var(--spacing-very-small);
     width: 80px;
     height: 80px;
 }
 
 .result-name {
-    margin-left: 10px;
-    font-size: 16px;
+    margin-left: var(--spacing-small);
+    font-size: var(--font-size-small);
     font-weight: bold;
 }
 
@@ -85,7 +88,7 @@
 
 .selected-cocktail img {
     display: block;
-    margin: 20px auto;
+    margin: var(--spacing-medium) auto;
 }
 
 .selected-cocktail-overlay {
@@ -95,15 +98,15 @@
 
 .selected-cocktail-text {
     position: absolute;
-    top: 10px;
+    top: var(--spacing-small);
     background: rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 15%;
-    margin: 10px 0;
-    color: white;
-    font-size: 24px;
+    margin: var(--spacing-small) 0;
+    color: var(--main-color-white);
+    font-size: var(--font-size-medium);
     font-weight: bold;
-    padding: 20px 0;
+    padding: var(--spacing-medium) 0;
     box-sizing: border-box;
     text-align: center;
 }
@@ -113,6 +116,3 @@
     height: 300px;
 }
 
-.suggestion-item:hover {
-    background-color: #f1f1f1;
-}

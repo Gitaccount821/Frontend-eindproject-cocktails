@@ -1,13 +1,16 @@
+:root{
+    --color-contact-header: #b1a748;
+}
+
 .contact-section {
     display: flex;
     justify-content: center;
     align-items: center;
     flex: 1;
     padding: 40px 20px;
-    background-color: #faf0e6;
 }
 
 .head-contactformulier {
-    color: #b1a748;
-    font-size: 40px;
+    color: var(--color-contact-header);
+    font-size: var(--font-size-big);
 }

@@ -12,7 +12,7 @@ function Home() {
     return (
         <AppContainer>
             <MainContent>
-                <section className="flex-item section2">
+                <section className="flex-item sectionHome">
                     <div>
                         <p className="small-text">welkom op de site</p>
                         <h1>Cocktail Shaker</h1>

@@ -2,7 +2,7 @@
     background-image: url('../../assets/CocktailFavback.jpg');
     background-size: cover;
     background-position: center;
-    color: #fff;
+    color: var(--main-color-white);
     min-height: 25vh;
     display: flex;
     justify-content: center;
@@ -17,23 +17,29 @@
     background-size: cover;
     background-position: center;
     min-height: 50vh;
-    background-color: #faf0e6;
 }
 
 .favourites h1 {
-    font-size: 36px;
-    color: black;
-    margin-bottom: 20px;
+    font-size: var(--font-size-big);
+    margin-bottom:  var(--font-size-medium);
 }
 
 .large-text-Fav {
-    font-size: 50px;
-    margin-left: 750px;
+    font-size: var(--font-size-huge);
+    margin-left: 450px;
 }
 
 .cocktail-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 20px;
+    gap:  var(--font-size-medium);
 }
+
+@media(max-width: 900px) {
+    .large-text-Fav {
+        font-size: var(--font-size-big);
+        margin-left: 250px;
+    }
+}
+

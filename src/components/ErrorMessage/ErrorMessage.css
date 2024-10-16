@@ -1,8 +1,6 @@
-
-
 .error-message {
-    color: red;
+    color: var(--color-error);
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 18px;
+    margin-bottom: var(--spacing-medium);
+    font-size: var(--font-size-small);
 }

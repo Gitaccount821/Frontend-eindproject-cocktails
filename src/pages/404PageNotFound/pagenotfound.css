@@ -1,3 +1,6 @@
+:root{
+    --color-link:  blue;
+}
 .page-not-found-container {
     display: flex;
     flex-direction: column;
@@ -9,14 +12,13 @@
 
 
 .home-link {
-    font-size: 2rem;
-    color: blue;
+    color: var(--color-link);
     text-decoration: underline;
     display: inline-block;
-    margin-top: 10px;
-    font-size: 25px;
+    margin-top:  var(--font-size-small);
+    font-size: var(--font-size-medium);
 }
 
 .home-link:hover {
-    color: darkblue;
+    color: var(--color-button-hover);
 }

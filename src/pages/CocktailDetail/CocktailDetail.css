@@ -1,16 +1,22 @@
+:root{
+    --color-background-favbutton: hotpink;
+    --color-detailbutton-hover: deeppink;
+    --color-detailbutton-unfavourite: mediumpurple;
+}
+
 .cocktail-detail {
-    padding: 20px;
+    padding:  var(--font-size-medium);
 }
 
 .text-detail {
     padding: 50px 0 10px 265px;
-    font-size: 40px;
+    font-size: var(--font-size-big);
 }
 
 .cocktail-detail-content {
     display: flex;
     align-items: flex-start;
-    gap: 20px;
+    gap:  var(--font-size-medium);
 }
 
 .cocktail-image {
@@ -25,14 +31,14 @@
 
 .text-ingredients {
     margin: 0 0 20px 70px;
-    font-size: 36px;
+    font-size: var(--font-size-big);
 }
 
 .ingredients li {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
-    font-size: 24px;
+    margin-bottom:  var(--font-size-medium);
+    font-size: var(--font-size-medium);
 }
 
 .ingredient-image {
@@ -44,9 +50,9 @@
 .detail-button {
     margin-left: 250px;
     padding: 15px 25px;
-    font-size: 22px;
-    background-color: hotpink;
-    color: black;
+    font-size: var(--font-size-mediumsmall);
+    background-color: var(--color-background-favbutton);
+    color: var(--color-button-background);
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -54,19 +60,19 @@
 }
 
 .detail-button:hover {
-    background-color: deeppink;
+    background-color: var(--color-detailbutton-hover);
     border-radius: 25px;
     transform: scale(1.1);
 }
 
 .detail-button.blue-button {
-    background-color: mediumpurple;
-    color: #fff;
+    background-color: var(--color-detailbutton-unfavourite);
+    color: var(--main-color-white);
     margin-left: 170px;
 }
 
 .success-message {
-    color: green;
+    color: var(--color-succes);
     margin: 50px 10px 10px 120px;
-    font-size: 30px;
+    font-size: var(--font-size-medium);
 }
