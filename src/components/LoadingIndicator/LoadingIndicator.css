@@ -1,4 +1,4 @@
-root{
+:root{
     --color-loadingbar: #3498db;
 }
 
@@ -38,8 +38,6 @@ root{
     top: 50%;
     transform: translate(-50%, -50%);
     color: var(--color-button-background);
-    font: bold;
-    font-weight: bold;
     font-size: var(--font-size-small);
     z-index: 1;
 }
