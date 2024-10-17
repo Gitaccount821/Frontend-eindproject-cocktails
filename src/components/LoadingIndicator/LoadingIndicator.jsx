@@ -1,4 +1,3 @@
-// LoadingIndicator.jsx
 import React from 'react';
 import './LoadingIndicator.css';
 
