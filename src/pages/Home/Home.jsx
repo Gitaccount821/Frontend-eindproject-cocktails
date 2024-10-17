@@ -18,7 +18,7 @@ function Home() {
                         <h1>Cocktail Shaker</h1>
                     </div>
                 </section>
-                <section className="flex-item section3">
+                <section className="flex-item sectionBoxfor2SectionsPages">
                     <article className="midden-tekst-container">
                         <p className="small-text">
                             Welkom op deze website! Deze website is bedoelt voor het opslaan van cocktail recepten en

@@ -54,7 +54,7 @@ body {
     padding: var(--spacing-medium);
 }
 
-.section3 {
+.sectionBoxfor2SectionsPages {
     display: flex;
     justify-content: center;
     align-items: center;

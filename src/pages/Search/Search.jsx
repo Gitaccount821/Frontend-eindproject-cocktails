@@ -13,13 +13,13 @@ function Search() {
     const { user, logout } = useAuth();
     const { setIsLoading } = useLoading();
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
-    const [selectedCocktail, setSelectedCocktail] = useState(null);
+    const [searchResults, setSearchResults] = useState('' );
+    const [selectedCocktail, setSelectedCocktail] = useState('' );
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSearch = async (query) => {
         if (query.trim() === '') {
-            setSearchResults([]);
+            setSearchResults('');
             setErrorMessage('Vul alsjeblieft een naam in');
             return;
         }
@@ -55,7 +55,7 @@ function Search() {
     const handleSelectSuggestion = (cocktail) => {
         setSearchQuery(cocktail.name);
         setSelectedCocktail(cocktail);
-        setSearchResults([]);
+        setSearchResults('');
     };
 
     const handleCocktailClick = (id) => {

@@ -6,7 +6,7 @@ export const useLoading = () => useContext(LoadingContext);
 
 export const LoadingProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
-    const [loadingProgress, setLoadingProgress] = useState(0); // Progress starts at 0
+    const [loadingProgress, setLoadingProgress] = useState(0);
 
     return (
         <LoadingContext.Provider value={{ isLoading, setIsLoading, loadingProgress, setLoadingProgress }}>

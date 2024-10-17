@@ -24,6 +24,8 @@ function Recommended() {
     const [loadingProgress, setLoadingProgress] = useState(0);
     const [showResults, setShowResults] = useState(false);
 
+
+
 // Helper Functies:
 
     const fetchFilteredCocktails = async (option, url) => {
@@ -141,49 +143,70 @@ function Recommended() {
 
 // De Functie voor het krijgen van de recommendations
     useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
         const fetchRecommendations = async () => {
             setLoading(true);
             setLoadingProgress(0);
+            var progressInterval;
+
+
 
             try {
-                const filteredCocktails = await filterCocktailsByType(selectedOption);
+                progressInterval = setInterval(() => {
+                    setLoadingProgress(prev => (prev < 90 ? prev + 10 : prev));
+                }, 200);
+
+                const filteredCocktails = await filterCocktailsByType(selectedOption, signal);
                 setLoadingProgress(20);
 
-                const glassFilteredCocktails = await filterCocktailsByGlass(secondQuestionOption);
+                const glassFilteredCocktails = await filterCocktailsByGlass(secondQuestionOption, signal);
                 setLoadingProgress(40);
 
                 const combinedCocktails = filteredCocktails.filter(cocktail =>
                     glassFilteredCocktails.some(glassCocktail => glassCocktail.idDrink === cocktail.idDrink)
                 );
 
-                const mixFilteredCocktails = await filterCocktailsByMix(thirdQuestionOption);
+                const mixFilteredCocktails = await filterCocktailsByMix(thirdQuestionOption, signal);
                 setLoadingProgress(60);
 
                 const initialRecommendations = combinedCocktails.filter(cocktail =>
                     mixFilteredCocktails.some(mixCocktail => mixCocktail.idDrink === cocktail.idDrink)
                 );
 
-                let finalRecommendations = await filterByFlavor(fourthQuestionOption, initialRecommendations);
+                var finalRecommendations = await filterByFlavor(fourthQuestionOption, initialRecommendations, signal);
                 setLoadingProgress(80);
 
                 if (fifthQuestionOption === 'vegan') {
-                    finalRecommendations = await applyVeganFilter(finalRecommendations);
+                    finalRecommendations = await applyVeganFilter(finalRecommendations, signal);
                 }
 
                 setRecommendations(finalRecommendations);
             } catch (error) {
-                console.error('Error fetching recommendations:', error);
-                setError('Er is iets misgegaan bij het ophalen van aanbevelingen.');
+                if (error.name !== 'AbortError') {
+                    console.error('Error fetching recommendations:', error);
+                    setError('Er is iets misgegaan bij het ophalen van aanbevelingen.');
+                }
             } finally {
-                setLoading(false);
-                setLoadingProgress(100);
+                if (!signal.aborted) {
+                    clearInterval(progressInterval);
+                    setLoading(false);
+                    setLoadingProgress(100);
+                }
             }
         };
 
         if (currentQuestion === 5 && fifthQuestionOption) {
             fetchRecommendations();
         }
+
+        return () => {
+            controller.abort();
+        };
     }, [selectedOption, secondQuestionOption, thirdQuestionOption, fourthQuestionOption, fifthQuestionOption, currentQuestion]);
+
+
 
 
     const handleContinue = () => {
