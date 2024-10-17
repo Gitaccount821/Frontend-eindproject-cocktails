@@ -43,7 +43,7 @@ function Login() {
 <AppContainer>
     <MainContent>
                 {isLoading && <LoadingIndicator loadingProgress={loadingProgress} />}
-                <section className="flex-item section3">
+                <section className="flex-item sectionBoxfor2SectionsPages">
                     <div>
                         <h2 className="pink-heading">Cocktail Shaker Login</h2>
                         <img src={cocktailLogoLogin} alt="Cocktail Logo Login" className="cocktail-logo-login" />

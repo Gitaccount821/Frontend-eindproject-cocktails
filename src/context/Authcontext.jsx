@@ -8,11 +8,12 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState('' );
+    const [user, setUser] = useState('');
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('' );
-    const [message, setMessage] = useState('' );
+    const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
+    const [sessionExpiration, setSessionExpiration] = useState('');
 
     useEffect(() => {
         const token = localStorage.getItem('Token');
@@ -20,16 +21,27 @@ export const AuthProvider = ({ children }) => {
             const rawToken = token.replace('Bearer ', '');
             const username = jwtDecode(rawToken).sub;
             fetchUserData(username, token);
+            setSessionExpiration(Date.now() + 3600000);
         }
     }, []);
+
+    useEffect(() => {
+        const checkSession = setInterval(() => {
+            if (sessionExpiration && Date.now() > sessionExpiration) {
+                logout('Je sessie is verlopen. Log opnieuw in.');
+            }
+        }, 1000);
+
+        return () => clearInterval(checkSession);
+    }, [sessionExpiration]);
 
     const authenticate = async (username, password, updateLoadingProgress) => {
         const controller = new AbortController();
         const signal = controller.signal;
 
         setLoading(true);
-        setError('' );
-        setMessage('' );
+        setError('');
+        setMessage('');
         updateLoadingProgress(10);
 
         try {
@@ -80,13 +92,12 @@ export const AuthProvider = ({ children }) => {
         };
     };
 
-
     const fetchUserData = async (username, token, signal) => {
         if (!token) return;
 
         setLoading(true);
-        setError('' );
-        setMessage('' );
+        setError('');
+        setMessage('');
 
         try {
             const response = await axios.get(
@@ -99,23 +110,28 @@ export const AuthProvider = ({ children }) => {
                     signal: signal
                 }
             );
+
             setUser(response.data);
         } catch (err) {
-            if (err.name !== 'CanceledError') {
-                console.error('Error fetching user data:', err);
-                setError('Er is een fout opgetreden bij het ophalen van gebruikersgegevens.');
+            if (err.name === 'CanceledError') return;
+
+            if (err.response && err.response.status === 401) {
+                logout('Je sessie is verlopen. Log opnieuw in.');
+                return;
             }
+
+            console.error('Error fetching user data:', err);
+            setError('Er is een fout opgetreden bij het ophalen van gebruikersgegevens.');
         } finally {
             setLoading(false);
         }
     };
 
-
-    const logout = () => {
+    const logout = (logoutMessage = '') => {
         localStorage.removeItem('Token');
-        setUser('' );
-        setMessage('' );
-        setError('' );
+        setUser('');
+        setMessage(logoutMessage);
+        setError('');
         navigate('/login');
     };
 

@@ -149,6 +149,7 @@ function Recommended() {
         const fetchRecommendations = async () => {
             setLoading(true);
             setLoadingProgress(0);
+            var progressInterval;
 
 
 

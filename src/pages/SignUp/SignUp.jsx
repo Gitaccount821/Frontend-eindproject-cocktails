@@ -93,7 +93,7 @@ function SignUp() {
     return (
 <AppContainer>
     <MainContent>
-                <section className="flex-item section3">
+                <section className="flex-item sectionBoxfor2SectionsPages">
                     <div>
                         <h2 className="pink-heading">Nieuw account aanmaken</h2>
                         <img src={newuserlogo} alt="logo nieuwe gebruiker" className="cocktail-logo-login" />
