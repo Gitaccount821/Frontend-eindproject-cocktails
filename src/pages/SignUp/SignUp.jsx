@@ -15,8 +15,8 @@ function SignUp() {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(null);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
     const { isLoading, setIsLoading, loadingProgress, setLoadingProgress } = useLoading();
     const navigate = useNavigate();
 
@@ -26,8 +26,8 @@ function SignUp() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        setError(null);
-        setSuccess(null);
+        setError('');
+        setSuccess('');
         setIsLoading(true);
         setLoadingProgress(0);
 

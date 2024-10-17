@@ -14,49 +14,76 @@ function CocktailDetail() {
     const navigate = useNavigate();
     const { user, logout } = useAuth();
     const { isLoading, setIsLoading } = useLoading();
-    const [cocktail, setCocktail] = useState(null);
+    const [cocktail, setCocktail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [isFavourited, setIsFavourited] = useState(false);
 
     useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
         const fetchCocktail = async () => {
             setIsLoading(true);
             try {
-                const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+                const response = await axios.get(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`, { signal });
                 setCocktail(response.data.drinks[0]);
             } catch (error) {
-                handleError('fetching cocktail', error);
+                if (signal.aborted) {
+                    console.log('Request was aborted');
+                } else {
+                    handleError('fetching cocktail', error);
+                }
             } finally {
                 setIsLoading(false);
             }
         };
 
         fetchCocktail();
+
+        return () => {
+            controller.abort();
+        };
     }, [id]);
 
     useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
         const checkIfFavourited = async () => {
             if (user) {
                 try {
                     const token = localStorage.getItem('Token');
                     if (!token) return;
 
-                    const userResponse = await axios.get(`https://api.datavortex.nl/cocktailshaker/users/${user.username}`, {
-                        headers: createAuthHeaders(token),
-                    });
+                    const userResponse = await axios.get(
+                        `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
+                        {
+                            headers: createAuthHeaders(token),
+                            signal
+                        }
+                    );
 
                     const currentFavourites = userResponse.data.info || '';
                     const currentFavouritesArray = currentFavourites.split(',').filter(Boolean);
                     setIsFavourited(currentFavouritesArray.includes(id));
                 } catch (error) {
-                    handleError('checking favorites', error);
+                    if (signal.aborted) {
+                        console.log('Favorites check request was aborted');
+                    } else {
+                        handleError('checking favorites', error);
+                    }
                 }
             }
         };
 
         checkIfFavourited();
-    }, [user, id]);
+
+        return () => {
+            controller.abort();
+        };
+    }, [id, user]);
+
 
     const handleFavourite = async () => {
         const token = localStorage.getItem('Token');
@@ -133,7 +160,7 @@ function CocktailDetail() {
         setErrorMessage(`Er is iets misgegaan bij ${context}.`);
     };
 
-    if (isLoading) return null;
+    if (isLoading) return '';
 
     if (!cocktail) return <p>Error loading cocktail details.</p>;
 

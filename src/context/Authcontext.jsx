@@ -8,10 +8,10 @@ const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState('' );
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [message, setMessage] = useState(null);
+    const [error, setError] = useState('' );
+    const [message, setMessage] = useState('' );
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,10 +24,12 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const authenticate = async (username, password, updateLoadingProgress) => {
-        setLoading(true);
-        setError(null);
-        setMessage(null);
+        const controller = new AbortController();
+        const signal = controller.signal;
 
+        setLoading(true);
+        setError('' );
+        setMessage('' );
         updateLoadingProgress(10);
 
         try {
@@ -39,6 +41,7 @@ export const AuthProvider = ({ children }) => {
                         'Content-Type': 'application/json',
                         'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
                     },
+                    signal: signal
                 }
             );
 
@@ -53,7 +56,7 @@ export const AuthProvider = ({ children }) => {
             }
 
             localStorage.setItem('Token', Token);
-            await fetchUserData(username, Token);
+            await fetchUserData(username, Token, signal);
             setMessage('Log in successful! Je wordt terugverwezen naar de Home Pagina');
 
             updateLoadingProgress(90);
@@ -63,20 +66,28 @@ export const AuthProvider = ({ children }) => {
                 navigate('/');
             }, 1000);
         } catch (err) {
-            console.error('Authentication error:', err);
-            setError('Verkeerde gebruikersnaam of wachtwoord');
+            if (err.name !== 'CanceledError') {
+                console.error('Authentication error:', err);
+                setError('Verkeerde gebruikersnaam of wachtwoord');
+            }
             updateLoadingProgress(100);
         } finally {
             setLoading(false);
         }
+
+        return () => {
+            controller.abort();
+        };
     };
 
-    const fetchUserData = async (username, token) => {
+
+    const fetchUserData = async (username, token, signal) => {
         if (!token) return;
 
         setLoading(true);
-        setError(null);
-        setMessage(null);
+        setError('' );
+        setMessage('' );
+
         try {
             const response = await axios.get(
                 `https://api.datavortex.nl/cocktailshaker/users/${username}`,
@@ -85,22 +96,26 @@ export const AuthProvider = ({ children }) => {
                         Authorization: `Bearer ${token}`,
                         'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
                     },
+                    signal: signal
                 }
             );
             setUser(response.data);
         } catch (err) {
-            console.error('Error fetching user data:', err);
-            setError('Er is een fout opgetreden bij het ophalen van gebruikersgegevens.');
+            if (err.name !== 'CanceledError') {
+                console.error('Error fetching user data:', err);
+                setError('Er is een fout opgetreden bij het ophalen van gebruikersgegevens.');
+            }
         } finally {
             setLoading(false);
         }
     };
 
+
     const logout = () => {
         localStorage.removeItem('Token');
-        setUser(null);
-        setMessage(null);
-        setError(null);
+        setUser('' );
+        setMessage('' );
+        setError('' );
         navigate('/login');
     };
 
