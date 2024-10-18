@@ -6,12 +6,10 @@ Welkom in de installatiehandleiding van de applicatie. Deze applicatie kan cockt
 
 ## Table of Contents
 1. [Requirements](#requirements)
-2. [Installatie](#Installatie)
-3. [API Key](#environment-variables)
-4. [Instalatie stappen](#installatie)
-5. [Extra npm scripts](#npm-scripts)
-6. [Account Aanmaken](#create-account)
-
+2. [API Key](#api-key).
+3. [Installatie](#installatie).
+4. [Extra npm scripts](#extra-npm-scripts).
+5. [Account Aanmaken](#account-aanmaken).
 
 ## Requirements
 
@@ -27,7 +25,7 @@ Via de ingebouwde environment-variables kun je eenvoudig een eigen API Key toevo
 2. Zodra je de API-sleutel hebt, maak je een `.env`-bestand in de hoofdmap van het project.
 3. Voeg de volgende regel toe aan he `.env`-bestand. Dit zal er dan als volgt uitzien: REACT_APP_COCKTAIL_API_KEY="de API Key"
 
-## Installatie stappen
+## Installatie
 
 1. Open je IDE
 2. Clone de applicatie vanaf de github repository door in je IDE te kiezen voor VCS, dan Get from version control en plak vervolgens de link naar de Github: https://github.com/Gitaccount821/Frontend-eindproject-cocktails
