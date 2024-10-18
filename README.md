@@ -49,5 +49,6 @@ Naast de bovenstaande stappen zijn er enkele andere npm-scripts die je kunt gebr
 
 Je kan een account aanmaken via de login knop, en vervolgens te klikken op ‘creeer een account’. Er is ook al een testaccount aanwezig met de credentials:
 
-Gebruikersnaam: testuser1234
-Wachtwoord: testuser1234
+_Gebruikersnaam:_ testuser1234
+
+_Wachtwoord:_ testuser1234
