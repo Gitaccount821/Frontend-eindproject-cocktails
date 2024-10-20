@@ -23,7 +23,10 @@ Via de ingebouwde environment-variables kun je eenvoudig een eigen API Key toevo
 
 1. Ga naar [TheCocktailDB API](https://www.thecocktaildb.com/api.php) en meld je aan voor een API-sleutel, of pak de gratis versie van de site.
 2. Zodra je de API-sleutel hebt, maak je een `.env`-bestand in de hoofdmap van het project.
-3. Voeg de volgende regel toe aan he `.env`-bestand. Dit zal er dan als volgt uitzien: REACT_APP_COCKTAIL_API_KEY="de API Key"
+3. Voeg de volgende regel toe aan he `.env`-bestand. Dit zal er dan als volgt uitzien: API_KEY=De API Key
+4. Wegens een technische fout werkt de '.env' import niet voor SignUp.jsx. Hierin zal je handmatig de API_Key moeten zetten in "[plaats de API key hier]". 
+
+Er is een testdatabase met een API Key aangemaakt voor gebruikersvriendelijkheid. De Key hiervan is: cocktailshaker:02gWTBwcnwhUwPE4NIzm
 
 ## Installatie
 
@@ -47,7 +50,7 @@ Naast de bovenstaande stappen zijn er enkele andere npm-scripts die je kunt gebr
 
 ## Account Aanmaken
 
-Je kan een account aanmaken via de login knop, en vervolgens te klikken op ‘creeer een account’. Er is ook al een testaccount aanwezig met de credentials:
+Je kan een account aanmaken via de login knop, en vervolgens te klikken op ‘creeer een account’. Er is ook al een testaccount aanwezig met de credentials indien je de testdatabase APi key gebruikt:
 
 _Gebruikersnaam:_ testuser1234
 
