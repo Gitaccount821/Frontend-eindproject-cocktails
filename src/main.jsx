@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
-import { AuthProvider, useAuth } from './context/Authcontext';
+import { AuthProvider} from './context/Authcontext';
 import { LoadingProvider, useLoading } from './context/LoadingContext';
 import LoadingIndicator from './components/LoadingIndicator/LoadingIndicator';
 

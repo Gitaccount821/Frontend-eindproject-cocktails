@@ -13,14 +13,14 @@ export const AuthProvider = ({ children }) => {
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const [sessionExpiration, setSessionExpiration] = useState('');
+    const [sessionExpiration, setSessionExpiration] = useState(0);
 
     useEffect(() => {
         const token = localStorage.getItem('Token');
         if (token) {
             const rawToken = token.replace('Bearer ', '');
             const username = jwtDecode(rawToken).sub;
-            fetchUserData(username, token);
+            void fetchUserData(username, token);
             setSessionExpiration(Date.now() + 3600000);
         }
     }, []);
@@ -105,7 +105,7 @@ export const AuthProvider = ({ children }) => {
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
-                        'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
+                        'X-Api-Key': import.meta.env.API_KEY,
                     },
                     signal: signal
                 }

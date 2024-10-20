@@ -28,7 +28,7 @@
 
 .search-form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
     max-width: 600px;
 }
@@ -74,12 +74,6 @@
     height: 80px;
 }
 
-.result-name {
-    margin-left: var(--spacing-small);
-    font-size: var(--font-size-small);
-    font-weight: bold;
-}
-
 .selected-cocktail {
     position: relative;
     display: inline-block;
@@ -116,3 +110,7 @@
     height: 300px;
 }
 
+.search-button {
+    padding: 0px var(--spacing-medium) 0px var(--spacing-medium);
+    font-size: var(--font-size-small);
+}

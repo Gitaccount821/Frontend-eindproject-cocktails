@@ -149,9 +149,7 @@ function Recommended() {
         const fetchRecommendations = async () => {
             setLoading(true);
             setLoadingProgress(0);
-            var progressInterval;
-
-
+            let progressInterval;
 
             try {
                 progressInterval = setInterval(() => {
@@ -175,7 +173,7 @@ function Recommended() {
                     mixFilteredCocktails.some(mixCocktail => mixCocktail.idDrink === cocktail.idDrink)
                 );
 
-                var finalRecommendations = await filterByFlavor(fourthQuestionOption, initialRecommendations, signal);
+                let finalRecommendations = await filterByFlavor(fourthQuestionOption, initialRecommendations, signal);
                 setLoadingProgress(80);
 
                 if (fifthQuestionOption === 'vegan') {
@@ -198,7 +196,9 @@ function Recommended() {
         };
 
         if (currentQuestion === 5 && fifthQuestionOption) {
-            fetchRecommendations();
+            (async () => {
+                await fetchRecommendations();
+            })();
         }
 
         return () => {
@@ -295,6 +295,7 @@ function Recommended() {
                                         ))}
                                     </div>
                                     <Button
+                                        type="button"
                                         onClick={handleContinue}
                                         style={{
                                             padding: '10px 20px',
@@ -331,6 +332,7 @@ function Recommended() {
                                 )}
                             </div>
                             <Button
+                                type="button"
                                 onClick={handleRefresh}
                                 className="refresh-button"
                             >

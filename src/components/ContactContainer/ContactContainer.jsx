@@ -1,5 +1,5 @@
 import React from 'react';
-import './ContactContainer.css'; // Create a new CSS file for this component
+import './ContactContainer.css';
 
 function ContactContainer({ children }) {
     return (

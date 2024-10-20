@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import newuserlogo from "../../assets/newuserlogo.png";
+import newuserlogo from '../../assets/newuserlogo.png';
 import InputField from '../../components/Labelinputs/labelinputs';
 import LoadingIndicator from '../../components/LoadingIndicator/LoadingIndicator';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
@@ -36,7 +36,7 @@ function SignUp() {
         const config = {
             headers: {
                 'Content-Type': 'application/json',
-                'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
+                'X-Api-Key': '[plaats de API key hier]',
             },
         };
 
