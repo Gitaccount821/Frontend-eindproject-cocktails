@@ -15,7 +15,7 @@ Welkom in de installatiehandleiding van de applicatie. Deze applicatie kan cockt
 
 - Webstorm (of een vergelijkbare IDE). Het project is ontworpen en getest in Webstorm
 - Node.js. Gebruik hiervoor de prebuilt installer.
-- Een API Key om de cocktaildata op te halen van een externe API
+- Een API Key om de accountdetails en autorisatie op te slaan
 
 ## API Key 
 
