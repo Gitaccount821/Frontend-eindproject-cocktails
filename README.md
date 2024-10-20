@@ -49,7 +49,7 @@ Naast de bovenstaande stappen zijn er enkele andere npm-scripts die je kunt gebr
 
 ## Account Aanmaken
 
-Je kan een account aanmaken via de login knop, en vervolgens te klikken op ‘creeer een account’. Er is ook al een testaccount aanwezig met de credentials indien je de testdatabase APi key gebruikt:
+Je kan een account aanmaken via de login knop, en vervolgens te klikken op ‘creeer een account’. Er is ook al een testaccount aanwezig met de credentials indien je de testdatabase API key gebruikt:
 
 _Gebruikersnaam:_ testuser1234
 
