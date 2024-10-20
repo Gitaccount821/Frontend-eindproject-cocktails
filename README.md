@@ -21,7 +21,7 @@ Welkom in de installatiehandleiding van de applicatie. Deze applicatie kan cockt
 
 Via de ingebouwde environment-variables kun je eenvoudig een eigen API Key toevoegen aan het project nadat je deze hebt aangemaakt. Maak deze eerst aan via de volgende stappen:
 
-1. Ga naar [TheCocktailDB API](https://www.thecocktaildb.com/api.php) en meld je aan voor een API-sleutel, of pak de gratis versie van de site.
+1. Ga naar [De NOVI database](https://novi.datavortex.nl/) en meld je aan voor een API-sleutel, of gebruik een eigen Database.
 2. Zodra je de API-sleutel hebt, maak je een `.env`-bestand in de hoofdmap van het project.
 3. Voeg de volgende regel toe aan he `.env`-bestand. Dit zal er dan als volgt uitzien: API_KEY=De API Key
 4. Wegens een technische fout werkt de '.env' import niet voor SignUp.jsx. Hierin zal je handmatig de API_Key moeten zetten in "[plaats de API key hier]". 

@@ -16,14 +16,14 @@ function Favourites() {
     const [favourites, setFavourites] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
-    var progressInterval;
+    let progressInterval;
     const controller = new AbortController();
 
     useEffect(() => {
         const fetchFavourites = async () => {
             setIsLoading(true);
             setLoadingProgress(0);
-            var progressInterval;
+            let progressInterval;
             const controller = new AbortController();
 
             try {

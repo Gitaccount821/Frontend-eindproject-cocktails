@@ -41,6 +41,7 @@ const Navbar = ({ handleLogout, user }) => {
             </NavLink>
             {user ? (
                 <Button
+                    type="button"
                     onClick={handleLogout}
                     style={{
                         marginLeft: '20px',

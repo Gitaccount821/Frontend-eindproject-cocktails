@@ -13,14 +13,14 @@ export const AuthProvider = ({ children }) => {
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
-    const [sessionExpiration, setSessionExpiration] = useState(0); // Change to number
+    const [sessionExpiration, setSessionExpiration] = useState(0);
 
     useEffect(() => {
         const token = localStorage.getItem('Token');
         if (token) {
             const rawToken = token.replace('Bearer ', '');
             const username = jwtDecode(rawToken).sub;
-            void fetchUserData(username, token); // Handle promise
+            void fetchUserData(username, token);
             setSessionExpiration(Date.now() + 3600000);
         }
     }, []);
