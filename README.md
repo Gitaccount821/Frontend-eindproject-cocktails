@@ -45,8 +45,7 @@ Naast de bovenstaande stappen zijn er enkele andere npm-scripts die je kunt gebr
 
 1) npm run dev: Start de ontwikkelserver met hot module replacement (HMR) voor snelle ontwikkeling.
 2) npm run build: Bouwt de applicatie voor productie. Dit genereert de geoptimaliseerde bestanden die in de productieomgeving kunnen worden ingezet.
-3) npm run lint: Voert ESLint uit op de bronbestanden om codekwaliteit en consistentie te waarborgen.
-4) npm run preview: Start een preview-server om de gebouwde versie van de applicatie te bekijken.
+3) npm run preview: Start een preview-server om de gebouwde versie van de applicatie te bekijken.
 
 ## Account Aanmaken
 
