@@ -3,7 +3,7 @@
 }
 
 
-.small-text {
+.small-text-Home {
     font-size: var(--font-size-big);
     margin-bottom: 40px;
 }
@@ -31,13 +31,13 @@
 }
 
 @media(max-width: 900px) {
-    .small-text {
+    .small-text-Home {
         font-size: var(--font-size-mediumbig);
     }
 }
 
 @media (max-width: 570px) {
-    .small-text {
+    .small-text-Home {
         font-size: var(--font-size-medium);
     }
 }

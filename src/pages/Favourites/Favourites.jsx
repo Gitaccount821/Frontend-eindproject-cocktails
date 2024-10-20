@@ -44,7 +44,7 @@ function Favourites() {
                             headers: {
                                 Authorization: `Bearer ${token}`,
                                 'Content-Type': 'application/json',
-                                'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
+                                'X-Api-Key': import.meta.env.API_KEY,
                             },
                             signal: controller.signal
                         }
@@ -83,14 +83,15 @@ function Favourites() {
                 }, 300);
             }
         };
-
-        fetchFavourites();
+        fetchFavourites().catch(error => console.error(error));
 
         return () => {
             if (progressInterval) clearInterval(progressInterval);
             controller.abort();
         };
     }, [user, setIsLoading, setLoadingProgress]);
+
+
 
 
     return (

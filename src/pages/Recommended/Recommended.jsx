@@ -151,8 +151,6 @@ function Recommended() {
             setLoadingProgress(0);
             var progressInterval;
 
-
-
             try {
                 progressInterval = setInterval(() => {
                     setLoadingProgress(prev => (prev < 90 ? prev + 10 : prev));
@@ -198,7 +196,9 @@ function Recommended() {
         };
 
         if (currentQuestion === 5 && fifthQuestionOption) {
-            fetchRecommendations();
+            (async () => {
+                await fetchRecommendations();
+            })();
         }
 
         return () => {

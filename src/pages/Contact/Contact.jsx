@@ -1,5 +1,4 @@
 import React from 'react';
-import { useAuth } from '../../context/Authcontext';
 import './Contact.css';
 import Button from '../../components/Button/Button'
 import AppContainer from '../../components/AppContainer/AppContainer';
@@ -7,7 +6,6 @@ import MainContent from '../../components/MainContent/MainContent';
 import ContactContainer from '../../components/ContactContainer/ContactContainer';
 
 function Contact() {
-    const { user, logout } = useAuth();
 
     return (
         <AppContainer>

@@ -10,7 +10,7 @@ import MainContent from '../../components/MainContent/MainContent';
 
 function Search() {
     const navigate = useNavigate();
-    const { user, logout } = useAuth();
+    const { logout } = useAuth();
     const { setIsLoading } = useLoading();
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState('' );

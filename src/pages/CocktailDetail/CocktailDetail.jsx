@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/Authcontext';
 import { useLoading } from '../../context/LoadingContext';
@@ -11,8 +11,7 @@ import Button from '../../components/Button/Button'
 
 function CocktailDetail() {
     const { id } = useParams();
-    const navigate = useNavigate();
-    const { user, logout } = useAuth();
+    const { user } = useAuth();
     const { isLoading, setIsLoading } = useLoading();
     const [cocktail, setCocktail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -39,12 +38,13 @@ function CocktailDetail() {
             }
         };
 
-        fetchCocktail();
+        fetchCocktail().catch(error => console.error('Error in fetchCocktail:', error));
 
         return () => {
             controller.abort();
         };
     }, [id]);
+
 
     useEffect(() => {
         const controller = new AbortController();
@@ -77,18 +77,19 @@ function CocktailDetail() {
             }
         };
 
-        checkIfFavourited();
+        checkIfFavourited().catch(error => console.error('Error in checkIfFavourited:', error));
 
         return () => {
             controller.abort();
         };
     }, [id, user]);
 
+
     // Helper function voor authorisatie
     const createAuthHeaders = (token) => ({
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
-        'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
+        'X-Api-Key': import.meta.env.API_KEY,
     });
 
     // Helper function voor het updaten van gebruiker favourieten
