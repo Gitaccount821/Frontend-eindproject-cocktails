@@ -217,8 +217,7 @@ function Recommended() {
                 } else {
                     setError('');
                     if (selectedOption === 'without-alcohol') {
-                        setShowResults(true);
-                        setCurrentQuestion(5);
+                        setCurrentQuestion(currentQuestion + 1);
                     } else {
                         setCurrentQuestion(currentQuestion + 1);
                     }

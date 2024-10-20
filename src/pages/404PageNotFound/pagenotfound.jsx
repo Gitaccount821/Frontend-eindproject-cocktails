@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import NavLink from '../../components/NavLink/NavLink';
 import './pagenotfound.css';
 import AppContainer from '../../components/AppContainer/AppContainer';
 
@@ -9,9 +9,9 @@ function PageNotFound() {
             <section className="page-not-found-container">
                 <h1>404</h1>
                 <h2>Deze pagina bestaat niet!</h2>
-                <Link to="/" className="home-link">
+                <NavLink to="/" className="home-link">
                     Ga terug naar de Home pagina
-                </Link>
+                </NavLink>
             </section>
         </AppContainer>
     );
