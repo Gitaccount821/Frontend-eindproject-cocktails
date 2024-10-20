@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useAuth } from '../../context/Authcontext';
 import { useLoading } from '../../context/LoadingContext';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import Button from '../../components/Button/Button';
 import './Search.css';
 import AppContainer from '../../components/AppContainer/AppContainer';
 import MainContent from '../../components/MainContent/MainContent';
@@ -13,8 +14,8 @@ function Search() {
     const { logout } = useAuth();
     const { setIsLoading } = useLoading();
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchResults, setSearchResults] = useState('' );
-    const [selectedCocktail, setSelectedCocktail] = useState('' );
+    const [searchResults, setSearchResults] = useState('');
+    const [selectedCocktail, setSelectedCocktail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleSearch = async (query) => {
@@ -63,8 +64,8 @@ function Search() {
     };
 
     return (
-<AppContainer>
-    <MainContent>
+        <AppContainer>
+            <MainContent>
                 <section className="search-section">
                     <div className="search-container">
                         <p className="search-prompt">Vul hieronder je gezochte cocktail in!</p>
@@ -76,6 +77,9 @@ function Search() {
                                 placeholder="Zoek naar cocktails"
                                 className="search-input"
                             />
+                            <Button type="submit" onClick={() => handleSearch(searchQuery)} className="search-button">
+                                Zoeken
+                            </Button>
                         </form>
                         <ErrorMessage message={errorMessage} />
                         {searchResults.length > 0 && (
@@ -103,8 +107,8 @@ function Search() {
                         )}
                     </div>
                 </section>
-        </MainContent>
-</AppContainer>
+            </MainContent>
+        </AppContainer>
     );
 }
 
