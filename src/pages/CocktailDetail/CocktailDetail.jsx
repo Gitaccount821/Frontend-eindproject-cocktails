@@ -84,6 +84,33 @@ function CocktailDetail() {
         };
     }, [id, user]);
 
+    // Helper function voor authorisatie
+    const createAuthHeaders = (token) => ({
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
+    });
+
+    // Helper function voor het updaten van gebruiker favourieten
+    const updateFavourites = async (isFavourite, currentFavouritesArray, token) => {
+        const updatedFavourites = isFavourite
+            ? currentFavouritesArray.filter(favId => favId !== id).join(',')
+            : [...currentFavouritesArray, id].join(',');
+
+        return await axios.put(
+            `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
+            { info: updatedFavourites },
+            { headers: createAuthHeaders(token) }
+        );
+    };
+
+
+    // Helper function errors
+    const handleError = (context, error) => {
+        console.error(`Error ${context}:`, error);
+        setErrorMessage(`Er is iets misgegaan bij ${context}.`);
+    };
+
 
     const handleFavourite = async () => {
         const token = localStorage.getItem('Token');
@@ -119,26 +146,6 @@ function CocktailDetail() {
         }
     };
 
-    // Helper function voor authorisatie
-    const createAuthHeaders = (token) => ({
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
-    });
-
-    // Helper function voor het updaten van gebruiker favourieten
-    const updateFavourites = async (isFavourite, currentFavouritesArray, token) => {
-        const updatedFavourites = isFavourite
-            ? currentFavouritesArray.filter(favId => favId !== id).join(',')
-            : [...currentFavouritesArray, id].join(',');
-
-        return await axios.put(
-            `https://api.datavortex.nl/cocktailshaker/users/${user.username}`,
-            { info: updatedFavourites },
-            { headers: createAuthHeaders(token) }
-        );
-    };
-
     // Switch statement voor updaten van berichten
     const handleResponse = (status, isRemoving) => {
         switch (status) {
@@ -154,11 +161,6 @@ function CocktailDetail() {
         }
     };
 
-    // Helper function errors
-    const handleError = (context, error) => {
-        console.error(`Error ${context}:`, error);
-        setErrorMessage(`Er is iets misgegaan bij ${context}.`);
-    };
 
     if (isLoading) return '';
 

@@ -15,7 +15,7 @@ function Contact() {
                 <section className="contact-section">
                     <ContactContainer>
                         <h1 className="head-contactformulier">Stuur ons een bericht</h1>
-                        <form className="contact-form">
+                        <form>
                             <div className="form-group">
                                 <label htmlFor="voornaam">Voornaam</label>
                                 <input type="text" id="voornaam" name="voornaam" placeholder="verplicht" required />

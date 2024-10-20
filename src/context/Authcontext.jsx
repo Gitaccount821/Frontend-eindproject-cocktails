@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-Api-Key': 'cocktailshaker:02gWTBwcnwhUwPE4NIzm',
+                        'X-Api-Key': import.meta.env.API_KEY,
                     },
                     signal: signal
                 }
